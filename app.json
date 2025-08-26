@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "ev-charger-map-cy",
+    "name": "EV Charger Map Cyprus",
     "slug": "ev-charger-map-cy",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -24,6 +24,15 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      "expo-localization"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "2e1e8d9a-9e85-40b6-9037-474efa6afadc"
+      }
+    },
+    "owner": "cmaxoutis"
   }
 }

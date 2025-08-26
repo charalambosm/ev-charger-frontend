@@ -1,0 +1,3404 @@
+[
+  {
+    "ID": "460135",
+    "UUID": "8A117F13-EE28-4680-98C7-8556130208D9",
+    "title": {
+      "en": "EKO Skarinou",
+      "el": "EKO Skarinou"
+    },
+    "latitude": 34.81530069624999,
+    "longitude": 33.360844546488806,
+    "address": {
+      "en": "Agiou Louka Street 7",
+      "el": "Agiou Louka Street 7"
+    },
+    "postcode": 7731,
+    "town": {
+      "en": "Skarinou",
+      "el": "Skarinou"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 1
+      },
+      {
+        "type": "CCS (Type 2)",
+        "powerKW": 50,
+        "current": "DC",
+        "status": "Operational",
+        "quantity": 1
+      },
+      {
+        "type": "CHAdeMO",
+        "powerKW": 50,
+        "current": "DC",
+        "status": "Operational",
+        "quantity": 1
+      }
+    ],
+    "number_of_points": 2,
+    "usage_cost": "Unknown",
+    "related_url": "https://www.eko.com.cy/pratiria/proionta-2/eko-charge-go/",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:17.516719+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "460133",
+    "UUID": "9D1B60C4-EE6C-4C17-AE6E-F3ECE2AC4E6F",
+    "title": {
+      "en": "EKO",
+      "el": "EKO"
+    },
+    "latitude": 35.124265261853125,
+    "longitude": 33.37230490511706,
+    "address": {
+      "en": "Kalamon 21, Kupros",
+      "el": "Καλαμών 21, Κύπρος"
+    },
+    "postcode": 2032,
+    "town": {
+      "en": "Nicosia",
+      "el": "Nicosia"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 1
+      },
+      {
+        "type": "CCS (Type 2)",
+        "powerKW": 50,
+        "current": "DC",
+        "status": "Operational",
+        "quantity": 1
+      },
+      {
+        "type": "CHAdeMO",
+        "powerKW": 50,
+        "current": "DC",
+        "status": "Operational",
+        "quantity": 1
+      }
+    ],
+    "number_of_points": 2,
+    "usage_cost": "Unknown",
+    "related_url": "https://www.eko.com.cy/pratiria/proionta-2/eko-charge-go/",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:17.846043+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "309424",
+    "UUID": "E7FEE179-ABE7-4F01-820C-D8E02C610AF7",
+    "title": {
+      "en": "lidl",
+      "el": "lidl"
+    },
+    "latitude": 35.11013913275596,
+    "longitude": 33.378377106006155,
+    "address": {
+      "en": "Filippou Papakuprianou 81, Latsia 2236, Kupros",
+      "el": "Φίλιππου Παπακυπριανού 81, Λατσιά 2236, Κύπρος"
+    },
+    "postcode": 2236,
+    "town": {
+      "en": "Nicosia",
+      "el": "Nicosia"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 1
+      },
+      {
+        "type": "CCS (Type 2)",
+        "powerKW": 50,
+        "current": "DC",
+        "status": "Operational",
+        "quantity": 1
+      },
+      {
+        "type": "CHAdeMO",
+        "powerKW": 50,
+        "current": "DC",
+        "status": "Operational",
+        "quantity": 1
+      }
+    ],
+    "number_of_points": 2,
+    "usage_cost": "Unknown",
+    "related_url": "",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:17.934840+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "302475",
+    "UUID": "47D85338-B802-49FF-B311-A77E100B57C4",
+    "title": {
+      "en": "Kinira PCharge",
+      "el": "Kinira PCharge"
+    },
+    "latitude": 34.77388697008854,
+    "longitude": 32.45927097169249,
+    "address": {
+      "en": "Kinira",
+      "el": "Kinira"
+    },
+    "postcode": 8300,
+    "town": {
+      "en": "",
+      "el": ""
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Unknown",
+        "powerKW": 50,
+        "current": "Unknown",
+        "status": "Operational",
+        "quantity": 1
+      }
+    ],
+    "number_of_points": 2,
+    "usage_cost": "Unknown",
+    "related_url": "",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:18.035073+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "300668",
+    "UUID": "22863899-E8C0-448D-9CA6-B59E9D70A8E0",
+    "title": {
+      "en": "Omodos Council",
+      "el": "Omodos Council"
+    },
+    "latitude": 34.84718860050465,
+    "longitude": 32.80648342941777,
+    "address": {
+      "en": "E601",
+      "el": "E601"
+    },
+    "postcode": 4760,
+    "town": {
+      "en": "",
+      "el": ""
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 1
+      },
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 1
+      }
+    ],
+    "number_of_points": 2,
+    "usage_cost": "Unknown",
+    "related_url": "https://www.pcharge.com.cy/en/home",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:18.124365+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "300667",
+    "UUID": "03FB9DC2-87ED-4105-B0DE-0B989D9F0E06",
+    "title": {
+      "en": "IKEA Nicosia",
+      "el": "IKEA Nicosia"
+    },
+    "latitude": 35.13027797753091,
+    "longitude": 33.372885431320356,
+    "address": {
+      "en": "Verginas 1, Strovolos",
+      "el": "Βεργίνας 1, Στρόβολος"
+    },
+    "postcode": 2030,
+    "town": {
+      "en": "Strovolos",
+      "el": "Strovolos"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 1
+      },
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 1
+      }
+    ],
+    "number_of_points": 2,
+    "usage_cost": "Unknown",
+    "related_url": "https://www.pcharge.com.cy/en/home",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:18.220332+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "300666",
+    "UUID": "7C6EFBF4-60B9-4BCE-978B-94C75D59CACF",
+    "title": {
+      "en": "Mall of Cyprus",
+      "el": "Mall of Cyprus"
+    },
+    "latitude": 35.130703407216885,
+    "longitude": 33.37194480170797,
+    "address": {
+      "en": "Verginas 3, Strovolos, Kupros",
+      "el": "Βεργίνας 3, Στρόβολος, Κύπρος"
+    },
+    "postcode": 2030,
+    "town": {
+      "en": "Strovolos",
+      "el": "Strovolos"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 2
+      }
+    ],
+    "number_of_points": 2,
+    "usage_cost": "Unknown",
+    "related_url": "https://www.pcharge.com.cy/en/home",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:18.311515+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "297610",
+    "UUID": "4237C5BC-8502-4139-9BD7-CEEDD010DCC1",
+    "title": {
+      "en": "papantomiou Supermarket",
+      "el": "papantomiou Supermarket"
+    },
+    "latitude": 35.154853424733616,
+    "longitude": 33.330061926632425,
+    "address": {
+      "en": "Archagelou Michail",
+      "el": "Archagelou Michail"
+    },
+    "postcode": 2057,
+    "town": {
+      "en": "Strovolos",
+      "el": "Strovolos"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 2
+      }
+    ],
+    "number_of_points": 2,
+    "usage_cost": "Unknown",
+    "related_url": "https://play.google.com/store/apps/details?id=com.petrolina.pcharge",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:18.402191+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "297090",
+    "UUID": "6661D5C8-194C-4BB0-AC4A-A032C7791C2A",
+    "title": {
+      "en": "Leoforos Strovolou",
+      "el": "Λεωφόρος Στροβόλου"
+    },
+    "latitude": 35.14957670593101,
+    "longitude": 33.34700466487061,
+    "address": {
+      "en": "Strovolou 11",
+      "el": "Στροβόλου 11"
+    },
+    "postcode": 2018,
+    "town": {
+      "en": "Strovolos",
+      "el": "Strovolos"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 1
+      },
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 1
+      }
+    ],
+    "number_of_points": 2,
+    "usage_cost": "Unknown",
+    "related_url": "",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:18.498512+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "297089",
+    "UUID": "D126E2C1-52BC-4C9C-ADAB-28B9F7539E47",
+    "title": {
+      "en": "Episkopeio, 2642",
+      "el": "Episkopeio, 2642"
+    },
+    "latitude": 35.04182705500892,
+    "longitude": 33.23676479530599,
+    "address": {
+      "en": "F907",
+      "el": "F907"
+    },
+    "postcode": 2642,
+    "town": {
+      "en": "Episkopeio",
+      "el": "Episkopeio"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 1
+      },
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 1
+      }
+    ],
+    "number_of_points": 2,
+    "usage_cost": "Unknown",
+    "related_url": "",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:18.589167+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "296275",
+    "UUID": "A6F5D012-5A43-467D-BD87-A43E95E405FE",
+    "title": {
+      "en": "Dimarchio Athiainou",
+      "el": "Δημαρχίο Αθηαίνου"
+    },
+    "latitude": 35.06467479185818,
+    "longitude": 33.538685638963216,
+    "address": {
+      "en": "Z. Koullourou",
+      "el": "Z. Koullourou"
+    },
+    "postcode": 7600,
+    "town": {
+      "en": "Dimos Athienou",
+      "el": "Dimos Athienou"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 0
+      }
+    ],
+    "number_of_points": 2,
+    "usage_cost": "Unknown",
+    "related_url": "",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:18.684594+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "290992",
+    "UUID": "2D8BA626-1D9C-480A-A256-F827A0C42694",
+    "title": {
+      "en": "Christiana Venue",
+      "el": "Christiana Venue"
+    },
+    "latitude": 34.99127079343501,
+    "longitude": 33.41350163027232,
+    "address": {
+      "en": "Alampra",
+      "el": "Alampra"
+    },
+    "postcode": 2572,
+    "town": {
+      "en": "Nicosia",
+      "el": "Nicosia"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 2
+      }
+    ],
+    "number_of_points": 2,
+    "usage_cost": "Unknown",
+    "related_url": "",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:18.779313+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "290901",
+    "UUID": "F02F5708-F087-4476-B10F-208550AB1ED4",
+    "title": {
+      "en": "Play4kidz",
+      "el": "Play4kidz"
+    },
+    "latitude": 35.122847178775686,
+    "longitude": 33.37704533303349,
+    "address": {
+      "en": "Lemesou Avenue",
+      "el": "Lemesou Avenue"
+    },
+    "postcode": 2221,
+    "town": {
+      "en": "Strovolos",
+      "el": "Strovolos"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 2
+      }
+    ],
+    "number_of_points": 2,
+    "usage_cost": "Unknown",
+    "related_url": "https://play.google.com/store/apps/details?id=com.joltie.way&pcampaignid=web_share",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:18.873238+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "290886",
+    "UUID": "38E4618E-5207-4B49-8B63-9D670C232682",
+    "title": {
+      "en": "Lemon Park",
+      "el": "Lemon Park"
+    },
+    "latitude": 35.10815651064044,
+    "longitude": 33.36526509616567,
+    "address": {
+      "en": "Vasili Michailidi",
+      "el": "Βασίλη Μιχαηλίδη"
+    },
+    "postcode": 2237,
+    "town": {
+      "en": "Latsia",
+      "el": "Latsia"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 2
+      }
+    ],
+    "number_of_points": 2,
+    "usage_cost": "Unknown",
+    "related_url": "https://play.google.com/store/apps/details?id=com.joltie.way&pcampaignid=web_share",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:18.968106+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "290885",
+    "UUID": "702EBF7A-638A-48FD-B296-EC05148669C1",
+    "title": {
+      "en": "Smart Discount Shop Kokkinotrimithia",
+      "el": "Smart Discount Shop Κοκκινοτριμιθιά"
+    },
+    "latitude": 35.148473126385596,
+    "longitude": 33.21774483360207,
+    "address": {
+      "en": "Grigori Afxentiou",
+      "el": "Grigori Afxentiou"
+    },
+    "postcode": 2660,
+    "town": {
+      "en": "Kokkinotrimithia",
+      "el": "Κοκκινοτριμιθιά"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "Unknown",
+        "status": "Operational",
+        "quantity": 2
+      }
+    ],
+    "number_of_points": 2,
+    "usage_cost": "Unknown",
+    "related_url": "https://play.google.com/store/apps/details?id=com.joltie.way&pcampaignid=web_share",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:19.063807+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "290868",
+    "UUID": "0BBF855A-CF5C-430D-8FE9-09380C347729",
+    "title": {
+      "en": "Paradosiako - Paradosiako",
+      "el": "Παραδοσιακό - Paradosiako"
+    },
+    "latitude": 35.16238456079883,
+    "longitude": 33.317481129350995,
+    "address": {
+      "en": "28th October Avenue",
+      "el": "28th October Avenue"
+    },
+    "postcode": 2414,
+    "town": {
+      "en": "",
+      "el": ""
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 0
+      }
+    ],
+    "number_of_points": 2,
+    "usage_cost": "Unknown",
+    "related_url": "https://play.google.com/store/apps/details?id=com.joltie.way&pcampaignid=web_share",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:19.163613+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "290867",
+    "UUID": "5ACE1E65-455F-4E15-8C30-1497869BDE5C",
+    "title": {
+      "en": "K-Cineplex Makedonitissa",
+      "el": "K-Cineplex Makedonitissa"
+    },
+    "latitude": 35.14670851640385,
+    "longitude": 33.326336986672004,
+    "address": {
+      "en": "Makedonitissis",
+      "el": "Makedonitissis"
+    },
+    "postcode": 2057,
+    "town": {
+      "en": "Strovolos",
+      "el": "Strovolos"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 2
+      }
+    ],
+    "number_of_points": 2,
+    "usage_cost": "Unknown",
+    "related_url": "https://play.google.com/store/apps/details?id=com.joltie.way&pcampaignid=web_share",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:19.262326+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "290866",
+    "UUID": "A3D97B43-476F-4136-94AF-90A80FBDB100",
+    "title": {
+      "en": "SPPMedia Group",
+      "el": "SPPMedia Group"
+    },
+    "latitude": 35.14478016857858,
+    "longitude": 33.31048137609696,
+    "address": {
+      "en": "Lukavittou",
+      "el": "Λυκαβηττού"
+    },
+    "postcode": 2401,
+    "town": {
+      "en": "Lakatameia",
+      "el": "Lakatameia"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 1
+      }
+    ],
+    "number_of_points": 1,
+    "usage_cost": "Unknown",
+    "related_url": "https://play.google.com/store/apps/details?id=com.joltie.way&pcampaignid=web_share",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:19.358727+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "290863",
+    "UUID": "62B9015B-DA53-4A42-A257-DE2A39801B09",
+    "title": {
+      "en": "Care Medical",
+      "el": "Care Medical"
+    },
+    "latitude": 35.123511007070576,
+    "longitude": 33.32094481699812,
+    "address": {
+      "en": "Leoforos Strovolou",
+      "el": "Λεωφόρος Στροβόλου"
+    },
+    "postcode": 2324,
+    "town": {
+      "en": "Strovolos",
+      "el": "Strovolos"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 1
+      }
+    ],
+    "number_of_points": 1,
+    "usage_cost": "Unknown",
+    "related_url": "https://play.google.com/store/apps/details?id=com.joltie.way&pcampaignid=web_share",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:19.452822+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "289129",
+    "UUID": "EAE5593A-5A6F-483C-A358-4D2D5677235E",
+    "title": {
+      "en": "Pavilion (left)",
+      "el": "Pavilion (left)"
+    },
+    "latitude": 35.12816307160273,
+    "longitude": 33.321705369305164,
+    "address": {
+      "en": "Leoforos Spurou Kuprianou",
+      "el": "Λεωφόρος Σπύρου Κυπριανού"
+    },
+    "postcode": 2324,
+    "town": {
+      "en": "Lakatameia",
+      "el": "Lakatameia"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 1
+      }
+    ],
+    "number_of_points": 1,
+    "usage_cost": "Unknown",
+    "related_url": "https://play.google.com/store/apps/details?id=com.joltie.way&pcampaignid=web_share",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:19.555813+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "289128",
+    "UUID": "2E553039-DDCD-4839-8EA6-FF08A6D307EB",
+    "title": {
+      "en": "Pavilion (Right)",
+      "el": "Pavilion (Right)"
+    },
+    "latitude": 35.12774340752627,
+    "longitude": 33.320383277671795,
+    "address": {
+      "en": "Leoforos Spurou Kuprianou",
+      "el": "Λεωφόρος Σπύρου Κυπριανού"
+    },
+    "postcode": 2324,
+    "town": {
+      "en": "Lakatameia",
+      "el": "Lakatameia"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 1
+      }
+    ],
+    "number_of_points": 1,
+    "usage_cost": "Unknown",
+    "related_url": "https://play.google.com/store/apps/details?id=com.joltie.way&pcampaignid=web_share",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:19.645610+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "279597",
+    "UUID": "1FE30A75-0E97-4353-B4A7-3762EB525D1C",
+    "title": {
+      "en": "EAC eCharge - PAPHOS CENTRAL PARKING AREA",
+      "el": "EAC eCharge - PAPHOS CENTRAL PARKING AREA"
+    },
+    "latitude": 34.77835107779839,
+    "longitude": 32.4225701115854,
+    "address": {
+      "en": "Mpoumpoulinas 17",
+      "el": "Mpoumpoulinas 17"
+    },
+    "postcode": 8010,
+    "town": {
+      "en": "Paphos",
+      "el": "Paphos"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 2
+      }
+    ],
+    "number_of_points": 2,
+    "usage_cost": "Unknown",
+    "related_url": "https://myeac.etrel.com/#/portal/locations",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:19.739638+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "279493",
+    "UUID": "CD62CD70-8115-4A94-A2AE-1A92D6E87BCE",
+    "title": {
+      "en": "Dali Municipality",
+      "el": "Dali Municipality"
+    },
+    "latitude": 35.02455247643343,
+    "longitude": 33.42061006781083,
+    "address": {
+      "en": "Archiepiskopou Makariou ΄G ",
+      "el": "Αρχιεπισκόπου Μακαρίου ΄Γ "
+    },
+    "postcode": 2540,
+    "town": {
+      "en": "Dali",
+      "el": "Δάλι"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 11,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 2
+      }
+    ],
+    "number_of_points": 2,
+    "usage_cost": "Unknown",
+    "related_url": "",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:19.839894+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "279462",
+    "UUID": "07F3F054-773E-443A-92B5-43B78D43BECB",
+    "title": {
+      "en": "Miteras Terezas",
+      "el": "Miteras Terezas"
+    },
+    "latitude": 35.06516361484417,
+    "longitude": 33.3875347373903,
+    "address": {
+      "en": "Miteras Terezas",
+      "el": "Miteras Terezas"
+    },
+    "postcode": 2571,
+    "town": {
+      "en": "",
+      "el": ""
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 2
+      }
+    ],
+    "number_of_points": 2,
+    "usage_cost": "Unknown",
+    "related_url": "",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:19.935856+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "279212",
+    "UUID": "9106E7BF-1BE1-457D-AA54-C45F4F07B645",
+    "title": {
+      "en": "HPC pCharge - Petrolina GSZ",
+      "el": "HPC pCharge - Petrolina GSZ"
+    },
+    "latitude": 34.92502601307635,
+    "longitude": 33.60182723493517,
+    "address": {
+      "en": "WJG2+4R5, Larnaka 6043, Kupros",
+      "el": "WJG2+4R5, Λάρνακα 6043, Κύπρος"
+    },
+    "postcode": 6043,
+    "town": {
+      "en": "Larnaca",
+      "el": "Larnaca"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "CCS (Type 2)",
+        "powerKW": 150,
+        "current": "DC",
+        "status": "Operational",
+        "quantity": 1
+      },
+      {
+        "type": "CHAdeMO",
+        "powerKW": 100,
+        "current": "DC",
+        "status": "Operational",
+        "quantity": 1
+      }
+    ],
+    "number_of_points": 1,
+    "usage_cost": "Unknown",
+    "related_url": "",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:20.026671+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "271369",
+    "UUID": "1E051A70-349C-4913-AB56-5100E01415E1",
+    "title": {
+      "en": "Minthis Resort",
+      "el": "Minthis Resort"
+    },
+    "latitude": 34.83857023481187,
+    "longitude": 32.474797655972566,
+    "address": {
+      "en": "Minthis Street",
+      "el": "Minthis Street"
+    },
+    "postcode": 8540,
+    "town": {
+      "en": "paphos",
+      "el": "paphos"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 1
+      },
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 7,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 3
+      }
+    ],
+    "number_of_points": 4,
+    "usage_cost": "Unknown",
+    "related_url": "",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:20.120164+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "271366",
+    "UUID": "F42FF2E6-2A8F-41FD-A343-173D967F39A2",
+    "title": {
+      "en": "Queen's Bay Hotel",
+      "el": "Queen's Bay Hotel"
+    },
+    "latitude": 34.82755120341177,
+    "longitude": 32.38949938794349,
+    "address": {
+      "en": "Pente Litharkon",
+      "el": "Pente Litharkon"
+    },
+    "postcode": 8574,
+    "town": {
+      "en": "Paphos",
+      "el": "Paphos"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 1
+      }
+    ],
+    "number_of_points": 1,
+    "usage_cost": "Unknown",
+    "related_url": "",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:20.204178+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "264415",
+    "UUID": "E1EA23F6-5AFA-4563-8036-F7FB870720E2",
+    "title": {
+      "en": "NICOSIA GENERAL HOSPITAL",
+      "el": "NICOSIA GENERAL HOSPITAL"
+    },
+    "latitude": 35.12761196888138,
+    "longitude": 33.37489155721744,
+    "address": {
+      "en": "Lemesou Avenue",
+      "el": "Lemesou Avenue"
+    },
+    "postcode": 2029,
+    "town": {
+      "en": "Strovolos",
+      "el": "Strovolos"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 2
+      }
+    ],
+    "number_of_points": 2,
+    "usage_cost": "Unknown",
+    "related_url": "https://myeac.etrel.com/#/portal/locations",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:20.304928+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "260754",
+    "UUID": "D0B6E5AA-CC86-4E2B-AE9D-035A9B317B2C",
+    "title": {
+      "en": "Digeni Akrita 1, Limassol, Cyprus",
+      "el": "Digeni Akrita 1, Limassol, Cyprus"
+    },
+    "latitude": 34.679770390126265,
+    "longitude": 33.05251082787163,
+    "address": {
+      "en": "Ev Power - FunCorp",
+      "el": "Ev Power - FunCorp"
+    },
+    "postcode": 3035,
+    "town": {
+      "en": "Limassol",
+      "el": "Limassol"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "Unknown",
+        "status": "Operational",
+        "quantity": 3
+      }
+    ],
+    "number_of_points": 3,
+    "usage_cost": "Unknown",
+    "related_url": "https://www.evpower.com.cy/",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:20.396979+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "260753",
+    "UUID": "69AD8074-163D-4500-B8FA-CA21ABFA546B",
+    "title": {
+      "en": "Petrolina - Promachon Eleftherias",
+      "el": "Petrolina - Promachon Eleftherias"
+    },
+    "latitude": 34.69022092157715,
+    "longitude": 33.07318995496371,
+    "address": {
+      "en": "Promachon Eleftherias, Agios Athanasios, Cyprus",
+      "el": "Promachon Eleftherias, Agios Athanasios, Cyprus"
+    },
+    "postcode": 0,
+    "town": {
+      "en": "Limassol",
+      "el": "Limassol"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 1
+      }
+    ],
+    "number_of_points": 1,
+    "usage_cost": "Unknown",
+    "related_url": "https://evloader.com/el/stations-map",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:20.485592+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "260386",
+    "UUID": "C240845A-864E-48AE-9E2E-8DB68977B2D8",
+    "title": {
+      "en": "Europe square",
+      "el": "Europe square"
+    },
+    "latitude": 34.917963885388644,
+    "longitude": 33.63844023615229,
+    "address": {
+      "en": "Europe square",
+      "el": "Europe square"
+    },
+    "postcode": 6300,
+    "town": {
+      "en": "Larnaca",
+      "el": "Larnaca"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 2
+      }
+    ],
+    "number_of_points": 2,
+    "usage_cost": "Unknown",
+    "related_url": "",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:20.578971+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "259306",
+    "UUID": "E666FC3E-6C32-4097-B0C0-B8A58B000209",
+    "title": {
+      "en": "Neon Mall of Paphos",
+      "el": "Neon Mall of Paphos"
+    },
+    "latitude": 34.77536372044975,
+    "longitude": 32.44357649435892,
+    "address": {
+      "en": "Dimokratias Avenue",
+      "el": "Dimokratias Avenue"
+    },
+    "postcode": 8028,
+    "town": {
+      "en": "Paphos",
+      "el": "Paphos"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 2
+      }
+    ],
+    "number_of_points": 2,
+    "usage_cost": "Unknown",
+    "related_url": "http://Spirii Go App",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:20.670095+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "258965",
+    "UUID": "F1D058C3-98A8-462B-A5ED-9399C58BA7E4",
+    "title": {
+      "en": "GESOLAR Cyprus ",
+      "el": "GESOLAR Cyprus "
+    },
+    "latitude": 35.09429704937243,
+    "longitude": 33.37990531498667,
+    "address": {
+      "en": "B1",
+      "el": "B1"
+    },
+    "postcode": 2235,
+    "town": {
+      "en": "Latsia",
+      "el": "Latsia"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 2
+      }
+    ],
+    "number_of_points": 1,
+    "usage_cost": "Unknown",
+    "related_url": "",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:20.760772+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "257108",
+    "UUID": "F553AC89-E888-4AC4-B6DA-DE0D40BA237E",
+    "title": {
+      "en": "ePharmaCY",
+      "el": "ePharmaCY"
+    },
+    "latitude": 34.68030270780355,
+    "longitude": 33.03999433199101,
+    "address": {
+      "en": " Agias Fulaxeos 36A",
+      "el": " Αγιας Φυλάξεως 36A"
+    },
+    "postcode": 3025,
+    "town": {
+      "en": "Lemesos",
+      "el": "Λεμεσός"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 1
+      }
+    ],
+    "number_of_points": 1,
+    "usage_cost": "Unknown",
+    "related_url": "https://www.evpower.com.cy/",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:20.853427+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "257107",
+    "UUID": "180DBE70-D0F1-42D7-930E-73776424ED32",
+    "title": {
+      "en": "BMW/MINI Limassol - Showroom & Workshop (Pilakoutas Group)",
+      "el": "BMW/MINI Limassol - Showroom & Workshop (Pilakoutas Group)"
+    },
+    "latitude": 34.67570891250466,
+    "longitude": 33.00724515671942,
+    "address": {
+      "en": "Pafou 101",
+      "el": "Pafou 101"
+    },
+    "postcode": 4152,
+    "town": {
+      "en": "Kato Polemidia",
+      "el": "Kato Polemidia"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "CCS (Type 2)",
+        "powerKW": 150,
+        "current": "DC",
+        "status": "Operational",
+        "quantity": 2
+      },
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 1
+      }
+    ],
+    "number_of_points": 2,
+    "usage_cost": "Unknown",
+    "related_url": "https://www.evpower.com.cy/",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:20.948012+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "257106",
+    "UUID": "828C8227-B9FA-4E29-9AEB-FA9B261092F7",
+    "title": {
+      "en": "abio power",
+      "el": "abio power"
+    },
+    "latitude": 35.15762404422105,
+    "longitude": 33.39295788536674,
+    "address": {
+      "en": "Larnakos Ave",
+      "el": "Larnakos Ave"
+    },
+    "postcode": 2101,
+    "town": {
+      "en": "Leukosia",
+      "el": "Λευκωσία"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 1
+      }
+    ],
+    "number_of_points": 1,
+    "usage_cost": "Unknown",
+    "related_url": "https://www.evpower.com.cy/",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:21.041053+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "238135",
+    "UUID": "6AE01120-AAB6-4ABA-B212-CF265FC6DDA0",
+    "title": {
+      "en": "BMWi EV Station - Amara Hotel",
+      "el": "BMWi EV Station - Amara Hotel"
+    },
+    "latitude": 34.71406581454751,
+    "longitude": 33.155271303468226,
+    "address": {
+      "en": "Leoforos Amathountos",
+      "el": "Leoforos Amathountos"
+    },
+    "postcode": 4533,
+    "town": {
+      "en": "",
+      "el": ""
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 11,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 1
+      }
+    ],
+    "number_of_points": 1,
+    "usage_cost": "Unknown",
+    "related_url": "",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:21.138088+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "213443",
+    "UUID": "EBE822E0-5E3F-40DF-B6E9-9DD0F8B34E8C",
+    "title": {
+      "en": "Olympic Residence Towers, Limassol",
+      "el": "Olympic Residence Towers, Limassol"
+    },
+    "latitude": 34.68666352955199,
+    "longitude": 33.063832407561904,
+    "address": {
+      "en": "Olympic Residence, B1 353Kupros",
+      "el": "Olympic Residence, B1 353Κύπρος"
+    },
+    "postcode": 3107,
+    "town": {
+      "en": "Lemesos",
+      "el": "Λεμεσός"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 1
+      }
+    ],
+    "number_of_points": 1,
+    "usage_cost": "Unknown",
+    "related_url": "https://evloader.com/el/stations-map/olympic-residence-towers-limassol-b1",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:21.239112+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "213081",
+    "UUID": "749FD8DF-B21E-4936-8C66-711DFF12E79D",
+    "title": {
+      "en": "e-point Stasandrou",
+      "el": "e-point Stasandrou"
+    },
+    "latitude": 35.16726829478364,
+    "longitude": 33.362616158332685,
+    "address": {
+      "en": "Stasandrou",
+      "el": "Stasandrou"
+    },
+    "postcode": 1065,
+    "town": {
+      "en": "",
+      "el": ""
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 11,
+        "current": "Unknown",
+        "status": "Operational",
+        "quantity": 1
+      },
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 11,
+        "current": "Unknown",
+        "status": "Operational",
+        "quantity": 1
+      }
+    ],
+    "number_of_points": 2,
+    "usage_cost": "Unknown",
+    "related_url": "",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:21.334250+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "213080",
+    "UUID": "DBDF871A-24DE-4CA7-98C1-08BCAA7CE2E1",
+    "title": {
+      "en": "e-point Zenas Kanther",
+      "el": "e-point Zenas Kanther"
+    },
+    "latitude": 35.16802490760708,
+    "longitude": 33.358412482587596,
+    "address": {
+      "en": "Zenas Kanther",
+      "el": "Zenas Kanther"
+    },
+    "postcode": 1066,
+    "town": {
+      "en": "",
+      "el": ""
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 11,
+        "current": "Unknown",
+        "status": "Operational",
+        "quantity": 1
+      },
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 11,
+        "current": "Unknown",
+        "status": "Operational",
+        "quantity": 1
+      }
+    ],
+    "number_of_points": 2,
+    "usage_cost": "Unknown",
+    "related_url": "",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:21.428619+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "212403",
+    "UUID": "AA769970-2AE3-4CF6-8D52-2EDFE6E8E07D",
+    "title": {
+      "en": "Unicars - Nicosia Workshop",
+      "el": "Unicars - Nicosia Workshop"
+    },
+    "latitude": 35.09226133812099,
+    "longitude": 33.37892072302702,
+    "address": {
+      "en": "144 Yiannou Kranidioti Ave.",
+      "el": "144 Yiannou Kranidioti Ave."
+    },
+    "postcode": 2235,
+    "town": {
+      "en": "Latsia",
+      "el": "Latsia"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 2
+      }
+    ],
+    "number_of_points": 2,
+    "usage_cost": "Unknown",
+    "related_url": "",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:21.520232+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "212387",
+    "UUID": "77EB6A3D-F805-4635-8BDE-812F055CCCFB",
+    "title": {
+      "en": "Cap St Georges Hotel & Resort",
+      "el": "Cap St Georges Hotel & Resort"
+    },
+    "latitude": 34.893577034028965,
+    "longitude": 32.32488333457479,
+    "address": {
+      "en": "Agios Georgios Avenue",
+      "el": "Agios Georgios Avenue"
+    },
+    "postcode": 8560,
+    "town": {
+      "en": "Pegeia",
+      "el": "Πέγεια"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 1
+      }
+    ],
+    "number_of_points": 1,
+    "usage_cost": "Unknown",
+    "related_url": "",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:21.609246+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "212385",
+    "UUID": "D4BD663F-3D90-4C56-8D85-0E6A75A33A9D",
+    "title": {
+      "en": "UNICARS EV station - Anassa Hotel",
+      "el": "UNICARS EV station - Anassa Hotel"
+    },
+    "latitude": 35.04300914133283,
+    "longitude": 32.371057664605814,
+    "address": {
+      "en": "40, Leof. Akamantos",
+      "el": "40, Leof. Akamantos"
+    },
+    "postcode": 8852,
+    "town": {
+      "en": "Neo Chorio",
+      "el": "Neo Chorio"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 3
+      }
+    ],
+    "number_of_points": 3,
+    "usage_cost": "Unknown",
+    "related_url": "",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:21.698734+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "212382",
+    "UUID": "72389209-95DC-4CE9-B325-3EFD63CD7ADE",
+    "title": {
+      "en": "EAC eCharge - Latsia Town Hall",
+      "el": "EAC eCharge - Latsia Town Hall"
+    },
+    "latitude": 35.10692650976502,
+    "longitude": 33.378159927624864,
+    "address": {
+      "en": "Giannou Kranidioti Avenue",
+      "el": "Giannou Kranidioti Avenue"
+    },
+    "postcode": 2235,
+    "town": {
+      "en": "Latsia",
+      "el": "Latsia"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 2
+      }
+    ],
+    "number_of_points": 2,
+    "usage_cost": "Unknown",
+    "related_url": "https://myeac.etrel.com/#/portal/locations",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:21.797032+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "212380",
+    "UUID": "CC1C0105-572E-4235-8DC2-588CFA63CB1E",
+    "title": {
+      "en": "Porsche Nicosia",
+      "el": "Porsche Nicosia"
+    },
+    "latitude": 35.123513105869236,
+    "longitude": 33.36367948576964,
+    "address": {
+      "en": "Megaron 15",
+      "el": "Megaron 15"
+    },
+    "postcode": 2033,
+    "town": {
+      "en": "Strovolos",
+      "el": "Strovolos"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "CCS (Type 2)",
+        "powerKW": 150,
+        "current": "DC",
+        "status": "Operational",
+        "quantity": 4
+      }
+    ],
+    "number_of_points": 4,
+    "usage_cost": "Unknown",
+    "related_url": "",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:21.891759+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "211293",
+    "UUID": "7DE28A1B-9D54-416B-8592-84DA81B7EC63",
+    "title": {
+      "en": "Unicars Sales Hub",
+      "el": "Unicars Sales Hub"
+    },
+    "latitude": 35.12414990736714,
+    "longitude": 33.36388115831005,
+    "address": {
+      "en": "9 Megaron Str.",
+      "el": "9 Megaron Str."
+    },
+    "postcode": 2032,
+    "town": {
+      "en": "Strovolos",
+      "el": "Strovolos"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "CCS (Type 2)",
+        "powerKW": 50,
+        "current": "DC",
+        "status": "Operational",
+        "quantity": 1
+      },
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 1
+      }
+    ],
+    "number_of_points": 2,
+    "usage_cost": "Unknown",
+    "related_url": "",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:21.987340+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "211133",
+    "UUID": "7E4517A3-0320-4E54-917F-DBBFF77068EE",
+    "title": {
+      "en": "Best Western Plus Larco Hotel",
+      "el": "Best Western Plus Larco Hotel"
+    },
+    "latitude": 34.90151283989698,
+    "longitude": 33.63481583737416,
+    "address": {
+      "en": "Pontou Street",
+      "el": "Pontou Street"
+    },
+    "postcode": 6301,
+    "town": {
+      "en": "",
+      "el": ""
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 1
+      }
+    ],
+    "number_of_points": 1,
+    "usage_cost": "Unknown",
+    "related_url": "",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:22.084495+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "211132",
+    "UUID": "2D3327FB-0974-45A3-900B-6F31B25F6ED4",
+    "title": {
+      "en": "Porsche Destination - Radisson Blu Hotel",
+      "el": "Porsche Destination - Radisson Blu Hotel"
+    },
+    "latitude": 34.93161218794107,
+    "longitude": 33.63697283071747,
+    "address": {
+      "en": "Atlantidon",
+      "el": "Atlantidon"
+    },
+    "postcode": 6018,
+    "town": {
+      "en": "",
+      "el": ""
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 1
+      }
+    ],
+    "number_of_points": 1,
+    "usage_cost": "Unknown",
+    "related_url": "",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:22.172422+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "211131",
+    "UUID": "3F6EDDD4-E2C0-4D44-94B8-E740E1B434E4",
+    "title": {
+      "en": "EAC eCharge - EAC Larnaca Offices",
+      "el": "EAC eCharge - EAC Larnaca Offices"
+    },
+    "latitude": 34.9228672976501,
+    "longitude": 33.611815215680735,
+    "address": {
+      "en": "Pavlou Liaside",
+      "el": "Pavlou Liaside"
+    },
+    "postcode": 6042,
+    "town": {
+      "en": "",
+      "el": ""
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 2
+      }
+    ],
+    "number_of_points": 2,
+    "usage_cost": "Unknown",
+    "related_url": "",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:22.274880+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "211130",
+    "UUID": "0881D0DE-744D-4255-B656-5AF60F709397",
+    "title": {
+      "en": "Aradippou Municipality",
+      "el": "Aradippou Municipality"
+    },
+    "latitude": 34.9486523945734,
+    "longitude": 33.58670929932714,
+    "address": {
+      "en": "Stadiou Avenue",
+      "el": "Stadiou Avenue"
+    },
+    "postcode": 7103,
+    "town": {
+      "en": "Aradippou",
+      "el": "Αραδίππου"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 2
+      }
+    ],
+    "number_of_points": 2,
+    "usage_cost": "Unknown",
+    "related_url": "",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:22.372822+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "211129",
+    "UUID": "50958784-CFF0-4CBE-A14C-9CE177E89CB0",
+    "title": {
+      "en": "Lidl - Aradippou",
+      "el": "Lidl - Aradippou"
+    },
+    "latitude": 34.9368718701367,
+    "longitude": 33.591280179030605,
+    "address": {
+      "en": "Agiou Antoniou",
+      "el": "Agiou Antoniou"
+    },
+    "postcode": 7102,
+    "town": {
+      "en": "Aradippou",
+      "el": "Αραδίππου"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 1
+      },
+      {
+        "type": "CCS (Type 2)",
+        "powerKW": 20,
+        "current": "DC",
+        "status": "Operational",
+        "quantity": 1
+      },
+      {
+        "type": "CHAdeMO",
+        "powerKW": 20,
+        "current": "DC",
+        "status": "Operational",
+        "quantity": 1
+      }
+    ],
+    "number_of_points": 2,
+    "usage_cost": "Unknown",
+    "related_url": "",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:22.470037+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "211126",
+    "UUID": "C6CB91B6-CCD2-49D8-8F86-F8AA63B85C3D",
+    "title": {
+      "en": "BMW Service",
+      "el": "BMW Service"
+    },
+    "latitude": 35.12469726531246,
+    "longitude": 33.36426929653305,
+    "address": {
+      "en": "Meteoron 14",
+      "el": "Meteoron 14"
+    },
+    "postcode": 2032,
+    "town": {
+      "en": "Strovolos",
+      "el": "Strovolos"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "CCS (Type 2)",
+        "powerKW": 150,
+        "current": "DC",
+        "status": "Operational",
+        "quantity": 2
+      },
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 1
+      }
+    ],
+    "number_of_points": 2,
+    "usage_cost": "Unknown",
+    "related_url": "https://www.evpower.com.cy/",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:22.569294+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "211061",
+    "UUID": "CCE4D427-9DF8-4F71-8A66-8F2F047EE7AF",
+    "title": {
+      "en": "Kings Avenue Mall",
+      "el": "Kings Avenue Mall"
+    },
+    "latitude": 34.7648853313666,
+    "longitude": 32.413295460941185,
+    "address": {
+      "en": "Apostolou Pavlou",
+      "el": "Apostolou Pavlou"
+    },
+    "postcode": 8046,
+    "town": {
+      "en": "",
+      "el": ""
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 2
+      }
+    ],
+    "number_of_points": 2,
+    "usage_cost": "Unknown",
+    "related_url": "",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:22.665682+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "210848",
+    "UUID": "61905ABC-5977-459A-BC61-DC0F054DA121",
+    "title": {
+      "en": "Lidl",
+      "el": "Lidl"
+    },
+    "latitude": 35.1256957609167,
+    "longitude": 33.33722813805491,
+    "address": {
+      "en": "Tseriou Avenue",
+      "el": "Tseriou Avenue"
+    },
+    "postcode": 2380,
+    "town": {
+      "en": "",
+      "el": ""
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "CCS (Type 2)",
+        "powerKW": 50,
+        "current": "DC",
+        "status": "Operational",
+        "quantity": 1
+      },
+      {
+        "type": "CHAdeMO",
+        "powerKW": 50,
+        "current": "DC",
+        "status": "Operational",
+        "quantity": 1
+      }
+    ],
+    "number_of_points": 2,
+    "usage_cost": "Unknown",
+    "related_url": "",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:22.760987+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "202907",
+    "UUID": "03DBF9C1-7206-469C-8F14-9B48091C13B5",
+    "title": {
+      "en": "Leof. Agrou",
+      "el": "Λεωφ. Αγρού"
+    },
+    "latitude": 34.91755177454898,
+    "longitude": 33.0180678605484,
+    "address": {
+      "en": "Leof. Agrou",
+      "el": "Λεωφ. Αγρού"
+    },
+    "postcode": 0,
+    "town": {
+      "en": "Agros",
+      "el": "Agros"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 2
+      }
+    ],
+    "number_of_points": 1,
+    "usage_cost": "Unknown",
+    "related_url": "",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:22.854111+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "195453",
+    "UUID": "7E42F9D3-4617-4302-AC75-3A8C4678F3E3",
+    "title": {
+      "en": "Ypsonas Town Hall",
+      "el": "Ypsonas Town Hall"
+    },
+    "latitude": 34.69075060102722,
+    "longitude": 32.95523573341097,
+    "address": {
+      "en": "Archiepiskopou Makariou III 83",
+      "el": "Archiepiskopou Makariou III 83"
+    },
+    "postcode": 4182,
+    "town": {
+      "en": "Ypsonas",
+      "el": "Ypsonas"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 2
+      }
+    ],
+    "number_of_points": 2,
+    "usage_cost": "Unknown",
+    "related_url": "https://myeac.etrel.com/#/portal/locations",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:22.949077+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "195452",
+    "UUID": "564EA7EB-EA43-4892-8EBA-BA1B8EA46F30",
+    "title": {
+      "en": "Ypsilanti",
+      "el": "Ypsilanti"
+    },
+    "latitude": 34.699187615489635,
+    "longitude": 32.967589496543496,
+    "address": {
+      "en": "Ypsilanti",
+      "el": "Ypsilanti"
+    },
+    "postcode": 4182,
+    "town": {
+      "en": "Limassol",
+      "el": "Limassol"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 2
+      }
+    ],
+    "number_of_points": 2,
+    "usage_cost": "Unknown",
+    "related_url": "https://myeac.etrel.com/#/portal/locations",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:23.041108+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "195423",
+    "UUID": "A0E3811F-9430-4F0D-B6F6-92F29EFF0CEA",
+    "title": {
+      "en": "Municipal Multistory Parking",
+      "el": "Municipal Multistory Parking"
+    },
+    "latitude": 34.67652625385955,
+    "longitude": 33.04669879552853,
+    "address": {
+      "en": "Municipal Multistory Parking",
+      "el": "Municipal Multistory Parking"
+    },
+    "postcode": 3040,
+    "town": {
+      "en": "Limassol",
+      "el": "Limassol"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 2
+      }
+    ],
+    "number_of_points": 1,
+    "usage_cost": "Unknown",
+    "related_url": "",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:23.140678+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "195421",
+    "UUID": "2C5ED15F-B357-40E7-8AE9-116E5DA9DDA4",
+    "title": {
+      "en": "Lidl Agios Georgios",
+      "el": "Lidl Agios Georgios"
+    },
+    "latitude": 34.690049462708615,
+    "longitude": 33.07175746483995,
+    "address": {
+      "en": "Agios Georgios",
+      "el": "Agios Georgios"
+    },
+    "postcode": 3101,
+    "town": {
+      "en": "Limassol",
+      "el": "Limassol"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 1
+      },
+      {
+        "type": "CCS (Type 2)",
+        "powerKW": 20,
+        "current": "DC",
+        "status": "Operational",
+        "quantity": 1
+      },
+      {
+        "type": "CHAdeMO",
+        "powerKW": 20,
+        "current": "DC",
+        "status": "Operational",
+        "quantity": 1
+      }
+    ],
+    "number_of_points": 1,
+    "usage_cost": "Unknown",
+    "related_url": "",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:23.241400+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "195420",
+    "UUID": "35A7CE76-057A-410D-9F05-BAC2D958D130",
+    "title": {
+      "en": "Spyrou Araouzou",
+      "el": "Spyrou Araouzou"
+    },
+    "latitude": 34.67341176762494,
+    "longitude": 33.045648222438786,
+    "address": {
+      "en": "Spyrou Araouzou",
+      "el": "Spyrou Araouzou"
+    },
+    "postcode": 3036,
+    "town": {
+      "en": "Limassol",
+      "el": "Limassol"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 2
+      }
+    ],
+    "number_of_points": 1,
+    "usage_cost": "Unknown",
+    "related_url": "",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:23.336415+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "195419",
+    "UUID": "C5D96AD7-CD7C-4DA5-8BB5-80A343E78DF2",
+    "title": {
+      "en": "Municipal parking",
+      "el": "Municipal parking"
+    },
+    "latitude": 34.699198399944024,
+    "longitude": 33.0451809153343,
+    "address": {
+      "en": "Municipal parking",
+      "el": "Municipal parking"
+    },
+    "postcode": 4003,
+    "town": {
+      "en": "Limassol",
+      "el": "Limassol"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 2
+      }
+    ],
+    "number_of_points": 1,
+    "usage_cost": "Unknown",
+    "related_url": "",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:23.439365+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "195418",
+    "UUID": "AA9A84D2-2975-405E-921C-E03D14E85221",
+    "title": {
+      "en": "Port Junction",
+      "el": "Port Junction"
+    },
+    "latitude": 34.65492752282255,
+    "longitude": 33.02287958043496,
+    "address": {
+      "en": "Port Junction",
+      "el": "Port Junction"
+    },
+    "postcode": 3045,
+    "town": {
+      "en": "Limassol",
+      "el": "Limassol"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 2
+      }
+    ],
+    "number_of_points": 2,
+    "usage_cost": "Unknown",
+    "related_url": "",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:23.536170+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "194125",
+    "UUID": "70A0545B-838A-4B27-96B7-1B3BFB292CBE",
+    "title": {
+      "en": "Four Season Hotel",
+      "el": "Four Season Hotel"
+    },
+    "latitude": 34.70950033236811,
+    "longitude": 33.12786680540205,
+    "address": {
+      "en": "Limassol Coastal Road Cycling lane",
+      "el": "Limassol Coastal Road Cycling lane"
+    },
+    "postcode": 4527,
+    "town": {
+      "en": "Limassol",
+      "el": "Limassol"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 11,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 1
+      },
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 11,
+        "current": "Unknown",
+        "status": "Operational",
+        "quantity": 1
+      },
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 11,
+        "current": "Unknown",
+        "status": "Operational",
+        "quantity": 1
+      },
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 11,
+        "current": "Unknown",
+        "status": "Operational",
+        "quantity": 1
+      }
+    ],
+    "number_of_points": 1,
+    "usage_cost": "Unknown",
+    "related_url": "",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:23.634054+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "194124",
+    "UUID": "238C7DD1-D120-4055-97C9-AA3F72053DA0",
+    "title": {
+      "en": "St. Raphael Hotel",
+      "el": "St. Raphael Hotel"
+    },
+    "latitude": 34.71352030897964,
+    "longitude": 33.16727427216745,
+    "address": {
+      "en": "Le Meridien",
+      "el": "Le Meridien"
+    },
+    "postcode": 4529,
+    "town": {
+      "en": "Amathussa",
+      "el": "Amathussa"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 2
+      }
+    ],
+    "number_of_points": 1,
+    "usage_cost": "Unknown",
+    "related_url": "",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:23.724725+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "194123",
+    "UUID": "E357FF92-4480-4628-BFDD-6BD294F53468",
+    "title": {
+      "en": "Magalosn Alexander Street",
+      "el": "Magalosn Alexander Street"
+    },
+    "latitude": 34.71288429789573,
+    "longitude": 33.17378338449976,
+    "address": {
+      "en": "Magalosn Alexander Street",
+      "el": "Magalosn Alexander Street"
+    },
+    "postcode": 4529,
+    "town": {
+      "en": "Amathussa",
+      "el": "Amathussa"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 2
+      }
+    ],
+    "number_of_points": 1,
+    "usage_cost": "Unknown",
+    "related_url": "",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:23.813203+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "193860",
+    "UUID": "8744CBDF-1252-45FB-BCAB-6C5FCC4943AF",
+    "title": {
+      "en": "Kallipoleos",
+      "el": "Kallipoleos"
+    },
+    "latitude": 35.15930469966615,
+    "longitude": 33.375617349790105,
+    "address": {
+      "en": "Kallipoleos",
+      "el": "Kallipoleos"
+    },
+    "postcode": 1070,
+    "town": {
+      "en": "Nicosia",
+      "el": "Nicosia"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 2
+      }
+    ],
+    "number_of_points": 1,
+    "usage_cost": "Unknown",
+    "related_url": "",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:23.909536+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "193545",
+    "UUID": "B627295C-766A-4746-A469-A1B6384D2CC3",
+    "title": {
+      "en": "Amathus Beach Hotel",
+      "el": "Amathus Beach Hotel"
+    },
+    "latitude": 34.70929083697317,
+    "longitude": 33.132520366598555,
+    "address": {
+      "en": "Amathus Beach Hotel",
+      "el": "Amathus Beach Hotel"
+    },
+    "postcode": 4527,
+    "town": {
+      "en": "Limassol",
+      "el": "Limassol"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 1
+      }
+    ],
+    "number_of_points": 1,
+    "usage_cost": "Unknown",
+    "related_url": "https://evloader.com/el/stations-map/amathus-residences-evmotion-331315-347091",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:24.007112+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "193544",
+    "UUID": "D6024E7F-3276-4437-B0E1-541AD54D1386",
+    "title": {
+      "en": "Nestor",
+      "el": "Nestor"
+    },
+    "latitude": 34.98517289181903,
+    "longitude": 34.002187439613635,
+    "address": {
+      "en": "Nestor",
+      "el": "Nestor"
+    },
+    "postcode": 0,
+    "town": {
+      "en": "Ayia Napa",
+      "el": "Ayia Napa"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 2
+      }
+    ],
+    "number_of_points": 1,
+    "usage_cost": "Unknown",
+    "related_url": "https://evloader.com/el/stations-map/nestor-hotel-evmotion-Ayia",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:24.105295+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "192545",
+    "UUID": "923951A2-CECC-4E7F-8B56-A092056FF49B",
+    "title": {
+      "en": "Nicosia Mall",
+      "el": "Nicosia Mall"
+    },
+    "latitude": 35.135230994602495,
+    "longitude": 33.28089495366328,
+    "address": {
+      "en": "Hwy. Nicosia-Troodos",
+      "el": "Hwy. Nicosia-Troodos"
+    },
+    "postcode": 2320,
+    "town": {
+      "en": "Nicosia",
+      "el": "Nicosia"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 2
+      }
+    ],
+    "number_of_points": 2,
+    "usage_cost": "Unknown",
+    "related_url": "https://www.evpower.com.cy/",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:24.196538+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "192544",
+    "UUID": "339B0B3B-A450-42DF-997C-7147508D38DE",
+    "title": {
+      "en": "Leroy Merlin",
+      "el": "Leroy Merlin"
+    },
+    "latitude": 35.12307054206332,
+    "longitude": 33.37269370681145,
+    "address": {
+      "en": "Leroy Merlin",
+      "el": "Leroy Merlin"
+    },
+    "postcode": 2025,
+    "town": {
+      "en": "Strovolos",
+      "el": "Strovolos"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 2
+      }
+    ],
+    "number_of_points": 2,
+    "usage_cost": "Unknown",
+    "related_url": "https://www.evpower.com.cy/",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:24.294376+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "191941",
+    "UUID": "9B4F7354-F2D2-4407-896D-3BE6C045540C",
+    "title": {
+      "en": "LiDL - Agias Filaxeos",
+      "el": "LiDL - Agias Filaxeos"
+    },
+    "latitude": 34.70027637249433,
+    "longitude": 33.03160278910423,
+    "address": {
+      "en": "Agias Filaxeos",
+      "el": "Agias Filaxeos"
+    },
+    "postcode": 3082,
+    "town": {
+      "en": "",
+      "el": ""
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 1
+      },
+      {
+        "type": "CCS (Type 2)",
+        "powerKW": 50,
+        "current": "DC",
+        "status": "Operational",
+        "quantity": 1
+      },
+      {
+        "type": "CHAdeMO",
+        "powerKW": 50,
+        "current": "DC",
+        "status": "Operational",
+        "quantity": 1
+      }
+    ],
+    "number_of_points": 2,
+    "usage_cost": "Unknown",
+    "related_url": "",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:24.389507+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "191940",
+    "UUID": "48D2897E-6968-4B44-A810-EC0E71A2E77A",
+    "title": {
+      "en": "Olympos Street",
+      "el": "Olympos Street"
+    },
+    "latitude": 34.892206213559376,
+    "longitude": 32.86744793570173,
+    "address": {
+      "en": "Olympos Street",
+      "el": "Olympos Street"
+    },
+    "postcode": 4800,
+    "town": {
+      "en": "Platres",
+      "el": "Platres"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 2
+      }
+    ],
+    "number_of_points": 2,
+    "usage_cost": "Unknown",
+    "related_url": "",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:24.490696+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "191881",
+    "UUID": "AE75C4C2-24B6-44D9-8C5F-58662CBBC304",
+    "title": {
+      "en": "E103",
+      "el": "E103"
+    },
+    "latitude": 35.0028654840884,
+    "longitude": 33.39357274206213,
+    "address": {
+      "en": "E103",
+      "el": "E103"
+    },
+    "postcode": 2572,
+    "town": {
+      "en": "Pera Chorio",
+      "el": "Pera Chorio"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 1
+      },
+      {
+        "type": "CCS (Type 2)",
+        "powerKW": 50,
+        "current": "DC",
+        "status": "Operational",
+        "quantity": 1
+      },
+      {
+        "type": "CHAdeMO",
+        "powerKW": 50,
+        "current": "DC",
+        "status": "Operational",
+        "quantity": 1
+      }
+    ],
+    "number_of_points": 2,
+    "usage_cost": "Unknown",
+    "related_url": "https://www.eac.com.cy/En/CustomerService/eCharge/Pages/default.aspx",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:24.588729+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "191879",
+    "UUID": "5C85DB42-A48A-4C48-9273-39B319372BA3",
+    "title": {
+      "en": "Alfa Mega",
+      "el": "Alfa Mega"
+    },
+    "latitude": 34.81790454160898,
+    "longitude": 33.36095230885053,
+    "address": {
+      "en": "Alfa Mega",
+      "el": "Alfa Mega"
+    },
+    "postcode": 0,
+    "town": {
+      "en": "Skarinou",
+      "el": "Skarinou"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 1
+      },
+      {
+        "type": "CCS (Type 2)",
+        "powerKW": 50,
+        "current": "DC",
+        "status": "Operational",
+        "quantity": 1
+      },
+      {
+        "type": "CHAdeMO",
+        "powerKW": 50,
+        "current": "DC",
+        "status": "Operational",
+        "quantity": 1
+      }
+    ],
+    "number_of_points": 2,
+    "usage_cost": "Unknown",
+    "related_url": "https://www.eac.com.cy/En/CustomerService/eCharge/Pages/default.aspx",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:24.689831+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "154494",
+    "UUID": "181B6534-AA49-4378-9CA3-1FD7CCA8B03F",
+    "title": {
+      "en": "Ermou",
+      "el": "Ermou"
+    },
+    "latitude": 34.9129065684764,
+    "longitude": 33.635962825388674,
+    "address": {
+      "en": "Ermou",
+      "el": "Ermou"
+    },
+    "postcode": 6022,
+    "town": {
+      "en": "Larnaca",
+      "el": "Larnaca"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 2
+      }
+    ],
+    "number_of_points": 1,
+    "usage_cost": "Unknown",
+    "related_url": "",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:24.782556+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "154493",
+    "UUID": "5AE65D9E-FA05-422A-B041-5F35EF4972AF",
+    "title": {
+      "en": "Piyiale Pasa",
+      "el": "Piyiale Pasa"
+    },
+    "latitude": 34.89738751286468,
+    "longitude": 33.6382632729634,
+    "address": {
+      "en": "Piyiale Pasa",
+      "el": "Piyiale Pasa"
+    },
+    "postcode": 6301,
+    "town": {
+      "en": "Larnaca",
+      "el": "Larnaca"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 2
+      }
+    ],
+    "number_of_points": 1,
+    "usage_cost": "Unknown",
+    "related_url": "",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:24.876056+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "154492",
+    "UUID": "16AB4637-DA08-43E6-ABE2-0C148C69020C",
+    "title": {
+      "en": "Municipal Open air Theatre",
+      "el": "Municipal Open air Theatre"
+    },
+    "latitude": 35.04002934347346,
+    "longitude": 33.983784413503145,
+    "address": {
+      "en": "Municipal Open air Theatre",
+      "el": "Municipal Open air Theatre"
+    },
+    "postcode": 5309,
+    "town": {
+      "en": "Paralimni",
+      "el": "Paralimni"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 2
+      }
+    ],
+    "number_of_points": 1,
+    "usage_cost": "Unknown",
+    "related_url": "",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:24.973940+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "154491",
+    "UUID": "4A723D03-CFC8-442F-AE99-95098D58A65C",
+    "title": {
+      "en": "EAC Charge Point",
+      "el": "EAC Charge Point"
+    },
+    "latitude": 35.01680508550206,
+    "longitude": 34.049169879443184,
+    "address": {
+      "en": "228X+PM Protaras, Cyprus",
+      "el": "228X+PM Protaras, Cyprus"
+    },
+    "postcode": 37087,
+    "town": {
+      "en": "Protaras",
+      "el": "Protaras"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 21,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 2
+      }
+    ],
+    "number_of_points": 1,
+    "usage_cost": "Unknown",
+    "related_url": "",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:25.067401+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "154490",
+    "UUID": "A1C4A757-62C4-4F39-ADC0-D5D260FCE5FA",
+    "title": {
+      "en": "Ag. Athanasios Municipal Parking",
+      "el": "Ag. Athanasios Municipal Parking"
+    },
+    "latitude": 34.708760353727456,
+    "longitude": 33.050346112593274,
+    "address": {
+      "en": "Charalambou Fteroudi",
+      "el": "Charalambou Fteroudi"
+    },
+    "postcode": 4004,
+    "town": {
+      "en": "Limassol",
+      "el": "Limassol"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 2
+      }
+    ],
+    "number_of_points": 1,
+    "usage_cost": "Unknown",
+    "related_url": "",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:25.159996+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "106903",
+    "UUID": "EF31E7E3-5757-4352-A79C-0DAD1C5B6597",
+    "title": {
+      "en": "Chester's Restaurant Parking Area",
+      "el": "Chester's Restaurant Parking Area"
+    },
+    "latitude": 34.714701329071,
+    "longitude": 33.1631672412864,
+    "address": {
+      "en": "Leoforos Amathountos, 194",
+      "el": "Leoforos Amathountos, 194"
+    },
+    "postcode": 4520,
+    "town": {
+      "en": "Limassol",
+      "el": "Limassol"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 7.6,
+        "current": "AC (Single-Phase)",
+        "status": "Operational",
+        "quantity": 2
+      }
+    ],
+    "number_of_points": 2,
+    "usage_cost": "Unknown",
+    "related_url": "",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:25.248930+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "99690",
+    "UUID": "85260F65-4310-4DF3-B4A4-5F5FC935D303",
+    "title": {
+      "en": "Paphos Airport (PFO) Car Park",
+      "el": "Paphos Airport (PFO) Car Park"
+    },
+    "latitude": 34.7114238974426,
+    "longitude": 32.4891347058182,
+    "address": {
+      "en": "Paphos Airport",
+      "el": "Paphos Airport"
+    },
+    "postcode": 8507,
+    "town": {
+      "en": "Achelia",
+      "el": "Achelia"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 7,
+        "current": "AC (Single-Phase)",
+        "status": "Operational",
+        "quantity": 2
+      }
+    ],
+    "number_of_points": 2,
+    "usage_cost": "Unknown",
+    "related_url": "",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:25.350225+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "97262",
+    "UUID": "23DFD086-547E-46D4-86AD-B9984FEAE0B0",
+    "title": {
+      "en": "Opposite EAC Head Office in Car Park Entrance",
+      "el": "Opposite EAC Head Office in Car Park Entrance"
+    },
+    "latitude": 34.7838074299568,
+    "longitude": 32.4437100493602,
+    "address": {
+      "en": "Eleutheriou Venizelou Avenue",
+      "el": "Eleutheriou Venizelou Avenue"
+    },
+    "postcode": 8027,
+    "town": {
+      "en": "Paphos",
+      "el": "Paphos"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Single-Phase)",
+        "status": "Operational",
+        "quantity": 2
+      }
+    ],
+    "number_of_points": 2,
+    "usage_cost": "Unknown",
+    "related_url": "",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:25.448808+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "97245",
+    "UUID": "38B1F7BD-698C-4E71-81EB-679A9E400E29",
+    "title": {
+      "en": "Car Park by CTA Office Polis",
+      "el": "Car Park by CTA Office Polis"
+    },
+    "latitude": 35.0336922132855,
+    "longitude": 32.425163938604,
+    "address": {
+      "en": "Vasileiou Stasiokou Street",
+      "el": "Vasileiou Stasiokou Street"
+    },
+    "postcode": 8840,
+    "town": {
+      "en": "Polis",
+      "el": "Polis"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 2
+      }
+    ],
+    "number_of_points": 2,
+    "usage_cost": "Unknown",
+    "related_url": "",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:25.539542+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "93019",
+    "UUID": "99D064B7-64BB-4245-943E-8E21DFA4313A",
+    "title": {
+      "en": "Enaerios Municipal Parking",
+      "el": "Enaerios Municipal Parking"
+    },
+    "latitude": 34.685294,
+    "longitude": 33.059097,
+    "address": {
+      "en": "Makariou III",
+      "el": "Makariou III"
+    },
+    "postcode": 0,
+    "town": {
+      "en": "Limassol",
+      "el": "Limassol"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 2
+      }
+    ],
+    "number_of_points": 2,
+    "usage_cost": "Unknown",
+    "related_url": "https://www.eac.com.cy/En/CustomerService/eCharge/Pages/default.aspx",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:25.630542+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "93018",
+    "UUID": "870CB1B0-7FBF-4560-ADBD-D19A5C585F10",
+    "title": {
+      "en": "Larnaca Airport",
+      "el": "Larnaca Airport"
+    },
+    "latitude": 34.872129,
+    "longitude": 33.606875,
+    "address": {
+      "en": "Airport Loop",
+      "el": "Airport Loop"
+    },
+    "postcode": 7020,
+    "town": {
+      "en": "Larnaca",
+      "el": "Larnaca"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 2
+      }
+    ],
+    "number_of_points": 2,
+    "usage_cost": "Unknown",
+    "related_url": "https://www.eac.com.cy/En/CustomerService/eCharge/Pages/default.aspx",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:25.731062+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "92914",
+    "UUID": "DDFC58C0-0E4F-49CE-8059-40F3345B15F8",
+    "title": {
+      "en": "EAC Area Offices Lefkosia",
+      "el": "EAC Area Offices Lefkosia"
+    },
+    "latitude": 35.138515,
+    "longitude": 33.373596099999986,
+    "address": {
+      "en": "Anavyssou",
+      "el": "Anavyssou"
+    },
+    "postcode": 0,
+    "town": {
+      "en": "Nicosia",
+      "el": "Nicosia"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 2
+      }
+    ],
+    "number_of_points": 2,
+    "usage_cost": "Unknown",
+    "related_url": "https://myeac.etrel.com/#/portal/locations",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:25.820662+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "92913",
+    "UUID": "42720E39-42B3-435E-B755-BCFDF1660DD2",
+    "title": {
+      "en": "Keryneias  / Mpoumpoulinas Junction",
+      "el": "Keryneias  / Mpoumpoulinas Junction"
+    },
+    "latitude": 35.14856915827663,
+    "longitude": 33.38959691719662,
+    "address": {
+      "en": "Keryneias Av.",
+      "el": "Keryneias Av."
+    },
+    "postcode": 0,
+    "town": {
+      "en": "Nicosia",
+      "el": "Nicosia"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 2
+      }
+    ],
+    "number_of_points": 2,
+    "usage_cost": "Unknown",
+    "related_url": "https://www.eac.com.cy/En/CustomerService/eCharge/Pages/default.aspx",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:25.914620+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "92912",
+    "UUID": "EC398D11-37AF-4B78-8333-C6396FD5B717",
+    "title": {
+      "en": "LEFKOTHEOU-PAPAKYRIAKOU JUNCTION",
+      "el": "LEFKOTHEOU-PAPAKYRIAKOU JUNCTION"
+    },
+    "latitude": 35.1480472299349,
+    "longitude": 33.31531329212592,
+    "address": {
+      "en": "Lefkotheou Avenue",
+      "el": "Lefkotheou Avenue"
+    },
+    "postcode": 2401,
+    "town": {
+      "en": "",
+      "el": ""
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 2
+      }
+    ],
+    "number_of_points": 2,
+    "usage_cost": "Unknown",
+    "related_url": "",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:26.005402+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "92911",
+    "UUID": "BC396FC8-2E44-462D-B6B1-457C306B448A",
+    "title": {
+      "en": "Strovolos Municipality Parking",
+      "el": "Strovolos Municipality Parking"
+    },
+    "latitude": 35.1494244,
+    "longitude": 33.3590038,
+    "address": {
+      "en": "Ayiou Dimitriou",
+      "el": "Ayiou Dimitriou"
+    },
+    "postcode": 0,
+    "town": {
+      "en": "Nicosia",
+      "el": "Nicosia"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 2
+      }
+    ],
+    "number_of_points": 2,
+    "usage_cost": "Unknown",
+    "related_url": "https://www.eac.com.cy/En/CustomerService/eCharge/Pages/default.aspx",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:26.105593+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "92910",
+    "UUID": "F9DF1CF7-CABA-466B-9365-494E5D3E8216",
+    "title": {
+      "en": "University of Cyprus Campus (North Entrance Parking Area) 1",
+      "el": "University of Cyprus Campus (North Entrance Parking Area) 1"
+    },
+    "latitude": 35.14632737583531,
+    "longitude": 33.41505354480958,
+    "address": {
+      "en": "Larnakos",
+      "el": "Larnakos"
+    },
+    "postcode": 2025,
+    "town": {
+      "en": "Aglantzia",
+      "el": "Aglantzia"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 2
+      }
+    ],
+    "number_of_points": 2,
+    "usage_cost": "Unknown",
+    "related_url": "",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:26.199217+00:00",
+    "status": "active"
+  },
+  {
+    "ID": "92909",
+    "UUID": "E3BB11D2-BDD7-45A3-8B8E-64EB6DE16B74",
+    "title": {
+      "en": "EAC eCharge - Nicosia City Center EAC Offices",
+      "el": "EAC eCharge - Nicosia City Center EAC Offices"
+    },
+    "latitude": 35.16452033601655,
+    "longitude": 33.3621061163376,
+    "address": {
+      "en": "Foti Pitta",
+      "el": "Foti Pitta"
+    },
+    "postcode": 1065,
+    "town": {
+      "en": "Nicosia",
+      "el": "Nicosia"
+    },
+    "operator": "Unknown",
+    "connections": [
+      {
+        "type": "Type 2 (Socket Only)",
+        "powerKW": 22,
+        "current": "AC (Three-Phase)",
+        "status": "Operational",
+        "quantity": 2
+      }
+    ],
+    "number_of_points": 2,
+    "usage_cost": "Unknown",
+    "related_url": "",
+    "confirmed": false,
+    "last_seen": "2025-07-31T20:50:26.288809+00:00",
+    "status": "active"
+  }
+]
