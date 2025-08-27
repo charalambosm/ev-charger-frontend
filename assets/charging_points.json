@@ -17,25 +17,25 @@
       "en": "Skarinou",
       "el": "Skarinou"
     },
-    "operator": "Unknown",
+    "operator": "EKO",
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 1
       },
       {
         "type": "CCS (Type 2)",
-        "powerKW": 50,
+        "powerKW": 50.0,
         "current": "DC",
         "status": "Operational",
         "quantity": 1
       },
       {
         "type": "CHAdeMO",
-        "powerKW": 50,
+        "powerKW": 50.0,
         "current": "DC",
         "status": "Operational",
         "quantity": 1
@@ -46,7 +46,11 @@
     "related_url": "https://www.eko.com.cy/pratiria/proionta-2/eko-charge-go/",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:17.516719+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Larnaca",
+      "el": "Λάρνακα"
+    }
   },
   {
     "ID": "460133",
@@ -66,25 +70,25 @@
       "en": "Nicosia",
       "el": "Nicosia"
     },
-    "operator": "Unknown",
+    "operator": "EKO",
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 1
       },
       {
         "type": "CCS (Type 2)",
-        "powerKW": 50,
+        "powerKW": 50.0,
         "current": "DC",
         "status": "Operational",
         "quantity": 1
       },
       {
         "type": "CHAdeMO",
-        "powerKW": 50,
+        "powerKW": 50.0,
         "current": "DC",
         "status": "Operational",
         "quantity": 1
@@ -95,7 +99,11 @@
     "related_url": "https://www.eko.com.cy/pratiria/proionta-2/eko-charge-go/",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:17.846043+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Nicosia",
+      "el": "Λευκωσία"
+    }
   },
   {
     "ID": "309424",
@@ -115,25 +123,25 @@
       "en": "Nicosia",
       "el": "Nicosia"
     },
-    "operator": "Unknown",
+    "operator": "Lidl",
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 1
       },
       {
         "type": "CCS (Type 2)",
-        "powerKW": 50,
+        "powerKW": 50.0,
         "current": "DC",
         "status": "Operational",
         "quantity": 1
       },
       {
         "type": "CHAdeMO",
-        "powerKW": 50,
+        "powerKW": 50.0,
         "current": "DC",
         "status": "Operational",
         "quantity": 1
@@ -144,7 +152,11 @@
     "related_url": "",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:17.934840+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Nicosia",
+      "el": "Λευκωσία"
+    }
   },
   {
     "ID": "302475",
@@ -168,7 +180,7 @@
     "connections": [
       {
         "type": "Unknown",
-        "powerKW": 50,
+        "powerKW": 50.0,
         "current": "Unknown",
         "status": "Operational",
         "quantity": 1
@@ -179,7 +191,11 @@
     "related_url": "",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:18.035073+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Paphos",
+      "el": "Πάφος"
+    }
   },
   {
     "ID": "300668",
@@ -199,18 +215,18 @@
       "en": "",
       "el": ""
     },
-    "operator": "Unknown",
+    "operator": "Petrolina PCharge",
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 1
       },
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 1
@@ -221,7 +237,11 @@
     "related_url": "https://www.pcharge.com.cy/en/home",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:18.124365+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Limassol",
+      "el": "Λεμεσός"
+    }
   },
   {
     "ID": "300667",
@@ -241,18 +261,18 @@
       "en": "Strovolos",
       "el": "Strovolos"
     },
-    "operator": "Unknown",
+    "operator": "IKEA",
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 1
       },
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 1
@@ -263,7 +283,11 @@
     "related_url": "https://www.pcharge.com.cy/en/home",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:18.220332+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Nicosia",
+      "el": "Λευκωσία"
+    }
   },
   {
     "ID": "300666",
@@ -283,11 +307,11 @@
       "en": "Strovolos",
       "el": "Strovolos"
     },
-    "operator": "Unknown",
+    "operator": "Mall Operators",
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 2
@@ -298,7 +322,11 @@
     "related_url": "https://www.pcharge.com.cy/en/home",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:18.311515+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Nicosia",
+      "el": "Λευκωσία"
+    }
   },
   {
     "ID": "297610",
@@ -322,7 +350,7 @@
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 2
@@ -333,7 +361,11 @@
     "related_url": "https://play.google.com/store/apps/details?id=com.petrolina.pcharge",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:18.402191+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Nicosia",
+      "el": "Λευκωσία"
+    }
   },
   {
     "ID": "297090",
@@ -357,14 +389,14 @@
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 1
       },
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 1
@@ -375,7 +407,11 @@
     "related_url": "",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:18.498512+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Nicosia",
+      "el": "Λευκωσία"
+    }
   },
   {
     "ID": "297089",
@@ -399,14 +435,14 @@
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 1
       },
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 1
@@ -417,7 +453,11 @@
     "related_url": "",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:18.589167+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Nicosia",
+      "el": "Λευκωσία"
+    }
   },
   {
     "ID": "296275",
@@ -441,7 +481,7 @@
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 0
@@ -452,7 +492,11 @@
     "related_url": "",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:18.684594+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Larnaca",
+      "el": "Λάρνακα"
+    }
   },
   {
     "ID": "290992",
@@ -476,7 +520,7 @@
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 2
@@ -487,7 +531,11 @@
     "related_url": "",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:18.779313+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Nicosia",
+      "el": "Λευκωσία"
+    }
   },
   {
     "ID": "290901",
@@ -511,7 +559,7 @@
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 2
@@ -522,7 +570,11 @@
     "related_url": "https://play.google.com/store/apps/details?id=com.joltie.way&pcampaignid=web_share",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:18.873238+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Nicosia",
+      "el": "Λευκωσία"
+    }
   },
   {
     "ID": "290886",
@@ -546,7 +598,7 @@
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 2
@@ -557,7 +609,11 @@
     "related_url": "https://play.google.com/store/apps/details?id=com.joltie.way&pcampaignid=web_share",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:18.968106+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Nicosia",
+      "el": "Λευκωσία"
+    }
   },
   {
     "ID": "290885",
@@ -581,7 +637,7 @@
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "Unknown",
         "status": "Operational",
         "quantity": 2
@@ -592,7 +648,11 @@
     "related_url": "https://play.google.com/store/apps/details?id=com.joltie.way&pcampaignid=web_share",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:19.063807+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Nicosia",
+      "el": "Λευκωσία"
+    }
   },
   {
     "ID": "290868",
@@ -616,7 +676,7 @@
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 0
@@ -627,7 +687,11 @@
     "related_url": "https://play.google.com/store/apps/details?id=com.joltie.way&pcampaignid=web_share",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:19.163613+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Nicosia",
+      "el": "Λευκωσία"
+    }
   },
   {
     "ID": "290867",
@@ -651,7 +715,7 @@
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 2
@@ -662,7 +726,11 @@
     "related_url": "https://play.google.com/store/apps/details?id=com.joltie.way&pcampaignid=web_share",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:19.262326+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Nicosia",
+      "el": "Λευκωσία"
+    }
   },
   {
     "ID": "290866",
@@ -686,7 +754,7 @@
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 1
@@ -697,7 +765,11 @@
     "related_url": "https://play.google.com/store/apps/details?id=com.joltie.way&pcampaignid=web_share",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:19.358727+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Nicosia",
+      "el": "Λευκωσία"
+    }
   },
   {
     "ID": "290863",
@@ -721,7 +793,7 @@
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 1
@@ -732,7 +804,11 @@
     "related_url": "https://play.google.com/store/apps/details?id=com.joltie.way&pcampaignid=web_share",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:19.452822+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Nicosia",
+      "el": "Λευκωσία"
+    }
   },
   {
     "ID": "289129",
@@ -756,7 +832,7 @@
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 1
@@ -767,7 +843,11 @@
     "related_url": "https://play.google.com/store/apps/details?id=com.joltie.way&pcampaignid=web_share",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:19.555813+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Nicosia",
+      "el": "Λευκωσία"
+    }
   },
   {
     "ID": "289128",
@@ -791,7 +871,7 @@
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 1
@@ -802,7 +882,11 @@
     "related_url": "https://play.google.com/store/apps/details?id=com.joltie.way&pcampaignid=web_share",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:19.645610+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Nicosia",
+      "el": "Λευκωσία"
+    }
   },
   {
     "ID": "279597",
@@ -822,11 +906,11 @@
       "en": "Paphos",
       "el": "Paphos"
     },
-    "operator": "Unknown",
+    "operator": "EAC eCharge",
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 2
@@ -837,7 +921,11 @@
     "related_url": "https://myeac.etrel.com/#/portal/locations",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:19.739638+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Paphos",
+      "el": "Πάφος"
+    }
   },
   {
     "ID": "279493",
@@ -861,7 +949,7 @@
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 11,
+        "powerKW": 11.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 2
@@ -872,7 +960,11 @@
     "related_url": "",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:19.839894+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Nicosia",
+      "el": "Λευκωσία"
+    }
   },
   {
     "ID": "279462",
@@ -896,7 +988,7 @@
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 2
@@ -907,7 +999,11 @@
     "related_url": "",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:19.935856+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Nicosia",
+      "el": "Λευκωσία"
+    }
   },
   {
     "ID": "279212",
@@ -927,18 +1023,18 @@
       "en": "Larnaca",
       "el": "Larnaca"
     },
-    "operator": "Unknown",
+    "operator": "Petrolina PCharge",
     "connections": [
       {
         "type": "CCS (Type 2)",
-        "powerKW": 150,
+        "powerKW": 150.0,
         "current": "DC",
         "status": "Operational",
         "quantity": 1
       },
       {
         "type": "CHAdeMO",
-        "powerKW": 100,
+        "powerKW": 100.0,
         "current": "DC",
         "status": "Operational",
         "quantity": 1
@@ -949,7 +1045,11 @@
     "related_url": "",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:20.026671+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Larnaca",
+      "el": "Λάρνακα"
+    }
   },
   {
     "ID": "271369",
@@ -973,14 +1073,14 @@
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 1
       },
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 7,
+        "powerKW": 7.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 3
@@ -991,7 +1091,11 @@
     "related_url": "",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:20.120164+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Paphos",
+      "el": "Πάφος"
+    }
   },
   {
     "ID": "271366",
@@ -1015,7 +1119,7 @@
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 1
@@ -1026,7 +1130,11 @@
     "related_url": "",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:20.204178+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Paphos",
+      "el": "Πάφος"
+    }
   },
   {
     "ID": "264415",
@@ -1046,11 +1154,11 @@
       "en": "Strovolos",
       "el": "Strovolos"
     },
-    "operator": "Unknown",
+    "operator": "EAC eCharge",
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 2
@@ -1061,7 +1169,11 @@
     "related_url": "https://myeac.etrel.com/#/portal/locations",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:20.304928+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Nicosia",
+      "el": "Λευκωσία"
+    }
   },
   {
     "ID": "260754",
@@ -1081,11 +1193,11 @@
       "en": "Limassol",
       "el": "Limassol"
     },
-    "operator": "Unknown",
+    "operator": "EV Power",
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "Unknown",
         "status": "Operational",
         "quantity": 3
@@ -1096,7 +1208,11 @@
     "related_url": "https://www.evpower.com.cy/",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:20.396979+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Limassol",
+      "el": "Λεμεσός"
+    }
   },
   {
     "ID": "260753",
@@ -1111,16 +1227,16 @@
       "en": "Promachon Eleftherias, Agios Athanasios, Cyprus",
       "el": "Promachon Eleftherias, Agios Athanasios, Cyprus"
     },
-    "postcode": 0,
+    "postcode": 4103,
     "town": {
       "en": "Limassol",
       "el": "Limassol"
     },
-    "operator": "Unknown",
+    "operator": "Petrolina PCharge",
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 1
@@ -1131,7 +1247,11 @@
     "related_url": "https://evloader.com/el/stations-map",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:20.485592+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Limassol",
+      "el": "Λεμεσός"
+    }
   },
   {
     "ID": "260386",
@@ -1155,7 +1275,7 @@
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 2
@@ -1166,7 +1286,11 @@
     "related_url": "",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:20.578971+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Larnaca",
+      "el": "Λάρνακα"
+    }
   },
   {
     "ID": "259306",
@@ -1186,11 +1310,11 @@
       "en": "Paphos",
       "el": "Paphos"
     },
-    "operator": "Unknown",
+    "operator": "Mall Operators",
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 2
@@ -1201,7 +1325,11 @@
     "related_url": "http://Spirii Go App",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:20.670095+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Paphos",
+      "el": "Πάφος"
+    }
   },
   {
     "ID": "258965",
@@ -1225,7 +1353,7 @@
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 2
@@ -1236,7 +1364,11 @@
     "related_url": "",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:20.760772+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Nicosia",
+      "el": "Λευκωσία"
+    }
   },
   {
     "ID": "257108",
@@ -1256,11 +1388,11 @@
       "en": "Lemesos",
       "el": "Λεμεσός"
     },
-    "operator": "Unknown",
+    "operator": "EV Power",
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 1
@@ -1271,7 +1403,11 @@
     "related_url": "https://www.evpower.com.cy/",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:20.853427+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Limassol",
+      "el": "Λεμεσός"
+    }
   },
   {
     "ID": "257107",
@@ -1291,18 +1427,18 @@
       "en": "Kato Polemidia",
       "el": "Kato Polemidia"
     },
-    "operator": "Unknown",
+    "operator": "BMW (Pilakoutas Group)",
     "connections": [
       {
         "type": "CCS (Type 2)",
-        "powerKW": 150,
+        "powerKW": 150.0,
         "current": "DC",
         "status": "Operational",
         "quantity": 2
       },
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 1
@@ -1313,7 +1449,11 @@
     "related_url": "https://www.evpower.com.cy/",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:20.948012+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Limassol",
+      "el": "Λεμεσός"
+    }
   },
   {
     "ID": "257106",
@@ -1333,11 +1473,11 @@
       "en": "Leukosia",
       "el": "Λευκωσία"
     },
-    "operator": "Unknown",
+    "operator": "EV Power",
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 1
@@ -1348,7 +1488,11 @@
     "related_url": "https://www.evpower.com.cy/",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:21.041053+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Nicosia",
+      "el": "Λευκωσία"
+    }
   },
   {
     "ID": "238135",
@@ -1368,11 +1512,11 @@
       "en": "",
       "el": ""
     },
-    "operator": "Unknown",
+    "operator": "BMW (Pilakoutas Group)",
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 11,
+        "powerKW": 11.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 1
@@ -1383,7 +1527,11 @@
     "related_url": "",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:21.138088+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Limassol",
+      "el": "Λεμεσός"
+    }
   },
   {
     "ID": "213443",
@@ -1403,11 +1551,11 @@
       "en": "Lemesos",
       "el": "Λεμεσός"
     },
-    "operator": "Unknown",
+    "operator": "EvLoader",
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 1
@@ -1418,7 +1566,11 @@
     "related_url": "https://evloader.com/el/stations-map/olympic-residence-towers-limassol-b1",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:21.239112+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Limassol",
+      "el": "Λεμεσός"
+    }
   },
   {
     "ID": "213081",
@@ -1442,14 +1594,14 @@
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 11,
+        "powerKW": 11.0,
         "current": "Unknown",
         "status": "Operational",
         "quantity": 1
       },
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 11,
+        "powerKW": 11.0,
         "current": "Unknown",
         "status": "Operational",
         "quantity": 1
@@ -1460,7 +1612,11 @@
     "related_url": "",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:21.334250+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Nicosia",
+      "el": "Λευκωσία"
+    }
   },
   {
     "ID": "213080",
@@ -1484,14 +1640,14 @@
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 11,
+        "powerKW": 11.0,
         "current": "Unknown",
         "status": "Operational",
         "quantity": 1
       },
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 11,
+        "powerKW": 11.0,
         "current": "Unknown",
         "status": "Operational",
         "quantity": 1
@@ -1502,7 +1658,11 @@
     "related_url": "",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:21.428619+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Nicosia",
+      "el": "Λευκωσία"
+    }
   },
   {
     "ID": "212403",
@@ -1522,11 +1682,11 @@
       "en": "Latsia",
       "el": "Latsia"
     },
-    "operator": "Unknown",
+    "operator": "Unicars",
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 2
@@ -1537,7 +1697,11 @@
     "related_url": "",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:21.520232+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Nicosia",
+      "el": "Λευκωσία"
+    }
   },
   {
     "ID": "212387",
@@ -1561,7 +1725,7 @@
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 1
@@ -1572,7 +1736,11 @@
     "related_url": "",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:21.609246+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Paphos",
+      "el": "Πάφος"
+    }
   },
   {
     "ID": "212385",
@@ -1592,11 +1760,11 @@
       "en": "Neo Chorio",
       "el": "Neo Chorio"
     },
-    "operator": "Unknown",
+    "operator": "Unicars",
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 3
@@ -1607,7 +1775,11 @@
     "related_url": "",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:21.698734+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Paphos",
+      "el": "Πάφος"
+    }
   },
   {
     "ID": "212382",
@@ -1627,11 +1799,11 @@
       "en": "Latsia",
       "el": "Latsia"
     },
-    "operator": "Unknown",
+    "operator": "EAC eCharge",
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 2
@@ -1642,7 +1814,11 @@
     "related_url": "https://myeac.etrel.com/#/portal/locations",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:21.797032+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Nicosia",
+      "el": "Λευκωσία"
+    }
   },
   {
     "ID": "212380",
@@ -1662,11 +1838,11 @@
       "en": "Strovolos",
       "el": "Strovolos"
     },
-    "operator": "Unknown",
+    "operator": "Porsche Destination",
     "connections": [
       {
         "type": "CCS (Type 2)",
-        "powerKW": 150,
+        "powerKW": 150.0,
         "current": "DC",
         "status": "Operational",
         "quantity": 4
@@ -1677,7 +1853,11 @@
     "related_url": "",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:21.891759+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Nicosia",
+      "el": "Λευκωσία"
+    }
   },
   {
     "ID": "211293",
@@ -1697,18 +1877,18 @@
       "en": "Strovolos",
       "el": "Strovolos"
     },
-    "operator": "Unknown",
+    "operator": "Unicars",
     "connections": [
       {
         "type": "CCS (Type 2)",
-        "powerKW": 50,
+        "powerKW": 50.0,
         "current": "DC",
         "status": "Operational",
         "quantity": 1
       },
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 1
@@ -1719,7 +1899,11 @@
     "related_url": "",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:21.987340+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Nicosia",
+      "el": "Λευκωσία"
+    }
   },
   {
     "ID": "211133",
@@ -1743,7 +1927,7 @@
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 1
@@ -1754,7 +1938,11 @@
     "related_url": "",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:22.084495+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Larnaca",
+      "el": "Λάρνακα"
+    }
   },
   {
     "ID": "211132",
@@ -1774,11 +1962,11 @@
       "en": "",
       "el": ""
     },
-    "operator": "Unknown",
+    "operator": "Porsche Destination",
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 1
@@ -1789,7 +1977,11 @@
     "related_url": "",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:22.172422+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Larnaca",
+      "el": "Λάρνακα"
+    }
   },
   {
     "ID": "211131",
@@ -1809,11 +2001,11 @@
       "en": "",
       "el": ""
     },
-    "operator": "Unknown",
+    "operator": "EAC eCharge",
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 2
@@ -1824,7 +2016,11 @@
     "related_url": "",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:22.274880+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Larnaca",
+      "el": "Λάρνακα"
+    }
   },
   {
     "ID": "211130",
@@ -1848,7 +2044,7 @@
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 2
@@ -1859,7 +2055,11 @@
     "related_url": "",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:22.372822+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Larnaca",
+      "el": "Λάρνακα"
+    }
   },
   {
     "ID": "211129",
@@ -1879,25 +2079,25 @@
       "en": "Aradippou",
       "el": "Αραδίππου"
     },
-    "operator": "Unknown",
+    "operator": "Lidl",
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 1
       },
       {
         "type": "CCS (Type 2)",
-        "powerKW": 20,
+        "powerKW": 20.0,
         "current": "DC",
         "status": "Operational",
         "quantity": 1
       },
       {
         "type": "CHAdeMO",
-        "powerKW": 20,
+        "powerKW": 20.0,
         "current": "DC",
         "status": "Operational",
         "quantity": 1
@@ -1908,7 +2108,11 @@
     "related_url": "",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:22.470037+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Larnaca",
+      "el": "Λάρνακα"
+    }
   },
   {
     "ID": "211126",
@@ -1928,18 +2132,18 @@
       "en": "Strovolos",
       "el": "Strovolos"
     },
-    "operator": "Unknown",
+    "operator": "BMW (Pilakoutas Group)",
     "connections": [
       {
         "type": "CCS (Type 2)",
-        "powerKW": 150,
+        "powerKW": 150.0,
         "current": "DC",
         "status": "Operational",
         "quantity": 2
       },
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 1
@@ -1950,7 +2154,11 @@
     "related_url": "https://www.evpower.com.cy/",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:22.569294+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Nicosia",
+      "el": "Λευκωσία"
+    }
   },
   {
     "ID": "211061",
@@ -1970,11 +2178,11 @@
       "en": "",
       "el": ""
     },
-    "operator": "Unknown",
+    "operator": "Mall Operators",
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 2
@@ -1985,7 +2193,11 @@
     "related_url": "",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:22.665682+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Paphos",
+      "el": "Πάφος"
+    }
   },
   {
     "ID": "210848",
@@ -2005,18 +2217,18 @@
       "en": "",
       "el": ""
     },
-    "operator": "Unknown",
+    "operator": "Lidl",
     "connections": [
       {
         "type": "CCS (Type 2)",
-        "powerKW": 50,
+        "powerKW": 50.0,
         "current": "DC",
         "status": "Operational",
         "quantity": 1
       },
       {
         "type": "CHAdeMO",
-        "powerKW": 50,
+        "powerKW": 50.0,
         "current": "DC",
         "status": "Operational",
         "quantity": 1
@@ -2027,7 +2239,11 @@
     "related_url": "",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:22.760987+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Nicosia",
+      "el": "Λευκωσία"
+    }
   },
   {
     "ID": "202907",
@@ -2042,7 +2258,7 @@
       "en": "Leof. Agrou",
       "el": "Λεωφ. Αγρού"
     },
-    "postcode": 0,
+    "postcode": 4860,
     "town": {
       "en": "Agros",
       "el": "Agros"
@@ -2051,7 +2267,7 @@
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 2
@@ -2062,7 +2278,11 @@
     "related_url": "",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:22.854111+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Limassol",
+      "el": "Λεμεσός"
+    }
   },
   {
     "ID": "195453",
@@ -2082,11 +2302,11 @@
       "en": "Ypsonas",
       "el": "Ypsonas"
     },
-    "operator": "Unknown",
+    "operator": "EAC eCharge",
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 2
@@ -2097,7 +2317,11 @@
     "related_url": "https://myeac.etrel.com/#/portal/locations",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:22.949077+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Limassol",
+      "el": "Λεμεσός"
+    }
   },
   {
     "ID": "195452",
@@ -2117,11 +2341,11 @@
       "en": "Limassol",
       "el": "Limassol"
     },
-    "operator": "Unknown",
+    "operator": "EAC eCharge",
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 2
@@ -2132,7 +2356,11 @@
     "related_url": "https://myeac.etrel.com/#/portal/locations",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:23.041108+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Limassol",
+      "el": "Λεμεσός"
+    }
   },
   {
     "ID": "195423",
@@ -2156,7 +2384,7 @@
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 2
@@ -2167,7 +2395,11 @@
     "related_url": "",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:23.140678+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Limassol",
+      "el": "Λεμεσός"
+    }
   },
   {
     "ID": "195421",
@@ -2187,25 +2419,25 @@
       "en": "Limassol",
       "el": "Limassol"
     },
-    "operator": "Unknown",
+    "operator": "Lidl",
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 1
       },
       {
         "type": "CCS (Type 2)",
-        "powerKW": 20,
+        "powerKW": 20.0,
         "current": "DC",
         "status": "Operational",
         "quantity": 1
       },
       {
         "type": "CHAdeMO",
-        "powerKW": 20,
+        "powerKW": 20.0,
         "current": "DC",
         "status": "Operational",
         "quantity": 1
@@ -2216,7 +2448,11 @@
     "related_url": "",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:23.241400+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Limassol",
+      "el": "Λεμεσός"
+    }
   },
   {
     "ID": "195420",
@@ -2240,7 +2476,7 @@
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 2
@@ -2251,7 +2487,11 @@
     "related_url": "",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:23.336415+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Limassol",
+      "el": "Λεμεσός"
+    }
   },
   {
     "ID": "195419",
@@ -2275,7 +2515,7 @@
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 2
@@ -2286,7 +2526,11 @@
     "related_url": "",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:23.439365+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Limassol",
+      "el": "Λεμεσός"
+    }
   },
   {
     "ID": "195418",
@@ -2310,7 +2554,7 @@
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 2
@@ -2321,7 +2565,11 @@
     "related_url": "",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:23.536170+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Limassol",
+      "el": "Λεμεσός"
+    }
   },
   {
     "ID": "194125",
@@ -2345,28 +2593,28 @@
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 11,
+        "powerKW": 11.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 1
       },
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 11,
+        "powerKW": 11.0,
         "current": "Unknown",
         "status": "Operational",
         "quantity": 1
       },
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 11,
+        "powerKW": 11.0,
         "current": "Unknown",
         "status": "Operational",
         "quantity": 1
       },
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 11,
+        "powerKW": 11.0,
         "current": "Unknown",
         "status": "Operational",
         "quantity": 1
@@ -2377,7 +2625,11 @@
     "related_url": "",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:23.634054+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Limassol",
+      "el": "Λεμεσός"
+    }
   },
   {
     "ID": "194124",
@@ -2401,7 +2653,7 @@
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 2
@@ -2412,7 +2664,11 @@
     "related_url": "",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:23.724725+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Limassol",
+      "el": "Λεμεσός"
+    }
   },
   {
     "ID": "194123",
@@ -2436,7 +2692,7 @@
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 2
@@ -2447,7 +2703,11 @@
     "related_url": "",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:23.813203+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Limassol",
+      "el": "Λεμεσός"
+    }
   },
   {
     "ID": "193860",
@@ -2471,7 +2731,7 @@
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 2
@@ -2482,7 +2742,11 @@
     "related_url": "",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:23.909536+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Nicosia",
+      "el": "Λευκωσία"
+    }
   },
   {
     "ID": "193545",
@@ -2502,11 +2766,11 @@
       "en": "Limassol",
       "el": "Limassol"
     },
-    "operator": "Unknown",
+    "operator": "EAC eCharge",
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 1
@@ -2517,7 +2781,11 @@
     "related_url": "https://evloader.com/el/stations-map/amathus-residences-evmotion-331315-347091",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:24.007112+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Limassol",
+      "el": "Λεμεσός"
+    }
   },
   {
     "ID": "193544",
@@ -2532,16 +2800,16 @@
       "en": "Nestor",
       "el": "Nestor"
     },
-    "postcode": 0,
+    "postcode": 5342,
     "town": {
       "en": "Ayia Napa",
       "el": "Ayia Napa"
     },
-    "operator": "Unknown",
+    "operator": "EvLoader",
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 2
@@ -2552,7 +2820,11 @@
     "related_url": "https://evloader.com/el/stations-map/nestor-hotel-evmotion-Ayia",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:24.105295+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Famagusta",
+      "el": "Αμμόχωστος"
+    }
   },
   {
     "ID": "192545",
@@ -2572,11 +2844,11 @@
       "en": "Nicosia",
       "el": "Nicosia"
     },
-    "operator": "Unknown",
+    "operator": "Mall Operators",
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 2
@@ -2587,7 +2859,11 @@
     "related_url": "https://www.evpower.com.cy/",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:24.196538+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Nicosia",
+      "el": "Λευκωσία"
+    }
   },
   {
     "ID": "192544",
@@ -2607,11 +2883,11 @@
       "en": "Strovolos",
       "el": "Strovolos"
     },
-    "operator": "Unknown",
+    "operator": "EV Power",
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 2
@@ -2622,7 +2898,11 @@
     "related_url": "https://www.evpower.com.cy/",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:24.294376+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Nicosia",
+      "el": "Λευκωσία"
+    }
   },
   {
     "ID": "191941",
@@ -2642,25 +2922,25 @@
       "en": "",
       "el": ""
     },
-    "operator": "Unknown",
+    "operator": "Lidl",
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 1
       },
       {
         "type": "CCS (Type 2)",
-        "powerKW": 50,
+        "powerKW": 50.0,
         "current": "DC",
         "status": "Operational",
         "quantity": 1
       },
       {
         "type": "CHAdeMO",
-        "powerKW": 50,
+        "powerKW": 50.0,
         "current": "DC",
         "status": "Operational",
         "quantity": 1
@@ -2671,7 +2951,11 @@
     "related_url": "",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:24.389507+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Limassol",
+      "el": "Λεμεσός"
+    }
   },
   {
     "ID": "191940",
@@ -2695,7 +2979,7 @@
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 2
@@ -2706,7 +2990,11 @@
     "related_url": "",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:24.490696+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Limassol",
+      "el": "Λεμεσός"
+    }
   },
   {
     "ID": "191881",
@@ -2726,25 +3014,25 @@
       "en": "Pera Chorio",
       "el": "Pera Chorio"
     },
-    "operator": "Unknown",
+    "operator": "EAC eCharge",
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 1
       },
       {
         "type": "CCS (Type 2)",
-        "powerKW": 50,
+        "powerKW": 50.0,
         "current": "DC",
         "status": "Operational",
         "quantity": 1
       },
       {
         "type": "CHAdeMO",
-        "powerKW": 50,
+        "powerKW": 50.0,
         "current": "DC",
         "status": "Operational",
         "quantity": 1
@@ -2755,7 +3043,11 @@
     "related_url": "https://www.eac.com.cy/En/CustomerService/eCharge/Pages/default.aspx",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:24.588729+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Nicosia",
+      "el": "Λευκωσία"
+    }
   },
   {
     "ID": "191879",
@@ -2770,30 +3062,30 @@
       "en": "Alfa Mega",
       "el": "Alfa Mega"
     },
-    "postcode": 0,
+    "postcode": 7731,
     "town": {
       "en": "Skarinou",
       "el": "Skarinou"
     },
-    "operator": "Unknown",
+    "operator": "EAC eCharge",
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 1
       },
       {
         "type": "CCS (Type 2)",
-        "powerKW": 50,
+        "powerKW": 50.0,
         "current": "DC",
         "status": "Operational",
         "quantity": 1
       },
       {
         "type": "CHAdeMO",
-        "powerKW": 50,
+        "powerKW": 50.0,
         "current": "DC",
         "status": "Operational",
         "quantity": 1
@@ -2804,7 +3096,11 @@
     "related_url": "https://www.eac.com.cy/En/CustomerService/eCharge/Pages/default.aspx",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:24.689831+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Larnaca",
+      "el": "Λάρνακα"
+    }
   },
   {
     "ID": "154494",
@@ -2828,7 +3124,7 @@
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 2
@@ -2839,7 +3135,11 @@
     "related_url": "",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:24.782556+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Larnaca",
+      "el": "Λάρνακα"
+    }
   },
   {
     "ID": "154493",
@@ -2863,7 +3163,7 @@
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 2
@@ -2874,7 +3174,11 @@
     "related_url": "",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:24.876056+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Larnaca",
+      "el": "Λάρνακα"
+    }
   },
   {
     "ID": "154492",
@@ -2898,7 +3202,7 @@
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 2
@@ -2909,7 +3213,11 @@
     "related_url": "",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:24.973940+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Famagusta",
+      "el": "Αμμόχωστος"
+    }
   },
   {
     "ID": "154491",
@@ -2924,16 +3232,16 @@
       "en": "228X+PM Protaras, Cyprus",
       "el": "228X+PM Protaras, Cyprus"
     },
-    "postcode": 37087,
+    "postcode": 5296,
     "town": {
       "en": "Protaras",
       "el": "Protaras"
     },
-    "operator": "Unknown",
+    "operator": "EAC eCharge",
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 21,
+        "powerKW": 21.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 2
@@ -2944,7 +3252,11 @@
     "related_url": "",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:25.067401+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Famagusta",
+      "el": "Αμμόχωστος"
+    }
   },
   {
     "ID": "154490",
@@ -2968,7 +3280,7 @@
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 2
@@ -2979,7 +3291,11 @@
     "related_url": "",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:25.159996+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Limassol",
+      "el": "Λεμεσός"
+    }
   },
   {
     "ID": "106903",
@@ -3014,7 +3330,11 @@
     "related_url": "",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:25.248930+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Limassol",
+      "el": "Λεμεσός"
+    }
   },
   {
     "ID": "99690",
@@ -3038,7 +3358,7 @@
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 7,
+        "powerKW": 7.0,
         "current": "AC (Single-Phase)",
         "status": "Operational",
         "quantity": 2
@@ -3049,7 +3369,11 @@
     "related_url": "",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:25.350225+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Paphos",
+      "el": "Πάφος"
+    }
   },
   {
     "ID": "97262",
@@ -3069,11 +3393,11 @@
       "en": "Paphos",
       "el": "Paphos"
     },
-    "operator": "Unknown",
+    "operator": "EAC eCharge",
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Single-Phase)",
         "status": "Operational",
         "quantity": 2
@@ -3084,7 +3408,11 @@
     "related_url": "",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:25.448808+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Paphos",
+      "el": "Πάφος"
+    }
   },
   {
     "ID": "97245",
@@ -3108,7 +3436,7 @@
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 2
@@ -3119,7 +3447,11 @@
     "related_url": "",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:25.539542+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Paphos",
+      "el": "Πάφος"
+    }
   },
   {
     "ID": "93019",
@@ -3134,16 +3466,16 @@
       "en": "Makariou III",
       "el": "Makariou III"
     },
-    "postcode": 0,
+    "postcode": 3105,
     "town": {
       "en": "Limassol",
       "el": "Limassol"
     },
-    "operator": "Unknown",
+    "operator": "EAC eCharge",
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 2
@@ -3154,7 +3486,11 @@
     "related_url": "https://www.eac.com.cy/En/CustomerService/eCharge/Pages/default.aspx",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:25.630542+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Limassol",
+      "el": "Λεμεσός"
+    }
   },
   {
     "ID": "93018",
@@ -3174,11 +3510,11 @@
       "en": "Larnaca",
       "el": "Larnaca"
     },
-    "operator": "Unknown",
+    "operator": "EAC eCharge",
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 2
@@ -3189,7 +3525,11 @@
     "related_url": "https://www.eac.com.cy/En/CustomerService/eCharge/Pages/default.aspx",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:25.731062+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Larnaca",
+      "el": "Λάρνακα"
+    }
   },
   {
     "ID": "92914",
@@ -3204,16 +3544,16 @@
       "en": "Anavyssou",
       "el": "Anavyssou"
     },
-    "postcode": 0,
+    "postcode": 2025,
     "town": {
       "en": "Nicosia",
       "el": "Nicosia"
     },
-    "operator": "Unknown",
+    "operator": "EAC eCharge",
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 2
@@ -3224,7 +3564,11 @@
     "related_url": "https://myeac.etrel.com/#/portal/locations",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:25.820662+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Nicosia",
+      "el": "Λευκωσία"
+    }
   },
   {
     "ID": "92913",
@@ -3239,16 +3583,16 @@
       "en": "Keryneias Av.",
       "el": "Keryneias Av."
     },
-    "postcode": 0,
+    "postcode": 2113,
     "town": {
       "en": "Nicosia",
       "el": "Nicosia"
     },
-    "operator": "Unknown",
+    "operator": "EAC eCharge",
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 2
@@ -3259,7 +3603,11 @@
     "related_url": "https://www.eac.com.cy/En/CustomerService/eCharge/Pages/default.aspx",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:25.914620+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Nicosia",
+      "el": "Λευκωσία"
+    }
   },
   {
     "ID": "92912",
@@ -3283,7 +3631,7 @@
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 2
@@ -3294,7 +3642,11 @@
     "related_url": "",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:26.005402+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Nicosia",
+      "el": "Λευκωσία"
+    }
   },
   {
     "ID": "92911",
@@ -3309,16 +3661,16 @@
       "en": "Ayiou Dimitriou",
       "el": "Ayiou Dimitriou"
     },
-    "postcode": 0,
+    "postcode": 2012,
     "town": {
       "en": "Nicosia",
       "el": "Nicosia"
     },
-    "operator": "Unknown",
+    "operator": "EAC eCharge",
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 2
@@ -3329,7 +3681,11 @@
     "related_url": "https://www.eac.com.cy/En/CustomerService/eCharge/Pages/default.aspx",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:26.105593+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Nicosia",
+      "el": "Λευκωσία"
+    }
   },
   {
     "ID": "92910",
@@ -3353,7 +3709,7 @@
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 2
@@ -3364,7 +3720,11 @@
     "related_url": "",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:26.199217+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Nicosia",
+      "el": "Λευκωσία"
+    }
   },
   {
     "ID": "92909",
@@ -3384,11 +3744,11 @@
       "en": "Nicosia",
       "el": "Nicosia"
     },
-    "operator": "Unknown",
+    "operator": "EAC eCharge",
     "connections": [
       {
         "type": "Type 2 (Socket Only)",
-        "powerKW": 22,
+        "powerKW": 22.0,
         "current": "AC (Three-Phase)",
         "status": "Operational",
         "quantity": 2
@@ -3399,6 +3759,10 @@
     "related_url": "",
     "confirmed": false,
     "last_seen": "2025-07-31T20:50:26.288809+00:00",
-    "status": "active"
+    "status": "active",
+    "district": {
+      "en": "Nicosia",
+      "el": "Λευκωσία"
+    }
   }
 ]

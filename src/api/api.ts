@@ -1,7 +1,7 @@
 import axios from "axios";
 import { z } from "zod";
 import type { Station } from "../types/ocm";
-import localStations from "../../assets/charging_points_export.json";
+import localStations from "../../assets/charging_points.json";
 
 const stationSchema: z.ZodType<Station> = z.object({
   ID: z.string(),
@@ -12,6 +12,7 @@ const stationSchema: z.ZodType<Station> = z.object({
   address: z.object({ en: z.string().default(""), el: z.string().default("") }),
   postcode: z.number(),
   town: z.object({ en: z.string().default(""), el: z.string().default("") }),
+  district: z.object({ en: z.string().default(""), el: z.string().default("") }),
   operator: z.string().default("Unknown"), // TODO: Change to Localized
   connections: z.array(z.object({
     type: z.string(),
@@ -39,7 +40,7 @@ export async function fetchStations(): Promise<Station[]> {
     return stationsSchema.parse(data);
   } catch {
     // local fallback
-    const local = require("../../assets/charging_points_export.json");
+    const local = require("../../assets/charging_points.json");
     return stationsSchema.parse(local);
   }
 }

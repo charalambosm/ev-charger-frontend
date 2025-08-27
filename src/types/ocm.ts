@@ -17,6 +17,7 @@ export type Station = {
   address: Localized;
   postcode: number;
   town: Localized;
+  district: Localized;
   operator: string; // TODO: Change to Localized
   connections: Connection[];
   number_of_points: number;
@@ -25,6 +26,7 @@ export type Station = {
   confirmed: boolean;
   last_seen: string;            // ISO
   status: "active" | "inactive" | string;
+  distanceMeters?: number;
 };
 
 export type StationFeature = {
