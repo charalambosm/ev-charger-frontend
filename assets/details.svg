@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="360" height="780" viewBox="0 0 360 780">
+  <title>EV Charger Details Screen</title>
+
+  <!-- ===== Background ===== -->
+  <rect id="screen-bg" x="0" y="0" width="360" height="780" fill="#F5F6FA"/>
+
+  <!-- ===== Header / Title Card ===== -->
+  <g id="header-card">
+    <rect x="16" y="16" width="328" height="140" rx="16" fill="#FFFFFF" stroke="#E5E7EB"/>
+    <text id="title" x="32" y="52"
+          font-family="Arial" font-size="22" font-weight="700" fill="#111827">
+      IKEA Nicosia
+    </text>
+
+    <!-- Address -->
+    <g id="address-line">
+      <text id="address" x="40" y="76"
+            font-family="Arial" font-size="14" fill="#374151">
+        Verginas 1, Strovolos
+      </text>
+    </g>
+
+    <!-- Meta grid: Postcode / Town / Country -->
+    <g id="meta-grid">
+      <text x="32" y="104" font-family="Arial" font-size="11" fill="#6B7280">Postcode</text>
+      <text id="postcode" x="32" y="120" font-family="Arial" font-size="14" font-weight="700" fill="#111827">2030</text>
+
+      <text x="132" y="104" font-family="Arial" font-size="11" fill="#6B7280">Town</text>
+      <text id="town" x="132" y="120" font-family="Arial" font-size="14" font-weight="700" fill="#111827">Strovolos</text>
+
+      <text x="232" y="104" font-family="Arial" font-size="11" fill="#6B7280">Country</text>
+      <text id="country" x="232" y="120" font-family="Arial" font-size="14" font-weight="700" fill="#111827">Cyprus</text>
+    </g>
+  </g>
+
+  <!-- ===== Operator Card ===== -->
+  <g id="operator-card">
+    <rect x="16" y="168" width="328" height="88" rx="16" fill="#FFFFFF" stroke="#E5E7EB"/>
+    <!-- Logo placeholder (replace with your vector logo) -->
+    <g id="operator-logo" transform="translate(32,184)">
+      <rect x="0" y="0" width="56" height="56" rx="12" fill="#111827"/>
+      <text x="28" y="34" text-anchor="middle"
+            font-family="Arial" font-size="12" font-weight="700" fill="#FFFFFF">LOGO</text>
+    </g>
+
+    <text x="104" y="194" font-family="Arial" font-size="11" fill="#6B7280">Operator</text>
+    <text id="operator" x="104" y="212" font-family="Arial" font-size="16" font-weight="700" fill="#111827">IKEA</text>
+
+    <text x="104" y="232" font-family="Arial" font-size="11" fill="#6B7280">Number of connections</text>
+    <g id="connections-count" transform="translate(256,212)">
+      <rect x="0" y="-16" width="56" height="24" rx="12" fill="#2563EB"/>
+      <text x="28" y="1" text-anchor="middle" font-family="Arial" font-size="12" font-weight="700" fill="#FFFFFF">2</text>
+    </g>
+  </g>
+
+  <!-- ===== Connections List ===== -->
+  <g id="connections-card">
+    <rect x="16" y="272" width="328" height="332" rx="16" fill="#FFFFFF" stroke="#E5E7EB"/>
+    <text x="32" y="300" font-family="Arial" font-size="16" font-weight="700" fill="#111827">Connections</text>
+
+    <!-- Row 1 -->
+    <g id="connection-row-1" transform="translate(24,316)">
+      <rect x="0" y="0" width="312" height="64" rx="12" fill="#F9FAFB" stroke="#E5E7EB"/>
+      <!-- socket icon -->
+      <g transform="translate(20,32)">
+        <circle r="14" fill="#111827"/>
+        <circle r="8.5" fill="#FFFFFF"/>
+        <!-- holes -->
+        <circle cx="-4.5" cy="-3.5" r="1.4" fill="#111827"/>
+        <circle cx="0" cy="-5.2" r="1.4" fill="#111827"/>
+        <circle cx="4.5" cy="-3.5" r="1.4" fill="#111827"/>
+        <circle cx="-6" cy="1.2" r="1.4" fill="#111827"/>
+        <circle cx="6" cy="1.2" r="1.4" fill="#111827"/>
+        <circle cx="-4" cy="5.4" r="1.4" fill="#111827"/>
+        <circle cx="4" cy="5.4" r="1.4" fill="#111827"/>
+      </g>
+
+      <text x="48" y="24" font-family="Arial" font-size="14" font-weight="700" fill="#111827">
+        Type 2 (Socket Only)
+      </text>
+      <text x="48" y="44" font-family="Arial" font-size="12" fill="#374151">
+        22 kW • AC (Three-Phase) • qty 1
+      </text>
+    </g>
+
+    <!-- Row 2 -->
+    <g id="connection-row-2" transform="translate(24,388)">
+      <rect x="0" y="0" width="312" height="64" rx="12" fill="#F9FAFB" stroke="#E5E7EB"/>
+      <!-- bolt icon -->
+      <g transform="translate(20,32)">
+        <circle r="14" fill="#111827"/>
+        <path d="M -3 -9 L 5 -9 L -1 2 L 6 2 L -6 13 L -1 3 L -7 3 Z" fill="#FFFFFF"/>
+      </g>
+
+      <text x="48" y="24" font-family="Arial" font-size="14" font-weight="700" fill="#111827">
+        CCS (Type 2)
+      </text>
+      <text x="48" y="44" font-family="Arial" font-size="12" fill="#374151">
+        50 kW • DC • qty 1
+      </text>
+    </g>
+
+    <!-- Row template: duplicate this group for more connections -->
+    <g id="connection-row-template" transform="translate(24,460)" opacity="0.35">
+      <rect x="0" y="0" width="312" height="64" rx="12" fill="#F9FAFB" stroke="#E5E7EB" stroke-dasharray="4 4"/>
+      <text x="16" y="26" font-family="Arial" font-size="13" fill="#6B7280">Duplicate this group for more connections…</text>
+    </g>
+  </g>
+
+  <!-- ===== Get Directions Button ===== -->
+  <g id="get-directions" transform="translate(16,628)">
+    <rect x="0" y="0" width="328" height="56" rx="14" fill="#10B981"/>
+    <text x="164" y="34" text-anchor="middle"
+          font-family="Arial" font-size="16" font-weight="700" fill="#FFFFFF">
+      Get Directions
+    </text>
+    <!-- arrow -->
+    <path d="M0,0 L8,0 L8,-20 L28,0 L8,20 L8,4 L0,4 Z"
+          transform="translate(290,28) scale(0.8)"
+          fill="#FFFFFF" opacity="0.9"/>
+    <!-- Optional link placeholder (edit xlink:href) -->
+    <!-- <a xlink:href="https://maps.google.com/?q=35.130277,33.372885"></a> -->
+  </g>
+
+  <!-- ===== Report Data Issue Button ===== -->
+  <g id="report-issue" transform="translate(16,696)">
+    <rect x="0" y="0" width="328" height="56" rx="14" fill="#EF4444"/>
+    <text x="164" y="34" text-anchor="middle"
+          font-family="Arial" font-size="16" font-weight="700" fill="#FFFFFF">
+      Report Data Issue
+    </text>
+    <!-- warning icon -->
+    <g transform="translate(32,28) scale(0.8)">
+      <circle r="12" fill="#FFFFFF"/>
+      <path d="M-6,10 L6,10 L0,-10 Z" fill="#EF4444"/>
+      <rect x="-1.5" y="-2" width="3" height="7" fill="#FFFFFF"/>
+      <circle cy="6" r="1.5" fill="#FFFFFF"/>
+    </g>
+  </g>
+  <!-- ===== Footer Note (delete if not needed) ===== -->
+  <text id="edit-note" x="16" y="708" font-family="Arial" font-size="11" fill="#9CA3AF">
+    Tip: Edit text, replace LOGO rectangle with operator logo, and duplicate connection-row-template.
+  </text>
+</svg>

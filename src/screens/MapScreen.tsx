@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { View, Text, ActivityIndicator, Pressable, Linking, Platform, ScrollView } from "react-native";
+import { View, Text, ActivityIndicator, Pressable, Linking, Platform, ScrollView, Image, Dimensions } from "react-native";
 import MapView, { Marker, Callout, PROVIDER_GOOGLE, PROVIDER_DEFAULT, Region } from "react-native-maps";
 import ClusteredMapView from "react-native-map-clustering";
 import { useSortedStations, toFeatures } from "../hooks/useStations";
@@ -9,6 +9,7 @@ import type { StationFeature } from "../types/ocm";
 import useUserLocation from "../hooks/useUserLocation";
 import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { haversineDistanceMeters } from "../utils/geo";
+import ChargingStationMarker from "../components/ChargingStationMarker";
 
 export default function MapScreen({ navigation }: any) {
   const { data, isLoading, error } = useSortedStations();
@@ -75,7 +76,7 @@ export default function MapScreen({ navigation }: any) {
       if (filters.connectorTypes.size > 0) {
         const stationConnectorTypes = new Set(f.station.connections.map(c => c.type).filter(Boolean));
         const mappedTypes = new Set<string>();
-        
+
         // Map actual connector types to our predefined categories
         stationConnectorTypes.forEach(type => {
           if (type === "CCS (Type 2)" || type.includes("CCS")) {
@@ -88,7 +89,7 @@ export default function MapScreen({ navigation }: any) {
             mappedTypes.add("Unknown/Other");
           }
         });
-        
+
         const has = [...filters.connectorTypes].some(ct => mappedTypes.has(ct));
         if (!has) return false;
       }
@@ -132,45 +133,153 @@ export default function MapScreen({ navigation }: any) {
           <Marker
             key={f.id}
             coordinate={{ latitude: f.coord.lat, longitude: f.coord.lng }}
-            pinColor={f.fastDC ? "red" : undefined}
           >
+            <ChargingStationMarker
+              size={48}
+              isFastDC={f.fastDC}
+              connectorCount={f.station.connections.length}
+              isAvailable={f.station.connections.some(c => c.status === "Operational")}
+              connections={f.station.connections}
+            />
             <Callout onPress={() => onMarkerPress(f)}>
-              <View style={{ maxWidth: 260 }}>
-                <Text numberOfLines={1} style={{ fontWeight: "700" }}>{pick(f.station.title)}</Text>
-                <Text style={{ color: "#444" }} numberOfLines={2}>{pick(f.station.address)}</Text>
-                <Text style={{ color: "#666", marginTop: 2 }}>{f.station.operator}</Text>
-                {(() => {
-                  const uniqueTypes = Array.from(new Set(f.station.connections.map(c => c.type))).filter(Boolean);
-                  const powers = f.station.connections.map(c => c.powerKW).filter((n) => typeof n === 'number' && !isNaN(n));
-                  const minP = powers.length ? Math.min(...powers) : undefined;
-                  const maxP = powers.length ? Math.max(...powers) : undefined;
-                  const hasDC = f.station.connections.some(c => c.current.includes("DC"));
-                  const hasAC = f.station.connections.some(c => c.current.includes("AC"));
-                  const powerLabel = maxP != null ? (minP != null && minP !== maxP ? `${minP}–${maxP} kW` : `${maxP} kW`) : "n/a";
-                  const distanceLabel = typeof f.station.distanceMeters === 'number'
-                    ? (f.station.distanceMeters < 950 ? `${Math.round(f.station.distanceMeters)} m` : `${(f.station.distanceMeters / 1000).toFixed(1)} km`)
-                    : undefined;
-                  const cost = f.station.usage_cost?.trim();
-                  const lastUpdated = f.station.last_seen ? new Date(f.station.last_seen) : undefined;
-                  const lastUpdatedStr = lastUpdated ? lastUpdated.toLocaleDateString() : undefined;
-                  return (
-                    <View>
-                      <Text numberOfLines={2} style={{ marginTop: 6 }}>
-                        {hasDC ? '⚡ DC' : ''}{hasDC && hasAC ? ' · ' : ''}{hasAC ? '🔌 AC' : ''}
-                        { (hasDC || hasAC) ? ' · ' : ''}{uniqueTypes.join(', ')}
-                      </Text>
-                      <Text style={{ marginTop: 2 }}>
-                        {powerLabel}
-                        {distanceLabel ? <Text style={{ color: '#666' }}> · {distanceLabel}</Text> : null}
-                      </Text>
-                      <Text style={{ marginTop: 2 }}>
-                        {cost ? `Cost: ${cost}` : 'Cost: n/a'}
-                        {lastUpdatedStr ? <Text style={{ color: '#666' }}> · Updated: {lastUpdatedStr}</Text> : null}
-                      </Text>
-                    </View>
-                  );
-                })()}
-                <Text style={{ color: "#2F80ED", marginTop: 6 }}>View details ›</Text>
+              <View style={{
+                width: Dimensions.get('window').width * 0.8,
+                backgroundColor: "#fff",
+              }}>
+                {/* Header with title, address, operator, and logo */}
+                <View style={{ flexDirection: "row", marginBottom: 8 }}>
+                  <View style={{ flex: 1 }}>
+                    <Text style={{ fontWeight: "700", fontSize: 18, marginBottom: 2 }}>
+                      {pick(f.station.title)}
+                    </Text>
+                    <Text style={{ fontSize: 14, color: "#444", marginBottom: 2 }}>
+                      {pick(f.station.address)}, {f.townEn}
+                    </Text>
+                    <Text style={{ fontSize: 14, color: "#666", marginBottom: 2 }}>
+                      {f.station.operator}
+                    </Text>
+                    {/* Distance label */}
+                    {(() => {
+                      const distanceLabel = typeof f.station.distanceMeters === 'number'
+                        ? (f.station.distanceMeters < 950 ? `${Math.round(f.station.distanceMeters)} m` : `${(f.station.distanceMeters / 1000).toFixed(1)} km`)
+                        : undefined;
+                      return distanceLabel ? (
+                        <Text style={{ fontSize: 14, color: "#666", marginBottom: 2 }}>
+                          {distanceLabel}
+                        </Text>
+                      ) : null;
+                    })()}
+                  </View>
+                  {/* Logo */}
+                  <View style={{
+                    width: 80,
+                    height: 80,
+                    justifyContent: "center",
+                    alignItems: "center"
+                  }}>
+                    {(() => {
+                      const operator = f.station.operator;
+                      // Don't show logo for 'Mall Operators' or 'Unknown'
+                      if (operator === 'Mall Operators' || operator === 'Unknown') {
+                        return null;
+                      }
+
+                      // Map operator names to logo files
+                      const logoMap: { [key: string]: any } = {
+                        'Unicars': require("../../assets/logo_unicars.png"),
+                        'Porsche Destination': require("../../assets/logo_porsche.jpg"),
+                        'Petrolina PCharge': require("../../assets/logo_petrolina.png"),
+                        'Lidl': require("../../assets/logo_lidl.svg"),
+                        'IKEA': require("../../assets/logo_ikea.svg"),
+                        'EvLoader': require("../../assets/logo_evloader.png"),
+                        'EKO': require("../../assets/logo_eko.png"),
+                        'EV Power': require("../../assets/logo_evpower.png"),
+                        'EAC eCharge': require("../../assets/logo_eac.png"),
+                        'BMW (Pilakoutas Group)': require("../../assets/logo_pilakoutas.webp")
+                      };
+
+                      const logoSource = logoMap[operator];
+
+                      if (logoSource) {
+                        return (
+                          <Image
+                            source={logoSource}
+                            style={{ width: 80, height: 80 }}
+                            resizeMode="contain"
+                          />
+                        );
+                      }
+
+                      return null;
+                    })()}
+                  </View>
+                </View>
+
+                {/* Main content area */}
+                <View style={{
+                  borderWidth: 1.2,
+                  borderColor: "#000",
+                  borderRadius: 8,
+                  padding: 8,
+                  // backgroundColor: "#ebebeb"
+                }}>
+                  {(() => {
+                    const uniqueTypes = Array.from(new Set(f.station.connections.map(c => c.type))).filter(Boolean);
+                    const powers = f.station.connections.map(c => c.powerKW).filter((n) => typeof n === 'number' && !isNaN(n));
+                    const minP = powers.length ? Math.min(...powers) : undefined;
+                    const maxP = powers.length ? Math.max(...powers) : undefined;
+                    const hasDC = f.station.connections.some(c => c.current.includes("DC"));
+                    const hasAC = f.station.connections.some(c => c.current.includes("AC"));
+
+                    // Display each connection individually
+                    const individualConnections = f.station.connections.slice(0, 3); // Show max 3 connections
+
+                    return (
+                      <View style={{ alignItems: "center" }}>
+                        {/* Connector types with icons */}
+                        <View style={{ flexDirection: "row", justifyContent: "space-between", marginBottom: 4, width: "100%" }}>
+                          {individualConnections.map((conn, index) => (
+                            <View key={index} style={{ flexDirection: "row", alignItems: "center", gap: 4, flex: 1, justifyContent: "center" }}>
+                              <Text style={{ fontSize: 10, fontWeight: "600" }}>
+                                {conn.quantity || 1}x
+                              </Text>
+                              <MaterialCommunityIcons
+                                name={(conn.type === "CCS (Type 2)" ? "ev-plug-ccs2" :
+                                  conn.type === "CHAdeMO" ? "ev-plug-chademo" :
+                                    conn.type === "Type 2 (Socket Only)" ? "ev-plug-type2" :
+                                      "power-plug") as any}
+                                size={40}
+                                color="#000"
+                              />
+                            </View>
+                          ))}
+                        </View>
+
+                        {/* Type names */}
+                        <View style={{ flexDirection: "row", justifyContent: "space-between", width: "100%" }}>
+                          {individualConnections.map((conn, index) => (
+                            <Text key={index} style={{ fontSize: 10, color: "#444", textAlign: "center", flex: 1 }}>
+                              {conn.type}
+                            </Text>
+                          ))}
+                        </View>
+
+                        {/* Power information */}
+                        <View style={{ flexDirection: "row", justifyContent: "space-between", marginBottom: 4, width: "100%" }}>
+                          {individualConnections.map((conn, index) => {
+                            const power = conn.powerKW || 0;
+                            const currentType = conn.current?.includes("DC") ? "DC" : "AC";
+                            return (
+                              <Text key={index} style={{ fontSize: 10, color: "#444", textAlign: "center", flex: 1 }}>
+                                {power > 0 ? `${Math.round(power)}kW ${currentType}` : `${currentType}`}
+                              </Text>
+                            );
+                          })}
+                        </View>
+                      </View>
+                    );
+                  })()}
+                </View>
               </View>
             </Callout>
           </Marker>
@@ -179,34 +288,34 @@ export default function MapScreen({ navigation }: any) {
 
       {/* Re-center button */}
       {status === 'granted' && (
-      <Pressable
-        onPress={() => {
-          if (!coords) return;
-          setRegion(prev => ({
-            latitude: coords.latitude,
-            longitude: coords.longitude,
-            latitudeDelta: prev.latitudeDelta ?? 0.05,
-            longitudeDelta: prev.longitudeDelta ?? 0.05
-          }));
-        }}
-        disabled={!coords}
-        style={({ pressed }) => ({
-          position: "absolute",
-          right: 32,
-          bottom: 32,
-          backgroundColor: pressed ? "rgba(255,255,255,0.35)" : "rgba(255,255,255,0.95)",
-          paddingHorizontal: 10,
-          paddingVertical: 10,
-          borderRadius: 20,
-          shadowColor: "#000",
-          shadowOpacity: 0.15,
-          shadowRadius: 6,
-          shadowOffset: { width: 0, height: 2 },
-          opacity: coords ? 1 : 0.6
-        })}
-      >
-        <MaterialIcons name="my-location" size={22} color="#2F80ED" />
-      </Pressable>
+        <Pressable
+          onPress={() => {
+            if (!coords) return;
+            setRegion(prev => ({
+              latitude: coords.latitude,
+              longitude: coords.longitude,
+              latitudeDelta: prev.latitudeDelta ?? 0.05,
+              longitudeDelta: prev.longitudeDelta ?? 0.05
+            }));
+          }}
+          disabled={!coords}
+          style={({ pressed }) => ({
+            position: "absolute",
+            right: 32,
+            bottom: 32,
+            backgroundColor: pressed ? "rgba(255,255,255,0.35)" : "rgba(255,255,255,0.95)",
+            paddingHorizontal: 10,
+            paddingVertical: 10,
+            borderRadius: 20,
+            shadowColor: "#000",
+            shadowOpacity: 0.15,
+            shadowRadius: 6,
+            shadowOffset: { width: 0, height: 2 },
+            opacity: coords ? 1 : 0.6
+          })}
+        >
+          <MaterialIcons name="my-location" size={22} color="#2F80ED" />
+        </Pressable>
       )}
 
       {/* Filters toggle button */}
@@ -270,15 +379,34 @@ export default function MapScreen({ navigation }: any) {
               </View>
             </View>
 
-            {/* Power presets */}
+            {/* Power presets with color legend */}
             <View style={{ marginBottom: 12 }}>
               <Text style={{ fontWeight: "600", marginBottom: 6 }}>Power</Text>
-              <View style={{ flexDirection: "row", gap: 8, flexWrap: "wrap" }}>
-                {[7, 22, 50, 150].map((p, idx) => (
-                  <Pressable key={idx} onPress={() => filters.togglePower(p)}>
-                    <Text style={{ paddingVertical: 6, paddingHorizontal: 10, borderRadius: 8, backgroundColor: filters.powerKW.has(p) ? "#ccc" : "#f1f1f1" }}>
-                      {p}kW
-                    </Text>
+              <View style={{ gap: 8 }}>
+                {[
+                  { power: 7, label: "7kW", color: "#93c5fd" },
+                  { power: 22, label: "22kW", color: "#3b82f6" },
+                  { power: 50, label: "50kW", color: "#8b5cf6" },
+                  { power: 150, label: "150kW", color: "#f97316" }
+                ].map((item, idx) => (
+                  <Pressable key={idx} onPress={() => filters.togglePower(item.power)}>
+                    <View style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      gap: 8,
+                      backgroundColor: filters.powerKW.has(item.power) ? "#ccc" : "#f1f1f1",
+                      paddingVertical: 8,
+                      paddingHorizontal: 10,
+                      borderRadius: 8
+                    }}>
+                      <View style={{ width: 22, height: 20 }}>
+                        <ChargingStationMarker
+                          size={20}
+                          connections={[{ powerKW: item.power, status: 'Available' }]}
+                        />
+                      </View>
+                      <Text style={{ flex: 1 }}>{item.label}</Text>
+                    </View>
                   </Pressable>
                 ))}
               </View>

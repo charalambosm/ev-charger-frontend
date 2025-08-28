@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import { FlatList, View, Text, Pressable, ScrollView } from "react-native";
 import { useStations } from "../hooks/useStations";
 import { useFilters } from "../store/filters";
@@ -11,9 +11,16 @@ export default function ListScreen({ navigation }: any) {
   const { data } = useStations();
   const filters = useFilters();
   const { coords } = useUserLocation();
-  const [sortMode, setSortMode] = useState<"nearest" | "az">(coords ? "nearest" : "az");
+  const [sortMode, setSortMode] = useState<"nearest" | "az">("az");
   const [showFilters, setShowFilters] = useState(false);
   const [showSort, setShowSort] = useState(false);
+
+  // Update sort mode to "nearest" when coords become available
+  useEffect(() => {
+    if (coords && sortMode === "az") {
+      setSortMode("nearest");
+    }
+  }, [coords, sortMode]);
 
   const filtered = useMemo(() => {
     if (!data) return [];
