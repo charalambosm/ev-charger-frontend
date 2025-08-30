@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "684712827178",
+    "project_id": "ev-charger-map-cyprus-3eff9",
+    "storage_bucket": "ev-charger-map-cyprus-3eff9.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:684712827178:android:5ce2f3501e1b3d5465e653",
+        "android_client_info": {
+          "package_name": "com.evchargermapcy.cyprus"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAY7QfVHe2tNSLwZfXOh3i2sKLX4ROKDfo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
