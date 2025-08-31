@@ -13,6 +13,7 @@ import {
   ActionCodeInfo
 } from 'firebase/auth';
 import { auth } from '../config/firebase';
+import { UserService, CreateUserProfileData } from '../services';
 
 interface AuthContextType {
   user: User | null;
@@ -20,7 +21,7 @@ interface AuthContextType {
   isGuest: boolean;
   isEmailVerified: boolean;
   login: (email: string, password: string) => Promise<UserCredential>;
-  signup: (email: string, password: string) => Promise<UserCredential>;
+  signup: (email: string, password: string, profileData?: CreateUserProfileData) => Promise<UserCredential>;
   logout: () => Promise<void>;
   forgotPassword: (email: string) => Promise<void>;
   sendVerificationEmail: () => Promise<void>;
@@ -79,7 +80,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
-  const signup = async (email: string, password: string): Promise<UserCredential> => {
+  const signup = async (email: string, password: string, profileData?: CreateUserProfileData): Promise<UserCredential> => {
     try {
       setError(null);
       setIsGuest(false);
@@ -89,6 +90,20 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       if (result.user) {
         await sendEmailVerification(result.user);
         setIsEmailVerified(false);
+        
+        // Create user profile in Firestore if profile data is provided
+        if (profileData) {
+          try {
+            await UserService.createUserProfile(result.user.uid, {
+              ...profileData,
+              email: result.user.email || email,
+            });
+          } catch (profileError) {
+            console.error('Error creating user profile:', profileError);
+            // Don't throw error here as the user account was created successfully
+            // The profile can be created later
+          }
+        }
       }
       
       return result;

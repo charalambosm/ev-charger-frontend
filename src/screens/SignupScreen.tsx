@@ -57,7 +57,11 @@ const SignupScreen: React.FC = () => {
     try {
       setIsLoading(true);
       clearError();
-      await signup(formData.email.trim(), formData.password);
+      await signup(formData.email.trim(), formData.password, {
+        firstName: formData.firstName.trim(),
+        lastName: formData.lastName.trim(),
+        email: formData.email.trim(),
+      });
       setIsSuccess(true);
     } catch (error) {
       // Error is handled by AuthContext

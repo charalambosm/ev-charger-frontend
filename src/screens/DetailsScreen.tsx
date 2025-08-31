@@ -5,11 +5,15 @@ import { pick } from "../utils/i18n";
 import useUserLocation from "../hooks/useUserLocation";
 import { haversineDistanceMeters } from "../utils/geo";
 import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { useFavorites } from "../hooks/useFavorites";
+import { useAuth } from "../contexts";
 
 export default function DetailsScreen({ route }: any) {
   const { id } = route.params as { id: string };
   const { data } = useStations();
   const { coords } = useUserLocation();
+  const { user } = useAuth();
+  const { isStationFavorited, toggleFavorite, loading: favoritesLoading } = useFavorites();
   const s = useMemo(() => data?.find(x => x.ID === id), [data, id]);
 
   if (!s) return <Text style={{ margin: 16 }}>Station not found.</Text>;
@@ -156,6 +160,46 @@ export default function DetailsScreen({ route }: any) {
           <Text style={{ fontSize: 14, color: "#374151", marginBottom: 16 }}>
             {pick(s.address)}, {s.town?.en}
           </Text>
+
+          {/* Favorite Button */}
+          {user && (
+            <View style={{ marginBottom: 16 }}>
+              <Pressable
+                onPress={() => {
+                  toggleFavorite({
+                    stationId: s.ID,
+                    stationName: pick(s.title),
+                    stationAddress: `${pick(s.address)}, ${s.town?.en}`,
+                    stationOperator: s.operator,
+                  });
+                }}
+                style={({ pressed }) => ({
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  backgroundColor: isStationFavorited(s.ID) ? '#fbbf24' : '#f3f4f6',
+                  paddingHorizontal: 16,
+                  paddingVertical: 8,
+                  borderRadius: 20,
+                  opacity: pressed ? 0.7 : 1,
+                })}
+                disabled={favoritesLoading}
+              >
+                <MaterialIcons
+                  name={isStationFavorited(s.ID) ? 'favorite' : 'favorite-border'}
+                  size={20}
+                  color={isStationFavorited(s.ID) ? '#ffffff' : '#6b7280'}
+                />
+                <Text style={{
+                  marginLeft: 8,
+                  fontSize: 14,
+                  fontWeight: '600',
+                  color: isStationFavorited(s.ID) ? '#ffffff' : '#6b7280',
+                }}>
+                  {isStationFavorited(s.ID) ? 'Favorited' : 'Add to Favorites'}
+                </Text>
+              </Pressable>
+            </View>
+          )}
 
           {/* Meta Grid */}
           <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
