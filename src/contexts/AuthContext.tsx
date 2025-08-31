@@ -1,12 +1,13 @@
 import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-import { 
-  User, 
-  signInWithEmailAndPassword, 
-  createUserWithEmailAndPassword, 
-  signOut, 
+import {
+  User,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  signOut,
   onAuthStateChanged,
   AuthError,
-  UserCredential
+  UserCredential,
+  sendPasswordResetEmail
 } from 'firebase/auth';
 import { auth } from '../config/firebase';
 
@@ -18,6 +19,7 @@ interface AuthContextType {
   login: (email: string, password: string) => Promise<UserCredential>;
   signup: (email: string, password: string) => Promise<UserCredential>;
   logout: () => Promise<void>;
+  forgotPassword: (email: string) => Promise<void>;
   continueAsGuest: () => void;
   resetGuestState: () => void;
   clearError: () => void;
@@ -115,6 +117,25 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
+  // Forgot password function
+  const forgotPassword = async (email: string): Promise<void> => {
+    try {
+      setError(null);
+      await sendPasswordResetEmail(auth, email);
+    } catch (error) {
+      const authError = error as AuthError;
+      if (authError && authError.code) {
+        const errorMessage = getAuthErrorMessage(authError.code);
+        setError(errorMessage);
+      } else {
+        // Fallback for non-Firebase errors
+        const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred';
+        setError(errorMessage);
+      }
+      throw error;
+    }
+  };
+
   // Continue as guest function
   const continueAsGuest = () => {
     setIsGuest(true);
@@ -140,6 +161,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     login,
     signup,
     logout,
+    forgotPassword,
     continueAsGuest,
     resetGuestState,
     clearError,

@@ -1,15 +1,5 @@
 import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet,
-  Alert,
-  KeyboardAvoidingView,
-  Platform,
-  ScrollView,
-} from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useAuth } from '../contexts';
 
@@ -17,24 +7,22 @@ const LoginScreen: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  
+
   const { login, error, clearError, continueAsGuest } = useAuth();
   const navigation = useNavigation();
 
   const handleSubmit = async () => {
-    if (!email || !password) {
+    if (!email.trim() || !password.trim()) {
       Alert.alert('Error', 'Please fill in all fields');
       return;
     }
 
-    setIsLoading(true);
-    clearError();
-
     try {
-      await login(email, password);
-    } catch (err) {
-      // Error is already handled by the context
-      console.error('Auth error:', err);
+      setIsLoading(true);
+      clearError();
+      await login(email.trim(), password.trim());
+    } catch (error) {
+      // Error is handled by AuthContext
     } finally {
       setIsLoading(false);
     }
@@ -49,84 +37,70 @@ const LoginScreen: React.FC = () => {
   };
 
   return (
-    <KeyboardAvoidingView 
-      style={styles.container} 
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-    >
+    <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <View style={styles.infoBanner}>
           <Text style={styles.infoText}>
             💡 You can browse charging stations without an account! Sign in for enhanced features.
           </Text>
         </View>
-
         <View style={styles.formContainer}>
           <Text style={styles.title}>Welcome Back</Text>
+          <Text style={styles.subtitle}>Sign in to your account to access enhanced features</Text>
           
-          <Text style={styles.subtitle}>
-            Sign in to your account to access enhanced features
-          </Text>
-
           <View style={styles.inputContainer}>
+            <Text style={styles.inputLabel}>Email Address</Text>
             <TextInput
               style={styles.input}
-              placeholder="Email"
+              placeholder="Enter your email"
               value={email}
               onChangeText={setEmail}
               keyboardType="email-address"
               autoCapitalize="none"
               autoCorrect={false}
-              editable={!isLoading}
             />
           </View>
-
+          
           <View style={styles.inputContainer}>
+            <Text style={styles.inputLabel}>Password</Text>
             <TextInput
               style={styles.input}
-              placeholder="Password"
+              placeholder="Enter your password"
               value={password}
               onChangeText={setPassword}
               secureTextEntry
               autoCapitalize="none"
-              autoCorrect={false}
-              editable={!isLoading}
             />
           </View>
-
+          
           {error && (
             <View style={styles.errorContainer}>
               <Text style={styles.errorText}>{error}</Text>
             </View>
           )}
-
-          <TouchableOpacity
-            style={[styles.button, isLoading && styles.buttonDisabled]}
-            onPress={handleSubmit}
+          
+          <TouchableOpacity 
+            style={[styles.button, isLoading && styles.buttonDisabled]} 
+            onPress={handleSubmit} 
             disabled={isLoading}
           >
             <Text style={styles.buttonText}>
               {isLoading ? 'Loading...' : 'Sign In'}
             </Text>
           </TouchableOpacity>
-
+          
           <View style={styles.linksContainer}>
-            <TouchableOpacity style={styles.linkButton}>
+            <TouchableOpacity style={styles.linkButton} onPress={() => navigation.navigate('ForgotPassword' as never)}>
               <Text style={styles.linkText}>Forgot Password?</Text>
             </TouchableOpacity>
-            
             <TouchableOpacity style={styles.linkButton} onPress={handleNavigateToSignup}>
               <Text style={styles.linkText}>Don't have an account? Sign Up</Text>
             </TouchableOpacity>
           </View>
-
+          
           <View style={styles.skipContainer}>
-            <Text style={styles.skipText}>
-              Or continue browsing as a guest
-            </Text>
-            <TouchableOpacity 
-              style={styles.skipButton}
-              onPress={handleContinueAsGuest}
-            >
+            <Text style={styles.skipText}>Or continue browsing as a guest</Text>
+            <TouchableOpacity style={styles.skipButton} onPress={handleContinueAsGuest}>
               <Text style={styles.skipButtonText}>Browse Stations</Text>
             </TouchableOpacity>
           </View>
@@ -143,121 +117,128 @@ const styles = StyleSheet.create({
   },
   scrollContainer: {
     flexGrow: 1,
-    padding: 20,
+    paddingBottom: 20,
   },
   infoBanner: {
-    backgroundColor: '#e0f7fa',
-    padding: 15,
-    borderRadius: 10,
-    marginBottom: 20,
-    alignItems: 'center',
+    backgroundColor: '#e3f2fd',
+    padding: 16,
+    marginHorizontal: 16,
+    marginTop: 16,
+    borderRadius: 8,
+    borderLeftWidth: 4,
+    borderLeftColor: '#2196f3',
   },
   infoText: {
-    fontSize: 16,
-    color: '#00796b',
-    textAlign: 'center',
+    color: '#1976d2',
+    fontSize: 14,
+    lineHeight: 20,
   },
   formContainer: {
-    width: '100%',
-    backgroundColor: '#fff',
-    borderRadius: 15,
-    padding: 20,
+    backgroundColor: 'white',
+    margin: 16,
+    padding: 24,
+    borderRadius: 12,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
     shadowOpacity: 0.1,
-    shadowRadius: 5,
-    elevation: 3,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   title: {
     fontSize: 28,
     fontWeight: 'bold',
     color: '#333',
-    marginBottom: 5,
     textAlign: 'center',
+    marginBottom: 8,
   },
   subtitle: {
     fontSize: 16,
     color: '#666',
-    marginBottom: 25,
     textAlign: 'center',
+    marginBottom: 32,
   },
   inputContainer: {
-    marginBottom: 15,
-  },
-  input: {
-    height: 50,
-    borderColor: '#ddd',
-    borderWidth: 1,
-    borderRadius: 10,
-    paddingHorizontal: 15,
-    fontSize: 16,
-    backgroundColor: '#f9f9f9',
-  },
-  button: {
-    height: 50,
-    backgroundColor: '#007bff',
-    borderRadius: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 15,
-  },
-  buttonDisabled: {
-    backgroundColor: '#a0c4ff',
-    opacity: 0.7,
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  linksContainer: {
-    alignItems: 'center',
     marginBottom: 20,
   },
-  linkButton: {
-    marginBottom: 10,
-  },
-  linkText: {
-    color: '#007bff',
+  inputLabel: {
     fontSize: 16,
-    textAlign: 'center',
+    fontWeight: '600',
+    color: '#333',
+    marginBottom: 8,
   },
-  skipContainer: {
-    alignItems: 'center',
-    marginTop: 20,
-    borderTopWidth: 1,
-    borderTopColor: '#f0f0f0',
-    paddingTop: 20,
-  },
-  skipText: {
-    fontSize: 16,
-    color: '#666',
-    marginBottom: 15,
-    textAlign: 'center',
-  },
-  skipButton: {
-    backgroundColor: '#4caf50',
-    paddingVertical: 12,
-    paddingHorizontal: 24,
+  input: {
+    borderWidth: 1,
+    borderColor: '#ddd',
     borderRadius: 8,
-  },
-  skipButtonText: {
-    color: '#fff',
+    padding: 16,
     fontSize: 16,
-    fontWeight: 'bold',
+    backgroundColor: '#fafafa',
+  },
+  button: {
+    backgroundColor: '#2196f3',
+    padding: 16,
+    borderRadius: 8,
+    alignItems: 'center',
+    marginBottom: 16,
+  },
+  buttonDisabled: {
+    opacity: 0.6,
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: '600',
   },
   errorContainer: {
     backgroundColor: '#ffebee',
-    borderColor: '#ef5350',
-    borderWidth: 1,
-    borderRadius: 10,
-    padding: 10,
-    marginBottom: 15,
+    padding: 12,
+    borderRadius: 8,
+    marginBottom: 16,
+    borderLeftWidth: 4,
+    borderLeftColor: '#f44336',
   },
   errorText: {
-    color: '#ef5350',
+    color: '#c62828',
     fontSize: 14,
-    textAlign: 'center',
+  },
+  linksContainer: {
+    alignItems: 'center',
+    marginBottom: 24,
+  },
+  linkButton: {
+    marginVertical: 4,
+  },
+  linkText: {
+    color: '#2196f3',
+    fontSize: 14,
+    textDecorationLine: 'underline',
+  },
+  skipContainer: {
+    alignItems: 'center',
+    paddingTop: 16,
+    borderTopWidth: 1,
+    borderTopColor: '#eee',
+  },
+  skipText: {
+    color: '#666',
+    fontSize: 14,
+    marginBottom: 12,
+  },
+  skipButton: {
+    backgroundColor: '#f5f5f5',
+    paddingHorizontal: 24,
+    paddingVertical: 12,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: '#ddd',
+  },
+  skipButtonText: {
+    color: '#666',
+    fontSize: 14,
+    fontWeight: '500',
   },
 });
 

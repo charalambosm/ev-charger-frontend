@@ -7,6 +7,7 @@
     "icon": "./assets/logo_app.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
+    "scheme": "ev-charger-map-cy",
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
@@ -14,6 +15,7 @@
     },
     "ios": {
       "supportsTablet": true,
+      "bundleIdentifier": "com.evchargermapcy.cyprus",
       "googleServicesFile": "./GoogleService-Info.plist"
     },
     "android": {
@@ -22,6 +24,7 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
+      "package": "com.evchargermapcy.cyprus",
       "googleServicesFile": "./google-services.json"
     },
     "web": {

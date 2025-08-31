@@ -1,15 +1,5 @@
 import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet,
-  Alert,
-  KeyboardAvoidingView,
-  Platform,
-  ScrollView,
-} from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useAuth } from '../contexts';
 
@@ -24,7 +14,7 @@ const SignupScreen: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  
+
   const { signup, error, clearError } = useAuth();
   const navigation = useNavigation();
 
@@ -34,19 +24,19 @@ const SignupScreen: React.FC = () => {
 
   const validateForm = (): boolean => {
     if (!formData.firstName.trim()) {
-      Alert.alert('Error', 'Please enter your first name');
+      Alert.alert('Error', 'First name is required');
       return false;
     }
     if (!formData.lastName.trim()) {
-      Alert.alert('Error', 'Please enter your last name');
+      Alert.alert('Error', 'Last name is required');
       return false;
     }
     if (!formData.email.trim()) {
-      Alert.alert('Error', 'Please enter your email address');
+      Alert.alert('Error', 'Email is required');
       return false;
     }
     if (!formData.password) {
-      Alert.alert('Error', 'Please enter a password');
+      Alert.alert('Error', 'Password is required');
       return false;
     }
     if (formData.password.length < 6) {
@@ -63,24 +53,20 @@ const SignupScreen: React.FC = () => {
   const handleSubmit = async () => {
     if (!validateForm()) return;
 
-    setIsLoading(true);
-    clearError();
-
     try {
-      await signup(formData.email, formData.password);
-      // Note: In a real app, you might want to save additional user data (firstName, lastName) to Firestore
-      Alert.alert('Success', 'Account created successfully!');
-    } catch (err) {
-      // Error is already handled by the context
-      console.error('Signup error:', err);
+      setIsLoading(true);
+      clearError();
+      await signup(formData.email.trim(), formData.password);
+    } catch (error) {
+      // Error is handled by AuthContext
     } finally {
       setIsLoading(false);
     }
   };
 
   const handleProfilePicture = () => {
-    // TODO: Implement image picker functionality
-    Alert.alert('Profile Picture', 'Image picker functionality will be implemented here');
+    // TODO: Implement profile picture selection
+    Alert.alert('Coming Soon', 'Profile picture selection will be available soon!');
   };
 
   const handleNavigateToLogin = () => {
@@ -88,18 +74,13 @@ const SignupScreen: React.FC = () => {
   };
 
   return (
-    <KeyboardAvoidingView 
-      style={styles.container} 
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-    >
+    <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <View style={styles.header}>
           <Text style={styles.title}>Create Account</Text>
-          <Text style={styles.subtitle}>
-            Join us to access enhanced features and personalize your experience
-          </Text>
+          <Text style={styles.subtitle}>Join us to access enhanced features and personalize your experience</Text>
         </View>
-
+        
         <View style={styles.formContainer}>
           {/* Profile Picture Section */}
           <View style={styles.profilePictureSection}>
@@ -118,25 +99,22 @@ const SignupScreen: React.FC = () => {
               <Text style={styles.inputLabel}>First Name *</Text>
               <TextInput
                 style={styles.input}
-                placeholder="First Name"
+                placeholder="Enter first name"
                 value={formData.firstName}
                 onChangeText={(value) => updateFormData('firstName', value)}
                 autoCapitalize="words"
                 autoCorrect={false}
-                editable={!isLoading}
               />
             </View>
-            
             <View style={[styles.inputContainer, styles.halfWidth]}>
               <Text style={styles.inputLabel}>Last Name *</Text>
               <TextInput
                 style={styles.input}
-                placeholder="Last Name"
+                placeholder="Enter last name"
                 value={formData.lastName}
                 onChangeText={(value) => updateFormData('lastName', value)}
                 autoCapitalize="words"
                 autoCorrect={false}
-                editable={!isLoading}
               />
             </View>
           </View>
@@ -146,13 +124,12 @@ const SignupScreen: React.FC = () => {
             <Text style={styles.inputLabel}>Email Address *</Text>
             <TextInput
               style={styles.input}
-              placeholder="your.email@example.com"
+              placeholder="Enter your email"
               value={formData.email}
               onChangeText={(value) => updateFormData('email', value)}
               keyboardType="email-address"
               autoCapitalize="none"
               autoCorrect={false}
-              editable={!isLoading}
             />
           </View>
 
@@ -162,21 +139,17 @@ const SignupScreen: React.FC = () => {
             <View style={styles.passwordContainer}>
               <TextInput
                 style={[styles.input, styles.passwordInput]}
-                placeholder="Create a password"
+                placeholder="Enter your password"
                 value={formData.password}
                 onChangeText={(value) => updateFormData('password', value)}
                 secureTextEntry={!showPassword}
                 autoCapitalize="none"
-                autoCorrect={false}
-                editable={!isLoading}
               />
-              <TouchableOpacity
-                style={styles.eyeButton}
+              <TouchableOpacity 
+                style={styles.eyeButton} 
                 onPress={() => setShowPassword(!showPassword)}
               >
-                <Text style={styles.eyeButtonText}>
-                  {showPassword ? '👁️' : '👁️‍🗨️'}
-                </Text>
+                <Text style={styles.eyeButtonText}>{showPassword ? '👁️' : '👁️‍🗨️'}</Text>
               </TouchableOpacity>
             </View>
             <Text style={styles.passwordHint}>Must be at least 6 characters</Text>
@@ -192,16 +165,12 @@ const SignupScreen: React.FC = () => {
                 onChangeText={(value) => updateFormData('confirmPassword', value)}
                 secureTextEntry={!showConfirmPassword}
                 autoCapitalize="none"
-                autoCorrect={false}
-                editable={!isLoading}
               />
-              <TouchableOpacity
-                style={styles.eyeButton}
+              <TouchableOpacity 
+                style={styles.eyeButton} 
                 onPress={() => setShowConfirmPassword(!showConfirmPassword)}
               >
-                <Text style={styles.eyeButtonText}>
-                  {showConfirmPassword ? '👁️' : '👁️‍🗨️'}
-                </Text>
+                <Text style={styles.eyeButtonText}>{showConfirmPassword ? '👁️' : '👁️‍🗨️'}</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -212,9 +181,9 @@ const SignupScreen: React.FC = () => {
             </View>
           )}
 
-          <TouchableOpacity
-            style={[styles.button, isLoading && styles.buttonDisabled]}
-            onPress={handleSubmit}
+          <TouchableOpacity 
+            style={[styles.button, isLoading && styles.buttonDisabled]} 
+            onPress={handleSubmit} 
             disabled={isLoading}
           >
             <Text style={styles.buttonText}>
@@ -240,52 +209,68 @@ const styles = StyleSheet.create({
   },
   scrollContainer: {
     flexGrow: 1,
-    padding: 20,
+    paddingBottom: 20,
   },
   header: {
-    alignItems: 'center',
-    marginBottom: 20,
+    backgroundColor: 'white',
+    padding: 24,
+    marginHorizontal: 16,
+    marginTop: 16,
+    borderRadius: 12,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   title: {
     fontSize: 28,
     fontWeight: 'bold',
     color: '#333',
-    marginBottom: 8,
     textAlign: 'center',
+    marginBottom: 8,
   },
   subtitle: {
     fontSize: 16,
     color: '#666',
     textAlign: 'center',
-    lineHeight: 22,
+    marginBottom: 16,
   },
   formContainer: {
-    backgroundColor: '#fff',
-    borderRadius: 15,
-    padding: 20,
+    backgroundColor: 'white',
+    margin: 16,
+    padding: 24,
+    borderRadius: 12,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
     shadowOpacity: 0.1,
-    shadowRadius: 5,
-    elevation: 3,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   profilePictureSection: {
     alignItems: 'center',
-    marginBottom: 25,
+    marginBottom: 24,
   },
   profilePictureButton: {
-    marginBottom: 8,
-  },
-  profilePicturePlaceholder: {
     width: 80,
     height: 80,
     borderRadius: 40,
     backgroundColor: '#f0f0f0',
     justifyContent: 'center',
     alignItems: 'center',
+    marginBottom: 8,
     borderWidth: 2,
     borderColor: '#ddd',
     borderStyle: 'dashed',
+  },
+  profilePicturePlaceholder: {
+    alignItems: 'center',
   },
   profilePictureText: {
     fontSize: 24,
@@ -294,7 +279,7 @@ const styles = StyleSheet.create({
   profilePictureLabel: {
     fontSize: 12,
     color: '#666',
-    fontWeight: '500',
+    textAlign: 'center',
   },
   optionalText: {
     fontSize: 12,
@@ -304,89 +289,95 @@ const styles = StyleSheet.create({
   nameRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 15,
+    marginBottom: 20,
   },
   inputContainer: {
-    marginBottom: 15,
+    marginBottom: 20,
   },
   halfWidth: {
     width: '48%',
   },
   inputLabel: {
-    fontSize: 14,
+    fontSize: 16,
     fontWeight: '600',
     color: '#333',
     marginBottom: 8,
   },
   input: {
-    height: 50,
-    borderColor: '#ddd',
     borderWidth: 1,
-    borderRadius: 10,
-    paddingHorizontal: 15,
+    borderColor: '#ddd',
+    borderRadius: 8,
+    padding: 16,
     fontSize: 16,
-    backgroundColor: '#f9f9f9',
+    backgroundColor: '#fafafa',
   },
   passwordContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 8,
+    backgroundColor: '#fafafa',
   },
   passwordInput: {
     flex: 1,
-    marginRight: 10,
+    borderWidth: 0,
+    backgroundColor: 'transparent',
+    borderTopRightRadius: 0,
+    borderBottomRightRadius: 0,
   },
   eyeButton: {
-    padding: 10,
+    padding: 16,
+    borderLeftWidth: 1,
+    borderLeftColor: '#ddd',
   },
   eyeButtonText: {
-    fontSize: 20,
+    fontSize: 16,
   },
   passwordHint: {
     fontSize: 12,
     color: '#666',
-    marginTop: 5,
+    marginTop: 4,
     fontStyle: 'italic',
   },
   button: {
-    height: 50,
-    backgroundColor: '#007bff',
-    borderRadius: 10,
-    justifyContent: 'center',
+    backgroundColor: '#2196f3',
+    padding: 16,
+    borderRadius: 8,
     alignItems: 'center',
-    marginBottom: 15,
+    marginBottom: 16,
   },
   buttonDisabled: {
-    backgroundColor: '#a0c4ff',
-    opacity: 0.7,
+    opacity: 0.6,
   },
   buttonText: {
-    color: '#fff',
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  linksContainer: {
-    alignItems: 'center',
-  },
-  linkButton: {
-    marginBottom: 10,
-  },
-  linkText: {
-    color: '#007bff',
+    color: 'white',
     fontSize: 16,
-    textAlign: 'center',
+    fontWeight: '600',
   },
   errorContainer: {
     backgroundColor: '#ffebee',
-    borderColor: '#ef5350',
-    borderWidth: 1,
-    borderRadius: 10,
-    padding: 10,
-    marginBottom: 15,
+    padding: 12,
+    borderRadius: 8,
+    marginBottom: 16,
+    borderLeftWidth: 4,
+    borderLeftColor: '#f44336',
   },
   errorText: {
-    color: '#ef5350',
+    color: '#c62828',
     fontSize: 14,
-    textAlign: 'center',
+  },
+  linksContainer: {
+    alignItems: 'center',
+    marginTop: 8,
+  },
+  linkButton: {
+    marginVertical: 4,
+  },
+  linkText: {
+    color: '#2196f3',
+    fontSize: 14,
+    textDecorationLine: 'underline',
   },
 });
 

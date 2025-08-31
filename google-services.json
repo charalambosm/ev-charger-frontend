@@ -12,7 +12,20 @@
           "package_name": "com.evchargermapcy.cyprus"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "684712827178-sj09049i5rejink8gr9dd2okjvsv7d3o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.evchargermapcy.cyprus",
+            "certificate_hash": "935e5edebdffa3efe15e8b48a7ce77d53f2c754d"
+          }
+        },
+        {
+          "client_id": "684712827178-skomnh3pso9ppgc2rubvpqrg0cnjg6fa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyAY7QfVHe2tNSLwZfXOh3i2sKLX4ROKDfo"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "684712827178-skomnh3pso9ppgc2rubvpqrg0cnjg6fa.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "684712827178-d37jb77ksk1t39udgsfd3eimdnimhl5c.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.evchargermapcy.cyprus"
+              }
+            }
+          ]
         }
       }
     }
