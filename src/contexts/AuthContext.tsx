@@ -7,60 +7,64 @@ import {
   onAuthStateChanged,
   AuthError,
   UserCredential,
-  sendPasswordResetEmail
+  sendPasswordResetEmail,
+  sendEmailVerification,
+  applyActionCode,
+  ActionCodeInfo
 } from 'firebase/auth';
 import { auth } from '../config/firebase';
 
-// Define the shape of our auth context
 interface AuthContextType {
   user: User | null;
   loading: boolean;
   isGuest: boolean;
+  isEmailVerified: boolean;
   login: (email: string, password: string) => Promise<UserCredential>;
   signup: (email: string, password: string) => Promise<UserCredential>;
   logout: () => Promise<void>;
   forgotPassword: (email: string) => Promise<void>;
+  sendVerificationEmail: () => Promise<void>;
+  verifyEmail: (actionCode: string) => Promise<void>;
+  refreshUserVerificationStatus: () => Promise<void>;
   continueAsGuest: () => void;
   resetGuestState: () => void;
   clearError: () => void;
   error: string | null;
 }
 
-// Create the context with a default value
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-// Props for the provider component
 interface AuthProviderProps {
   children: ReactNode;
 }
 
-// Provider component that wraps the app and provides auth context
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [isGuest, setIsGuest] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [isEmailVerified, setIsEmailVerified] = useState(false);
 
-  // Listen for authentication state changes
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user);
       if (user) {
-        setIsGuest(false); // User is authenticated, not a guest
+        setIsGuest(false);
+        setIsEmailVerified(user.emailVerified);
+      } else {
+        setIsEmailVerified(false);
       }
       setLoading(false);
     });
-
-    // Cleanup subscription on unmount
     return () => unsubscribe();
   }, []);
 
-  // Login function
   const login = async (email: string, password: string): Promise<UserCredential> => {
     try {
       setError(null);
-      setIsGuest(false); // User is no longer a guest
+      setIsGuest(false);
       const result = await signInWithEmailAndPassword(auth, email, password);
+      setIsEmailVerified(result.user.emailVerified);
       return result;
     } catch (error) {
       const authError = error as AuthError;
@@ -68,7 +72,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         const errorMessage = getAuthErrorMessage(authError.code);
         setError(errorMessage);
       } else {
-        // Fallback for non-Firebase errors
         const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred';
         setError(errorMessage);
       }
@@ -76,12 +79,18 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
-  // Signup function
   const signup = async (email: string, password: string): Promise<UserCredential> => {
     try {
       setError(null);
-      setIsGuest(false); // User is no longer a guest
+      setIsGuest(false);
       const result = await createUserWithEmailAndPassword(auth, email, password);
+      
+      // Send verification email after successful signup
+      if (result.user) {
+        await sendEmailVerification(result.user);
+        setIsEmailVerified(false);
+      }
+      
       return result;
     } catch (error) {
       const authError = error as AuthError;
@@ -89,7 +98,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         const errorMessage = getAuthErrorMessage(authError.code);
         setError(errorMessage);
       } else {
-        // Fallback for non-Firebase errors
         const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred';
         setError(errorMessage);
       }
@@ -97,19 +105,18 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
-  // Logout function
   const logout = async (): Promise<void> => {
     try {
       setError(null);
       await signOut(auth);
-      setIsGuest(false); // Reset guest state on logout
+      setIsGuest(false);
+      setIsEmailVerified(false);
     } catch (error) {
       const authError = error as AuthError;
       if (authError && authError.code) {
         const errorMessage = getAuthErrorMessage(authError.code);
         setError(errorMessage);
       } else {
-        // Fallback for non-Firebase errors
         const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred';
         setError(errorMessage);
       }
@@ -117,7 +124,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
-  // Forgot password function
   const forgotPassword = async (email: string): Promise<void> => {
     try {
       setError(null);
@@ -128,7 +134,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         const errorMessage = getAuthErrorMessage(authError.code);
         setError(errorMessage);
       } else {
-        // Fallback for non-Firebase errors
         const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred';
         setError(errorMessage);
       }
@@ -136,32 +141,93 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
-  // Continue as guest function
+  const sendVerificationEmail = async (): Promise<void> => {
+    try {
+      setError(null);
+      if (auth.currentUser) {
+        await sendEmailVerification(auth.currentUser);
+      } else {
+        throw new Error('No user is currently signed in');
+      }
+    } catch (error) {
+      const authError = error as AuthError;
+      if (authError && authError.code) {
+        const errorMessage = getAuthErrorMessage(authError.code);
+        setError(errorMessage);
+      } else {
+        const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred';
+        setError(errorMessage);
+      }
+      throw error;
+    }
+  };
+
+  const verifyEmail = async (actionCode: string): Promise<void> => {
+    try {
+      setError(null);
+      await applyActionCode(auth, actionCode);
+    } catch (error) {
+      const authError = error as AuthError;
+      if (authError && authError.code) {
+        const errorMessage = getAuthErrorMessage(authError.code);
+        setError(errorMessage);
+      } else {
+        const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred';
+        setError(errorMessage);
+      }
+      throw error;
+    }
+  };
+
+  const refreshUserVerificationStatus = async (): Promise<void> => {
+    try {
+      setError(null);
+      if (auth.currentUser) {
+        // Force reload the user object to get the latest verification status
+        await auth.currentUser.reload();
+        const updatedUser = auth.currentUser;
+        setUser(updatedUser);
+        setIsEmailVerified(updatedUser.emailVerified);
+      }
+    } catch (error) {
+      const authError = error as AuthError;
+      if (authError && authError.code) {
+        const errorMessage = getAuthErrorMessage(authError.code);
+        setError(errorMessage);
+      } else {
+        const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred';
+        setError(errorMessage);
+      }
+      throw error;
+    }
+  };
+
   const continueAsGuest = () => {
     setIsGuest(true);
     setError(null);
   };
 
-  // Reset guest state function
   const resetGuestState = () => {
     setIsGuest(false);
     setError(null);
   };
 
-  // Clear error function
   const clearError = () => {
     setError(null);
   };
 
-  // Context value
   const value: AuthContextType = {
     user,
     loading,
     isGuest,
+    isEmailVerified,
     login,
     signup,
     logout,
     forgotPassword,
+    sendVerificationEmail,
+    verifyEmail,
+    refreshUserVerificationStatus,
     continueAsGuest,
     resetGuestState,
     clearError,
@@ -175,7 +241,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   );
 };
 
-// Custom hook to use the auth context
 export const useAuth = (): AuthContextType => {
   const context = useContext(AuthContext);
   if (context === undefined) {
@@ -184,40 +249,25 @@ export const useAuth = (): AuthContextType => {
   return context;
 };
 
-// Helper function to get user-friendly error messages
 const getAuthErrorMessage = (errorCode: string): string => {
   switch (errorCode) {
-    case 'auth/user-not-found':
-      return 'No account found with this email address.';
-    case 'auth/wrong-password':
-      return 'Incorrect password.';
-    case 'auth/invalid-email':
-      return 'Invalid email address.';
-    case 'auth/weak-password':
-      return 'Password should be at least 6 characters long.';
-    case 'auth/email-already-in-use':
-      return 'An account with this email already exists.';
-    case 'auth/too-many-requests':
-      return 'Too many failed attempts. Please try again later.';
-    case 'auth/network-request-failed':
-      return 'Network error. Please check your connection.';
-    case 'auth/user-disabled':
-      return 'This account has been disabled.';
-    case 'auth/operation-not-allowed':
-      return 'This operation is not allowed.';
-    case 'auth/invalid-credential':
-      return 'Invalid email or password.';
-    case 'auth/account-exists-with-different-credential':
-      return 'An account already exists with the same email address but different sign-in credentials.';
-    case 'auth/requires-recent-login':
-      return 'This operation requires recent authentication. Please log in again.';
-    case 'auth/credential-already-in-use':
-      return 'This credential is already associated with a different user account.';
-    case 'auth/timeout':
-      return 'Request timed out. Please try again.';
-    case 'auth/quota-exceeded':
-      return 'Quota exceeded. Please try again later.';
-    default:
-      return `Authentication error: ${errorCode}`;
+    case 'auth/user-not-found': return 'No account found with this email address.';
+    case 'auth/wrong-password': return 'Incorrect password.';
+    case 'auth/invalid-email': return 'Invalid email address.';
+    case 'auth/weak-password': return 'Password should be at least 6 characters long.';
+    case 'auth/email-already-in-use': return 'An account with this email already exists.';
+    case 'auth/too-many-requests': return 'Too many failed attempts. Please try again later.';
+    case 'auth/network-request-failed': return 'Network error. Please check your connection.';
+    case 'auth/user-disabled': return 'This account has been disabled.';
+    case 'auth/operation-not-allowed': return 'This operation is not allowed.';
+    case 'auth/invalid-credential': return 'Invalid email or password.';
+    case 'auth/account-exists-with-different-credential': return 'An account already exists with the same email address but different sign-in credentials.';
+    case 'auth/requires-recent-login': return 'This operation requires recent authentication. Please log in again.';
+    case 'auth/credential-already-in-use': return 'This credential is already associated with a different user account.';
+    case 'auth/timeout': return 'Request timed out. Please try again.';
+    case 'auth/quota-exceeded': return 'Quota exceeded. Please try again later.';
+    case 'auth/invalid-action-code': return 'Invalid verification code. Please request a new one.';
+    case 'auth/expired-action-code': return 'Verification code has expired. Please request a new one.';
+    default: return `Authentication error: ${errorCode}`;
   }
 };

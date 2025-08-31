@@ -14,6 +14,7 @@ const SignupScreen: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const { signup, error, clearError } = useAuth();
   const navigation = useNavigation();
@@ -57,6 +58,7 @@ const SignupScreen: React.FC = () => {
       setIsLoading(true);
       clearError();
       await signup(formData.email.trim(), formData.password);
+      setIsSuccess(true);
     } catch (error) {
       // Error is handled by AuthContext
     } finally {
@@ -72,6 +74,50 @@ const SignupScreen: React.FC = () => {
   const handleNavigateToLogin = () => {
     navigation.navigate('Login' as never);
   };
+
+  const handleContinueToVerification = () => {
+    navigation.navigate('EmailVerification' as never);
+  };
+
+  if (isSuccess) {
+    return (
+      <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+        <ScrollView contentContainerStyle={styles.scrollContainer}>
+          <View style={styles.successContainer}>
+            <View style={styles.successIcon}>
+              <Text style={styles.successIconText}>✅</Text>
+            </View>
+            
+            <Text style={styles.successTitle}>Account Created Successfully!</Text>
+            <Text style={styles.successSubtitle}>
+              We've sent a verification email to:
+            </Text>
+            <Text style={styles.emailText}>{formData.email}</Text>
+            
+            <Text style={styles.instructionsText}>
+              Please check your email and click the verification link to complete your registration.
+            </Text>
+
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity style={styles.primaryButton} onPress={handleContinueToVerification}>
+                <Text style={styles.primaryButtonText}>Continue to Verification</Text>
+              </TouchableOpacity>
+              
+              <TouchableOpacity style={styles.secondaryButton} onPress={handleNavigateToLogin}>
+                <Text style={styles.secondaryButtonText}>Back to Login</Text>
+              </TouchableOpacity>
+            </View>
+
+            <View style={styles.helpContainer}>
+              <Text style={styles.helpText}>
+                Didn't receive the email? Check your spam folder or try signing in again.
+              </Text>
+            </View>
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    );
+  }
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
@@ -378,6 +424,101 @@ const styles = StyleSheet.create({
     color: '#2196f3',
     fontSize: 14,
     textDecorationLine: 'underline',
+  },
+  // Success state styles
+  successContainer: {
+    backgroundColor: 'white',
+    margin: 16,
+    padding: 24,
+    borderRadius: 12,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 3.84,
+    elevation: 5,
+    alignItems: 'center',
+  },
+  successIcon: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    backgroundColor: '#e8f5e8',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  successIconText: {
+    fontSize: 40,
+  },
+  successTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#2e7d32',
+    textAlign: 'center',
+    marginBottom: 12,
+  },
+  successSubtitle: {
+    fontSize: 16,
+    color: '#666',
+    textAlign: 'center',
+    marginBottom: 8,
+  },
+  emailText: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#333',
+    textAlign: 'center',
+    marginBottom: 20,
+    paddingHorizontal: 16,
+  },
+  instructionsText: {
+    fontSize: 14,
+    color: '#666',
+    textAlign: 'center',
+    marginBottom: 32,
+    lineHeight: 20,
+    paddingHorizontal: 16,
+  },
+  buttonContainer: {
+    width: '100%',
+    marginBottom: 24,
+  },
+  primaryButton: {
+    backgroundColor: '#2196f3',
+    padding: 16,
+    borderRadius: 8,
+    alignItems: 'center',
+    marginBottom: 12,
+  },
+  primaryButtonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  secondaryButton: {
+    backgroundColor: '#f5f5f5',
+    padding: 16,
+    borderRadius: 8,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#ddd',
+  },
+  secondaryButtonText: {
+    color: '#333',
+    fontSize: 16,
+    fontWeight: '500',
+  },
+  helpContainer: {
+    paddingHorizontal: 16,
+  },
+  helpText: {
+    fontSize: 12,
+    color: '#999',
+    textAlign: 'center',
+    fontStyle: 'italic',
   },
 });
 

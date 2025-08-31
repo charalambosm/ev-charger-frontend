@@ -20,7 +20,18 @@ const LoginScreen: React.FC = () => {
     try {
       setIsLoading(true);
       clearError();
-      await login(email.trim(), password.trim());
+      const result = await login(email.trim(), password.trim());
+      
+      // Check if email is verified
+      if (result.user && !result.user.emailVerified) {
+        Alert.alert(
+          'Email Not Verified',
+          'Please check your email and click the verification link to complete your registration.',
+          [
+            { text: 'OK', onPress: () => navigation.navigate('EmailVerification' as never) }
+          ]
+        );
+      }
     } catch (error) {
       // Error is handled by AuthContext
     } finally {

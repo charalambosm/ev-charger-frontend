@@ -1,18 +1,20 @@
 # Authentication System Documentation
 
 ## Overview
-This authentication system provides a flexible user authentication experience with Firebase, allowing users to either create accounts/sign in or continue browsing as guests.
+This authentication system provides a flexible user authentication experience with Firebase, allowing users to either create accounts/sign in or continue browsing as guests. **Email verification is required** for all new accounts to ensure security and prevent abuse.
 
 ## Features
 
 ### 🔐 Authentication Methods
 - **Email/Password Sign Up**: Complete registration form with mandatory fields
 - **Email/Password Sign In**: Traditional login for existing users
+- **Email Verification**: Required verification before account activation
 - **Password Reset**: Email-based password recovery for forgotten passwords
 - **Guest Mode**: Browse charging stations without creating an account
 
 ### 📱 User Experience
 - **Login-First Approach**: Users are prompted to sign in or create an account when first opening the app
+- **Email Verification Required**: New accounts must verify email before accessing the app
 - **Optional Authentication**: Users can skip authentication and browse as guests
 - **Seamless Navigation**: Easy switching between login, signup, and guest modes
 - **Password Recovery**: Simple password reset process via email
@@ -37,6 +39,11 @@ Authenticated User → Main App (Map, List, Profile)
 Guest User → Main App (Map, List, Profile) with limited features
 ```
 
+### 4. Email Verification Flow
+```
+Signup → Success Screen → Email Verification Screen → Main App (after verification)
+```
+
 ## Components
 
 ### AuthContext (`src/contexts/AuthContext.tsx`)
@@ -46,13 +53,16 @@ Manages global authentication state and provides authentication functions.
 - `user`: Current authenticated user or null
 - `loading`: Authentication state loading indicator
 - `isGuest`: Whether user is browsing as guest
+- `isEmailVerified`: Whether user's email is verified
 - `error`: Authentication error messages
 
 **Functions:**
 - `login(email, password)`: Email/password authentication
-- `signup(email, password)`: Create new account
+- `signup(email, password)`: Create new account and send verification email
 - `logout()`: Sign out current user
 - `forgotPassword(email)`: Send password reset email
+- `sendVerificationEmail()`: Resend verification email
+- `verifyEmail(actionCode)`: Verify email with action code
 - `continueAsGuest()`: Switch to guest mode
 - `resetGuestState()`: Reset guest mode
 - `clearError()`: Clear error messages
@@ -65,6 +75,7 @@ Primary authentication screen with email/password login.
 - Links to signup and password recovery
 - Guest mode option
 - Error handling and validation
+- Email verification check
 
 ### SignupScreen (`src/screens/SignupScreen.tsx`)
 Comprehensive account creation form.
@@ -82,7 +93,20 @@ Comprehensive account creation form.
 **Features:**
 - Form validation
 - Password visibility toggle
+- Success screen after registration
+- Navigation to email verification
 - Navigation back to login
+
+### EmailVerificationScreen (`src/screens/EmailVerificationScreen.tsx`)
+Email verification screen for new accounts.
+
+**Features:**
+- Clear instructions for email verification
+- Resend verification email functionality
+- Manual verification status check
+- Helpful troubleshooting tips
+- Sign out option
+- Automatic navigation after verification
 
 ### ForgotPasswordScreen (`src/screens/ForgotPasswordScreen.tsx`)
 Password recovery screen for users who forgot their passwords.
@@ -102,6 +126,30 @@ User profile management and authentication status.
 - Guest mode information and benefits
 - Sign in/sign up prompts for guests
 - Logout functionality
+
+## Email Verification System
+
+### How It Works
+1. **User Registration**: User completes signup form
+2. **Verification Email**: Firebase automatically sends verification email
+3. **Success Screen**: User sees confirmation and instructions
+4. **Verification Screen**: Dedicated screen for verification process
+5. **Email Link**: User clicks verification link in email
+6. **Account Activation**: User can now access the app
+
+### Security Features
+- **Required Verification**: No access without verified email
+- **Automatic Sending**: Verification email sent immediately after signup
+- **Resend Functionality**: Users can request new verification emails
+- **Status Checking**: Real-time verification status updates
+- **Secure Links**: Firebase handles verification securely
+
+### User Experience
+- **Clear Instructions**: Step-by-step verification guidance
+- **Success Feedback**: Confirmation after each step
+- **Helpful Tips**: Troubleshooting for common issues
+- **Multiple Options**: Resend email or manual verification check
+- **Smooth Navigation**: Seamless flow through verification process
 
 ## Password Reset System
 
@@ -145,6 +193,8 @@ The system maps Firebase error codes to user-friendly messages:
 - `auth/credential-already-in-use`: "This credential is already associated with a different user account."
 - `auth/timeout`: "Request timed out. Please try again."
 - `auth/quota-exceeded`: "Quota exceeded. Please try again later."
+- `auth/invalid-action-code`: "Invalid verification code. Please request a new one."
+- `auth/expired-action-code`: "Verification code has expired. Please request a new one."
 
 ### User Experience
 - Clear error messages displayed below forms
@@ -155,11 +205,15 @@ The system maps Firebase error codes to user-friendly messages:
 
 ```typescript
 // App.tsx Navigation Flow
-{!user && !isGuest ? (
+{!shouldShowMainApp && !needsEmailVerification ? (
   <>
     <Stack.Screen name="Login" component={LoginScreen} />
     <Stack.Screen name="Signup" component={SignupScreen} />
     <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
+  </>
+) : needsEmailVerification ? (
+  <>
+    <Stack.Screen name="EmailVerification" component={EmailVerificationScreen} />
   </>
 ) : (
   <>
@@ -174,13 +228,19 @@ The system maps Firebase error codes to user-friendly messages:
 ### Firebase Security
 - Secure authentication with Firebase Auth
 - Password requirements (minimum 6 characters)
-- Email validation
+- Email validation and verification
 - Secure token management
 
 ### Data Protection
 - No sensitive data stored locally
 - Secure session management
 - Automatic token refresh
+
+### Email Verification Security
+- Required verification for all new accounts
+- Secure verification links via Firebase
+- No access to app without verified email
+- Automatic verification status checking
 
 ### Password Reset Security
 - Time-limited reset links (1 hour expiration)
@@ -224,11 +284,12 @@ FIREBASE_PROJECT_ID=your_project_id
 
 ### Authentication Scenarios
 1. **New User Signup**: Complete form validation and account creation
-2. **Existing User Login**: Email/password authentication
-3. **Password Reset**: Email-based password recovery flow
-4. **Guest Mode**: Browsing without authentication
-5. **Error Handling**: Invalid credentials and network issues
-6. **Session Persistence**: App restart authentication state
+2. **Email Verification**: Verification flow and status checking
+3. **Existing User Login**: Email/password authentication with verification check
+4. **Password Reset**: Email-based password recovery flow
+5. **Guest Mode**: Browsing without authentication
+6. **Error Handling**: Invalid credentials and network issues
+7. **Session Persistence**: App restart authentication state
 
 ### Test Cases
 - Form validation (required fields, password strength)
@@ -238,6 +299,8 @@ FIREBASE_PROJECT_ID=your_project_id
 - Guest mode functionality
 - Password reset email flow
 - Success state handling
+- Email verification flow
+- Verification status checking
 
 ## Troubleshooting
 
@@ -246,12 +309,14 @@ FIREBASE_PROJECT_ID=your_project_id
 2. **Navigation Errors**: Ensure proper screen registration
 3. **Firebase Errors**: Check Firebase project configuration
 4. **Password Reset Not Working**: Verify Firebase Auth settings and email templates
+5. **Email Verification Not Working**: Check Firebase Auth email verification settings
 
 ### Debug Steps
 1. Check Firebase console for authentication logs
 2. Test authentication flow in development vs production
 3. Verify Firebase Auth password reset settings
+4. Check Firebase Auth email verification configuration
 
 ## Conclusion
 
-This authentication system provides a solid foundation for user management while maintaining excellent user experience through optional authentication and guest access. The password reset functionality ensures users can easily recover access to their accounts. The system is designed with security, usability, and scalability in mind, focusing on reliable email/password authentication.
+This authentication system provides a solid foundation for user management while maintaining excellent user experience through optional authentication and guest access. **Email verification is mandatory** for all new accounts, ensuring security and preventing abuse. The password reset functionality ensures users can easily recover access to their accounts. The system is designed with security, usability, and scalability in mind, focusing on reliable email/password authentication with robust verification processes.
