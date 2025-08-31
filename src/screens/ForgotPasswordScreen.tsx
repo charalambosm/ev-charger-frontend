@@ -8,7 +8,8 @@ import {
   Alert, 
   KeyboardAvoidingView, 
   Platform, 
-  ScrollView 
+  ScrollView,
+  SafeAreaView
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useAuth } from '../contexts';
@@ -51,105 +52,113 @@ const ForgotPasswordScreen: React.FC = () => {
 
   if (isSuccess) {
     return (
-      <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-        <ScrollView contentContainerStyle={styles.scrollContainer}>
-          <View style={styles.successContainer}>
-            <View style={styles.successIcon}>
-              <Text style={styles.successIconText}>✅</Text>
-            </View>
-            
-            <Text style={styles.successTitle}>Check Your Email</Text>
-            <Text style={styles.successSubtitle}>
-              We've sent a password reset link to:
-            </Text>
-            <Text style={styles.emailText}>{email}</Text>
-            
-            <Text style={styles.instructionsText}>
-              Click the link in the email to reset your password. The link will expire in 1 hour.
-            </Text>
-
-            <View style={styles.buttonContainer}>
-              <TouchableOpacity style={styles.primaryButton} onPress={handleBackToLogin}>
-                <Text style={styles.primaryButtonText}>Back to Login</Text>
-              </TouchableOpacity>
+      <SafeAreaView style={styles.safeArea}>
+        <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+          <ScrollView contentContainerStyle={styles.scrollContainer}>
+            <View style={styles.successContainer}>
+              <View style={styles.successIcon}>
+                <Text style={styles.successIconText}>✅</Text>
+              </View>
               
-              <TouchableOpacity style={styles.secondaryButton} onPress={handleTryAgain}>
-                <Text style={styles.secondaryButtonText}>Try Different Email</Text>
-              </TouchableOpacity>
-            </View>
-
-            <View style={styles.helpContainer}>
-              <Text style={styles.helpText}>
-                Didn't receive the email? Check your spam folder or try again.
+              <Text style={styles.successTitle}>Check Your Email</Text>
+              <Text style={styles.successSubtitle}>
+                We've sent a password reset link to:
               </Text>
+              <Text style={styles.emailText}>{email}</Text>
+              
+              <Text style={styles.instructionsText}>
+                Click the link in the email to reset your password. The link will expire in 1 hour.
+              </Text>
+
+              <View style={styles.buttonContainer}>
+                <TouchableOpacity style={styles.primaryButton} onPress={handleBackToLogin}>
+                  <Text style={styles.primaryButtonText}>Back to Login</Text>
+                </TouchableOpacity>
+                
+                <TouchableOpacity style={styles.secondaryButton} onPress={handleTryAgain}>
+                  <Text style={styles.secondaryButtonText}>Try Different Email</Text>
+                </TouchableOpacity>
+              </View>
+
+              <View style={styles.helpContainer}>
+                <Text style={styles.helpText}>
+                  Didn't receive the email? Check your spam folder or try again.
+                </Text>
+              </View>
             </View>
-          </View>
-        </ScrollView>
-      </KeyboardAvoidingView>
+          </ScrollView>
+        </KeyboardAvoidingView>
+      </SafeAreaView>
     );
   }
 
   return (
-    <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <View style={styles.header}>
-          <TouchableOpacity style={styles.backButton} onPress={handleBackToLogin}>
-            <Text style={styles.backButtonText}>← Back</Text>
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.formContainer}>
-          <View style={styles.iconContainer}>
-            <Text style={styles.iconText}>🔐</Text>
-          </View>
-          
-          <Text style={styles.title}>Forgot Password?</Text>
-          <Text style={styles.subtitle}>
-            Enter your email address and we'll send you a link to reset your password.
-          </Text>
-          
-          <View style={styles.inputContainer}>
-            <Text style={styles.inputLabel}>Email Address</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Enter your email address"
-              value={email}
-              onChangeText={setEmail}
-              keyboardType="email-address"
-              autoCapitalize="none"
-              autoCorrect={false}
-              editable={!isLoading}
-            />
-          </View>
-          
-          {error && (
-            <View style={styles.errorContainer}>
-              <Text style={styles.errorText}>{error}</Text>
-            </View>
-          )}
-          
-          <TouchableOpacity 
-            style={[styles.button, isLoading && styles.buttonDisabled]} 
-            onPress={handleSubmit} 
-            disabled={isLoading}
-          >
-            <Text style={styles.buttonText}>
-              {isLoading ? 'Sending...' : 'Send Reset Link'}
-            </Text>
-          </TouchableOpacity>
-
-          <View style={styles.linksContainer}>
-            <TouchableOpacity style={styles.linkButton} onPress={handleBackToLogin}>
-              <Text style={styles.linkText}>Remember your password? Sign In</Text>
+    <SafeAreaView style={styles.safeArea}>
+      <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+        <ScrollView contentContainerStyle={styles.scrollContainer}>
+          <View style={styles.header}>
+            <TouchableOpacity style={styles.backButton} onPress={handleBackToLogin}>
+              <Text style={styles.backButtonText}>← Back</Text>
             </TouchableOpacity>
           </View>
-        </View>
-      </ScrollView>
-    </KeyboardAvoidingView>
+
+          <View style={styles.formContainer}>
+            <View style={styles.iconContainer}>
+              <Text style={styles.iconText}>🔐</Text>
+            </View>
+            
+            <Text style={styles.title}>Forgot Password?</Text>
+            <Text style={styles.subtitle}>
+              Enter your email address and we'll send you a link to reset your password.
+            </Text>
+            
+            <View style={styles.inputContainer}>
+              <Text style={styles.inputLabel}>Email Address</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Enter your email address"
+                value={email}
+                onChangeText={setEmail}
+                keyboardType="email-address"
+                autoCapitalize="none"
+                autoCorrect={false}
+                editable={!isLoading}
+              />
+            </View>
+            
+            {error && (
+              <View style={styles.errorContainer}>
+                <Text style={styles.errorText}>{error}</Text>
+              </View>
+            )}
+            
+            <TouchableOpacity 
+              style={[styles.button, isLoading && styles.buttonDisabled]} 
+              onPress={handleSubmit} 
+              disabled={isLoading}
+            >
+              <Text style={styles.buttonText}>
+                {isLoading ? 'Sending...' : 'Send Reset Link'}
+              </Text>
+            </TouchableOpacity>
+
+            <View style={styles.linksContainer}>
+              <TouchableOpacity style={styles.linkButton} onPress={handleBackToLogin}>
+                <Text style={styles.linkText}>Remember your password? Sign In</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: '#f5f5f5',
+  },
   container: {
     flex: 1,
     backgroundColor: '#f5f5f5',

@@ -6,9 +6,10 @@ import {
   StyleSheet, 
   Alert, 
   ScrollView,
-  RefreshControl
+  RefreshControl,
+  SafeAreaView
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+
 import { useAuth } from '../contexts';
 
 const EmailVerificationScreen: React.FC = () => {
@@ -16,16 +17,15 @@ const EmailVerificationScreen: React.FC = () => {
   const [isChecking, setIsChecking] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   
-  const { user, isEmailVerified, sendVerificationEmail, refreshUserVerificationStatus, error, clearError } = useAuth();
-  const navigation = useNavigation();
+  const { user, isEmailVerified, sendVerificationEmail, refreshUserVerificationStatus, error, clearError, logout } = useAuth();
 
   // Check verification status periodically
   useEffect(() => {
     if (user && isEmailVerified) {
-      // Email verified, navigate to main app
-      navigation.navigate('Main' as never);
+      // Email verified - the app will automatically navigate to main app
+      // No manual navigation needed
     }
-  }, [user, isEmailVerified, navigation]);
+  }, [user, isEmailVerified]);
 
   const handleResendEmail = async () => {
     try {
@@ -82,95 +82,108 @@ const EmailVerificationScreen: React.FC = () => {
   };
 
   const handleSignOut = () => {
-    // Navigate back to login
-    navigation.navigate('Login' as never);
+    // Sign out and return to login
+    logout();
   };
 
   if (!user) {
     return (
-      <View style={styles.container}>
-        <Text style={styles.errorText}>No user found. Please sign in again.</Text>
-        <TouchableOpacity style={styles.button} onPress={handleSignOut}>
-          <Text style={styles.buttonText}>Go to Login</Text>
-        </TouchableOpacity>
-      </View>
+      <SafeAreaView style={styles.safeArea}>
+        <View style={styles.container}>
+          <Text style={styles.errorText}>No user found. Please sign in again.</Text>
+          <TouchableOpacity style={styles.button} onPress={handleSignOut}>
+            <Text style={styles.buttonText}>Back to Login</Text>
+          </TouchableOpacity>
+        </View>
+      </SafeAreaView>
     );
   }
 
   return (
-    <ScrollView 
-      style={styles.container}
-      contentContainerStyle={styles.scrollContainer}
-      refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
-      }
-    >
-      <View style={styles.content}>
-        <View style={styles.iconContainer}>
-          <Text style={styles.iconText}>📧</Text>
-        </View>
-        
-        <Text style={styles.title}>Verify Your Email</Text>
-        <Text style={styles.subtitle}>
-          We've sent a verification email to:
-        </Text>
-        <Text style={styles.emailText}>{user.email}</Text>
-        
-        <View style={styles.instructionsContainer}>
-          <Text style={styles.instructionsTitle}>To complete your registration:</Text>
-          <Text style={styles.instruction}>1. Check your email inbox</Text>
-          <Text style={styles.instruction}>2. Click the verification link</Text>
-          <Text style={styles.instruction}>3. Return to this app and click "Check Verification"</Text>
-        </View>
-
-        {error && (
-          <View style={styles.errorContainer}>
-            <Text style={styles.errorText}>{error}</Text>
+    <SafeAreaView style={styles.safeArea}>
+      <ScrollView 
+        style={styles.container}
+        contentContainerStyle={styles.scrollContainer}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={handleRefresh}
+            colors={['#2196f3']}
+            tintColor="#2196f3"
+          />
+        }
+      >
+        <View style={styles.content}>
+          <View style={styles.iconContainer}>
+            <Text style={styles.iconText}>📧</Text>
           </View>
-        )}
-
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity 
-            style={[styles.primaryButton, isChecking && styles.buttonDisabled]} 
-            onPress={handleCheckVerification}
-            disabled={isChecking}
-          >
-            <Text style={styles.primaryButtonText}>
-              {isChecking ? 'Checking...' : 'Check Verification Status'}
-            </Text>
-          </TouchableOpacity>
           
-          <TouchableOpacity 
-            style={[styles.secondaryButton, isResending && styles.buttonDisabled]} 
-            onPress={handleResendEmail}
-            disabled={isResending}
-          >
-            <Text style={styles.secondaryButtonText}>
-              {isResending ? 'Sending...' : 'Resend Verification Email'}
+          <Text style={styles.title}>Verify Your Email</Text>
+          <Text style={styles.subtitle}>
+            We've sent a verification email to:
+          </Text>
+          <Text style={styles.emailText}>{user.email}</Text>
+          
+          <View style={styles.instructionsContainer}>
+            <Text style={styles.instructionsTitle}>To complete your registration:</Text>
+            <Text style={styles.instruction}>1. Check your email inbox</Text>
+            <Text style={styles.instruction}>2. Click the verification link</Text>
+            <Text style={styles.instruction}>3. Return to this app and click "Check Verification"</Text>
+          </View>
+
+          {error && (
+            <View style={styles.errorContainer}>
+              <Text style={styles.errorText}>{error}</Text>
+            </View>
+          )}
+
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity 
+              style={[styles.primaryButton, isChecking && styles.buttonDisabled]} 
+              onPress={handleCheckVerification}
+              disabled={isChecking}
+            >
+              <Text style={styles.primaryButtonText}>
+                {isChecking ? 'Checking...' : 'Check Verification Status'}
+              </Text>
+            </TouchableOpacity>
+            
+            <TouchableOpacity 
+              style={[styles.secondaryButton, isResending && styles.buttonDisabled]} 
+              onPress={handleResendEmail}
+              disabled={isResending}
+            >
+              <Text style={styles.secondaryButtonText}>
+                {isResending ? 'Sending...' : 'Resend Verification Email'}
+              </Text>
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.helpContainer}>
+            <Text style={styles.helpTitle}>Need Help?</Text>
+            <Text style={styles.helpText}>
+              • Check your spam/junk folder{'\n'}
+              • Make sure you entered the correct email{'\n'}
+              • Wait a few minutes for the email to arrive{'\n'}
+              • Click "Check Verification Status" after verifying{'\n'}
+              • Pull down to refresh this screen
             </Text>
+          </View>
+
+          <TouchableOpacity style={styles.signOutButton} onPress={handleSignOut}>
+            <Text style={styles.signOutButtonText}>Back to Login</Text>
           </TouchableOpacity>
         </View>
-
-        <View style={styles.helpContainer}>
-          <Text style={styles.helpTitle}>Need Help?</Text>
-          <Text style={styles.helpText}>
-            • Check your spam/junk folder{'\n'}
-            • Make sure you entered the correct email{'\n'}
-            • Wait a few minutes for the email to arrive{'\n'}
-            • Click "Check Verification Status" after verifying{'\n'}
-            • Pull down to refresh this screen
-          </Text>
-        </View>
-
-        <TouchableOpacity style={styles.signOutButton} onPress={handleSignOut}>
-          <Text style={styles.signOutButtonText}>Sign Out</Text>
-        </TouchableOpacity>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: '#f5f5f5',
+  },
   container: {
     flex: 1,
     backgroundColor: '#f5f5f5',

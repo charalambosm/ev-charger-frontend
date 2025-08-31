@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, KeyboardAvoidingView, Platform, ScrollView, SafeAreaView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useAuth } from '../contexts';
 
@@ -81,174 +81,182 @@ const SignupScreen: React.FC = () => {
 
   if (isSuccess) {
     return (
-      <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-        <ScrollView contentContainerStyle={styles.scrollContainer}>
-          <View style={styles.successContainer}>
-            <View style={styles.successIcon}>
-              <Text style={styles.successIconText}>✅</Text>
-            </View>
-            
-            <Text style={styles.successTitle}>Account Created Successfully!</Text>
-            <Text style={styles.successSubtitle}>
-              We've sent a verification email to:
-            </Text>
-            <Text style={styles.emailText}>{formData.email}</Text>
-            
-            <Text style={styles.instructionsText}>
-              Please check your email and click the verification link to complete your registration.
-            </Text>
-
-            <View style={styles.buttonContainer}>
-              <TouchableOpacity style={styles.primaryButton} onPress={handleContinueToVerification}>
-                <Text style={styles.primaryButtonText}>Continue to Verification</Text>
-              </TouchableOpacity>
+      <SafeAreaView style={styles.safeArea}>
+        <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+          <ScrollView contentContainerStyle={styles.scrollContainer}>
+            <View style={styles.successContainer}>
+              <View style={styles.successIcon}>
+                <Text style={styles.successIconText}>✅</Text>
+              </View>
               
-              <TouchableOpacity style={styles.secondaryButton} onPress={handleNavigateToLogin}>
-                <Text style={styles.secondaryButtonText}>Back to Login</Text>
-              </TouchableOpacity>
-            </View>
-
-            <View style={styles.helpContainer}>
-              <Text style={styles.helpText}>
-                Didn't receive the email? Check your spam folder or try signing in again.
+              <Text style={styles.successTitle}>Account Created Successfully!</Text>
+              <Text style={styles.successSubtitle}>
+                We've sent a verification email to:
               </Text>
+              <Text style={styles.emailText}>{formData.email}</Text>
+              
+              <Text style={styles.instructionsText}>
+                Please check your email and click the verification link to complete your registration.
+              </Text>
+
+              <View style={styles.buttonContainer}>
+                <TouchableOpacity style={styles.primaryButton} onPress={handleContinueToVerification}>
+                  <Text style={styles.primaryButtonText}>Continue to Verification</Text>
+                </TouchableOpacity>
+                
+                <TouchableOpacity style={styles.secondaryButton} onPress={handleNavigateToLogin}>
+                  <Text style={styles.secondaryButtonText}>Back to Login</Text>
+                </TouchableOpacity>
+              </View>
+
+              <View style={styles.helpContainer}>
+                <Text style={styles.helpText}>
+                  Didn't receive the email? Check your spam folder or try signing in again.
+                </Text>
+              </View>
             </View>
-          </View>
-        </ScrollView>
-      </KeyboardAvoidingView>
+          </ScrollView>
+        </KeyboardAvoidingView>
+      </SafeAreaView>
     );
   }
 
   return (
-    <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <View style={styles.header}>
-          <Text style={styles.title}>Create Account</Text>
-          <Text style={styles.subtitle}>Join us to access enhanced features and personalize your experience</Text>
-        </View>
-        
-        <View style={styles.formContainer}>
-          {/* Profile Picture Section */}
-          <View style={styles.profilePictureSection}>
-            <TouchableOpacity style={styles.profilePictureButton} onPress={handleProfilePicture}>
-              <View style={styles.profilePicturePlaceholder}>
-                <Text style={styles.profilePictureText}>📷</Text>
-                <Text style={styles.profilePictureLabel}>Add Photo</Text>
+    <SafeAreaView style={styles.safeArea}>
+      <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+        <ScrollView contentContainerStyle={styles.scrollContainer}>
+          <View style={styles.header}>
+            <Text style={styles.title}>Create Account</Text>
+            <Text style={styles.subtitle}>Join us to access enhanced features and personalize your experience</Text>
+          </View>
+          
+          <View style={styles.formContainer}>
+            {/* Profile Picture Section */}
+            <View style={styles.profilePictureSection}>
+              <TouchableOpacity style={styles.profilePictureButton} onPress={handleProfilePicture}>
+                <View style={styles.profilePicturePlaceholder}>
+                  <Text style={styles.profilePictureText}>📷</Text>
+                  <Text style={styles.profilePictureLabel}>Add Photo</Text>
+                </View>
+              </TouchableOpacity>
+              <Text style={styles.optionalText}>Optional</Text>
+            </View>
+
+            {/* Name Fields */}
+            <View style={styles.nameRow}>
+              <View style={[styles.inputContainer, styles.halfWidth]}>
+                <Text style={styles.inputLabel}>First Name *</Text>
+                <TextInput
+                  style={styles.input}
+                  placeholder="Enter first name"
+                  value={formData.firstName}
+                  onChangeText={(value) => updateFormData('firstName', value)}
+                  autoCapitalize="words"
+                  autoCorrect={false}
+                />
               </View>
-            </TouchableOpacity>
-            <Text style={styles.optionalText}>Optional</Text>
-          </View>
+              <View style={[styles.inputContainer, styles.halfWidth]}>
+                <Text style={styles.inputLabel}>Last Name *</Text>
+                <TextInput
+                  style={styles.input}
+                  placeholder="Enter last name"
+                  value={formData.lastName}
+                  onChangeText={(value) => updateFormData('lastName', value)}
+                  autoCapitalize="words"
+                  autoCorrect={false}
+                />
+              </View>
+            </View>
 
-          {/* Name Fields */}
-          <View style={styles.nameRow}>
-            <View style={[styles.inputContainer, styles.halfWidth]}>
-              <Text style={styles.inputLabel}>First Name *</Text>
+            {/* Email Field */}
+            <View style={styles.inputContainer}>
+              <Text style={styles.inputLabel}>Email Address *</Text>
               <TextInput
                 style={styles.input}
-                placeholder="Enter first name"
-                value={formData.firstName}
-                onChangeText={(value) => updateFormData('firstName', value)}
-                autoCapitalize="words"
+                placeholder="Enter your email"
+                value={formData.email}
+                onChangeText={(value) => updateFormData('email', value)}
+                keyboardType="email-address"
+                autoCapitalize="none"
                 autoCorrect={false}
               />
             </View>
-            <View style={[styles.inputContainer, styles.halfWidth]}>
-              <Text style={styles.inputLabel}>Last Name *</Text>
-              <TextInput
-                style={styles.input}
-                placeholder="Enter last name"
-                value={formData.lastName}
-                onChangeText={(value) => updateFormData('lastName', value)}
-                autoCapitalize="words"
-                autoCorrect={false}
-              />
+
+            {/* Password Fields */}
+            <View style={styles.inputContainer}>
+              <Text style={styles.inputLabel}>Password *</Text>
+              <View style={styles.passwordContainer}>
+                <TextInput
+                  style={[styles.input, styles.passwordInput]}
+                  placeholder="Enter your password"
+                  value={formData.password}
+                  onChangeText={(value) => updateFormData('password', value)}
+                  secureTextEntry={!showPassword}
+                  autoCapitalize="none"
+                />
+                <TouchableOpacity 
+                  style={styles.eyeButton} 
+                  onPress={() => setShowPassword(!showPassword)}
+                >
+                  <Text style={styles.eyeButtonText}>{showPassword ? '👁️' : '👁️‍🗨️'}</Text>
+                </TouchableOpacity>
+              </View>
+              <Text style={styles.passwordHint}>Must be at least 6 characters</Text>
             </View>
-          </View>
 
-          {/* Email Field */}
-          <View style={styles.inputContainer}>
-            <Text style={styles.inputLabel}>Email Address *</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Enter your email"
-              value={formData.email}
-              onChangeText={(value) => updateFormData('email', value)}
-              keyboardType="email-address"
-              autoCapitalize="none"
-              autoCorrect={false}
-            />
-          </View>
-
-          {/* Password Fields */}
-          <View style={styles.inputContainer}>
-            <Text style={styles.inputLabel}>Password *</Text>
-            <View style={styles.passwordContainer}>
-              <TextInput
-                style={[styles.input, styles.passwordInput]}
-                placeholder="Enter your password"
-                value={formData.password}
-                onChangeText={(value) => updateFormData('password', value)}
-                secureTextEntry={!showPassword}
-                autoCapitalize="none"
-              />
-              <TouchableOpacity 
-                style={styles.eyeButton} 
-                onPress={() => setShowPassword(!showPassword)}
-              >
-                <Text style={styles.eyeButtonText}>{showPassword ? '👁️' : '👁️‍🗨️'}</Text>
-              </TouchableOpacity>
+            <View style={styles.inputContainer}>
+              <Text style={styles.inputLabel}>Confirm Password *</Text>
+              <View style={styles.passwordContainer}>
+                <TextInput
+                  style={[styles.input, styles.passwordInput]}
+                  placeholder="Confirm your password"
+                  value={formData.confirmPassword}
+                  onChangeText={(value) => updateFormData('confirmPassword', value)}
+                  secureTextEntry={!showConfirmPassword}
+                  autoCapitalize="none"
+                />
+                <TouchableOpacity 
+                  style={styles.eyeButton} 
+                  onPress={() => setShowConfirmPassword(!showConfirmPassword)}
+                >
+                  <Text style={styles.eyeButtonText}>{showConfirmPassword ? '👁️' : '👁️‍🗨️'}</Text>
+                </TouchableOpacity>
+              </View>
             </View>
-            <Text style={styles.passwordHint}>Must be at least 6 characters</Text>
-          </View>
 
-          <View style={styles.inputContainer}>
-            <Text style={styles.inputLabel}>Confirm Password *</Text>
-            <View style={styles.passwordContainer}>
-              <TextInput
-                style={[styles.input, styles.passwordInput]}
-                placeholder="Confirm your password"
-                value={formData.confirmPassword}
-                onChangeText={(value) => updateFormData('confirmPassword', value)}
-                secureTextEntry={!showConfirmPassword}
-                autoCapitalize="none"
-              />
-              <TouchableOpacity 
-                style={styles.eyeButton} 
-                onPress={() => setShowConfirmPassword(!showConfirmPassword)}
-              >
-                <Text style={styles.eyeButtonText}>{showConfirmPassword ? '👁️' : '👁️‍🗨️'}</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
+            {error && (
+              <View style={styles.errorContainer}>
+                <Text style={styles.errorText}>{error}</Text>
+              </View>
+            )}
 
-          {error && (
-            <View style={styles.errorContainer}>
-              <Text style={styles.errorText}>{error}</Text>
-            </View>
-          )}
-
-          <TouchableOpacity 
-            style={[styles.button, isLoading && styles.buttonDisabled]} 
-            onPress={handleSubmit} 
-            disabled={isLoading}
-          >
-            <Text style={styles.buttonText}>
-              {isLoading ? 'Creating Account...' : 'Create Account'}
-            </Text>
-          </TouchableOpacity>
-
-          <View style={styles.linksContainer}>
-            <TouchableOpacity style={styles.linkButton} onPress={handleNavigateToLogin}>
-              <Text style={styles.linkText}>Already have an account? Sign In</Text>
+            <TouchableOpacity 
+              style={[styles.button, isLoading && styles.buttonDisabled]} 
+              onPress={handleSubmit} 
+              disabled={isLoading}
+            >
+              <Text style={styles.buttonText}>
+                {isLoading ? 'Creating Account...' : 'Create Account'}
+              </Text>
             </TouchableOpacity>
+
+            <View style={styles.linksContainer}>
+              <TouchableOpacity style={styles.linkButton} onPress={handleNavigateToLogin}>
+                <Text style={styles.linkText}>Already have an account? Sign In</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
-      </ScrollView>
-    </KeyboardAvoidingView>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: '#f5f5f5',
+  },
   container: {
     flex: 1,
     backgroundColor: '#f5f5f5',
