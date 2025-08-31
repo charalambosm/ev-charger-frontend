@@ -342,6 +342,24 @@ export default function MapScreen({ navigation }: any) {
         <Text style={{ fontWeight: "700" }}>Filters</Text>
       </Pressable>
 
+      {/* Overlay to close popups when tapping outside */}
+      {showFilters && (
+        <Pressable
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: "transparent",
+            zIndex: 999
+          }}
+          onPress={() => {
+            setShowFilters(false);
+          }}
+        />
+      )}
+
       {/* Filters dropdown */}
       {showFilters && (
         <View style={{

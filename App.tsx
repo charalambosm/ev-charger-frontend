@@ -7,7 +7,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import LoadingSpinner from "./src/components/LoadingSpinner";
 
 import { AuthProvider, useAuth } from "./src/contexts";
-import { MapScreen, ListScreen, DetailsScreen, LoginScreen, SignupScreen, ProfileScreen, ForgotPasswordScreen, EmailVerificationScreen } from "./src/screens";
+import { MapScreen, ListScreen, FavoritesScreen, DetailsScreen, LoginScreen, SignupScreen, ProfileScreen, ForgotPasswordScreen, EmailVerificationScreen } from "./src/screens";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -27,6 +27,7 @@ function MainTabs() {
     <Tab.Navigator>
       <Tab.Screen name="Map" component={MapScreen} options={{ title: "Map" }} />
       <Tab.Screen name="List" component={ListScreen} options={{ title: "List" }} />
+      <Tab.Screen name="Favorites" component={FavoritesScreen} options={{ title: "Favorites" }} />
       <Tab.Screen name="Profile" component={ProfileScreen} options={{ title: "Profile" }} />
     </Tab.Navigator>
   );

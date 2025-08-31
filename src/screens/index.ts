@@ -1,5 +1,6 @@
 export { default as MapScreen } from './MapScreen';
 export { default as ListScreen } from './ListScreen';
+export { default as FavoritesScreen } from './FavoritesScreen';
 export { default as DetailsScreen } from './DetailsScreen';
 export { default as LoginScreen } from './LoginScreen';
 export { default as SignupScreen } from './SignupScreen';

@@ -159,6 +159,25 @@ export default function ListScreen({ navigation }: any) {
         )}
              />
 
+       {/* Overlay to close popups when tapping outside */}
+       {(showSort || showFilters) && (
+         <Pressable
+           style={{
+             position: "absolute",
+             top: 0,
+             left: 0,
+             right: 0,
+             bottom: 0,
+             backgroundColor: "transparent",
+             zIndex: 999
+           }}
+           onPress={() => {
+             setShowSort(false);
+             setShowFilters(false);
+           }}
+         />
+       )}
+
        {/* Sort dropdown */}
        {showSort && (
          <View style={{
