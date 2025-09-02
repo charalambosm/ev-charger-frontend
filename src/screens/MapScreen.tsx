@@ -23,6 +23,22 @@ export default function MapScreen({ navigation }: any) {
     longitudeDelta: 0.6
   });
 
+  // Initialize all districts and operators when data is loaded
+  useEffect(() => {
+    if (data && data.length > 0) {
+      const allDistricts = Array.from(new Set(data.map((s) => pick(s.district)).filter(Boolean)));
+      const allOperators = Array.from(new Set(data.map((s) => s.operator).filter(Boolean)));
+
+      // Only initialize if not already done
+      if (filters.districts.size === 0) {
+        filters.initializeDistricts(allDistricts);
+      }
+      if (filters.operators.size === 0) {
+        filters.initializeOperators(allOperators);
+      }
+    }
+  }, [data, filters]);
+
   // Update map region when user location becomes available/changes
   useEffect(() => {
     if (coords) {
@@ -65,10 +81,12 @@ export default function MapScreen({ navigation }: any) {
       } else if (filters.dcOnly && !s.connections.some(c => c.current.includes("DC"))) return false;
       else if (filters.acOnly && !s.connections.some(c => c.current.includes("AC"))) return false;
       if (filters.powerKW.size > 0 && !s.connections.some(c => filters.powerKW.has(c.powerKW!))) return false;
+      // District filtering - show all if no specific districts are selected, otherwise filter by selected
       if (filters.districts.size > 0) {
         const districtName = pick(s.district).trim();
         if (!districtName || !filters.districts.has(districtName)) return false;
       }
+      // Operator filtering - show all if no specific operators are selected, otherwise filter by selected
       if (filters.operators.size > 0) {
         if (!filters.operators.has(s.operator)) return false;
       }
@@ -143,7 +161,7 @@ export default function MapScreen({ navigation }: any) {
             />
             <Callout onPress={() => onMarkerPress(f)}>
               <View style={{
-                width: Dimensions.get('window').width * 0.8,
+                width: Dimensions.get('window').width * 0.7,
                 backgroundColor: "#fff",
               }}>
                 {/* Header with title, address, operator, and logo */}
@@ -189,8 +207,8 @@ export default function MapScreen({ navigation }: any) {
                         'Unicars': require("../../assets/logo_unicars.png"),
                         'Porsche Destination': require("../../assets/logo_porsche.jpg"),
                         'Petrolina PCharge': require("../../assets/logo_petrolina.png"),
-                        'Lidl': require("../../assets/logo_lidl.svg"),
-                        'IKEA': require("../../assets/logo_ikea.svg"),
+                        'Lidl': require("../../assets/logo_lidl.png"),
+                        'IKEA': require("../../assets/logo_ikea.png"),
                         'EvLoader': require("../../assets/logo_evloader.png"),
                         'EKO': require("../../assets/logo_eko.png"),
                         'EV Power': require("../../assets/logo_evpower.png"),
@@ -374,7 +392,7 @@ export default function MapScreen({ navigation }: any) {
           shadowRadius: 6,
           shadowOffset: { width: 0, height: 2 },
           zIndex: 1000,
-          maxWidth: 280,
+          width: Dimensions.get('window').width * 0.7,
           maxHeight: 400
         }}>
           <ScrollView showsVerticalScrollIndicator={false}>
@@ -382,72 +400,211 @@ export default function MapScreen({ navigation }: any) {
             <View style={{ marginBottom: 12 }}>
               <Text style={{ fontWeight: "600", marginBottom: 6 }}>Current</Text>
               <View style={{ flexDirection: "row", gap: 8 }}>
-                <Pressable onPress={() => filters.set(s => ({ acOnly: !s.acOnly }))}>
-                  <View style={{ flexDirection: "row", alignItems: "center", gap: 6, backgroundColor: filters.acOnly ? "#ccc" : "#f1f1f1", paddingVertical: 6, paddingHorizontal: 10, borderRadius: 8 }}>
-                    <MaterialIcons name="power" size={18} color="#111" />
-                    <Text>AC</Text>
+                <Pressable onPress={() => filters.selectAllCurrent()}>
+                  <View style={{ flexDirection: "row", alignItems: "center", gap: 8, backgroundColor: filters.acOnly && filters.dcOnly ? "#2F80ED" : "#f1f1f1", paddingVertical: 10, paddingHorizontal: 16, borderRadius: 8, minWidth: 80, justifyContent: "center" }}>
+                    <MaterialIcons name="check-circle" size={20} color={filters.acOnly && filters.dcOnly ? "#fff" : "#111"} />
+                    <Text style={{ color: filters.acOnly && filters.dcOnly ? "#fff" : "#111", fontSize: 16, fontWeight: "500" }}>All</Text>
                   </View>
                 </Pressable>
-                <Pressable onPress={() => filters.set(s => ({ dcOnly: !s.dcOnly }))}>
-                  <View style={{ flexDirection: "row", alignItems: "center", gap: 6, backgroundColor: filters.dcOnly ? "#ccc" : "#f1f1f1", paddingVertical: 6, paddingHorizontal: 10, borderRadius: 8 }}>
-                    <MaterialIcons name="bolt" size={18} color="#111" />
-                    <Text>DC</Text>
+                <Pressable onPress={() => {
+                  // If AC is already selected and it's the only one, clear it
+                  // If "All" is selected or AC isn't selected, select just AC
+                  if (filters.acOnly && !filters.dcOnly) {
+                    filters.set(s => ({ acOnly: false, dcOnly: false }));
+                  } else {
+                    filters.set(s => ({ acOnly: true, dcOnly: false }));
+                  }
+                }}>
+                  <View style={{ flexDirection: "row", alignItems: "center", gap: 8, backgroundColor: filters.acOnly && !filters.dcOnly ? "#2F80ED" : "#f1f1f1", paddingVertical: 10, paddingHorizontal: 16, borderRadius: 8, minWidth: 80, justifyContent: "center" }}>
+                    <MaterialIcons name="power" size={20} color={filters.acOnly && !filters.dcOnly ? "#fff" : "#111"} />
+                    <Text style={{ color: filters.acOnly && !filters.dcOnly ? "#fff" : "#111", fontSize: 16, fontWeight: "500" }}>AC</Text>
+                  </View>
+                </Pressable>
+                <Pressable onPress={() => {
+                  // If DC is already selected and it's the only one, clear it
+                  // If "All" is selected or DC isn't selected, select just DC
+                  if (filters.dcOnly && !filters.acOnly) {
+                    filters.set(s => ({ acOnly: false, dcOnly: false }));
+                  } else {
+                    filters.set(s => ({ acOnly: false, dcOnly: true }));
+                  }
+                }}>
+                  <View style={{ flexDirection: "row", alignItems: "center", gap: 8, backgroundColor: filters.dcOnly && !filters.acOnly ? "#2F80ED" : "#f1f1f1", paddingVertical: 10, paddingHorizontal: 16, borderRadius: 8, minWidth: 80, justifyContent: "center" }}>
+                    <MaterialIcons name="bolt" size={20} color={filters.dcOnly && !filters.acOnly ? "#fff" : "#111"} />
+                    <Text style={{ color: filters.dcOnly && !filters.acOnly ? "#fff" : "#111", fontSize: 16, fontWeight: "500" }}>DC</Text>
                   </View>
                 </Pressable>
               </View>
             </View>
 
-            {/* Power presets with color legend */}
-            <View style={{ marginBottom: 12 }}>
-              <Text style={{ fontWeight: "600", marginBottom: 6 }}>Power</Text>
-              <View style={{ gap: 8 }}>
-                {[
-                  { power: 7, label: "7kW", color: "#93c5fd" },
-                  { power: 22, label: "22kW", color: "#3b82f6" },
-                  { power: 50, label: "50kW", color: "#8b5cf6" },
-                  { power: 150, label: "150kW", color: "#f97316" }
-                ].map((item, idx) => (
-                  <Pressable key={idx} onPress={() => filters.togglePower(item.power)}>
-                    <View style={{
-                      flexDirection: "row",
-                      alignItems: "center",
-                      gap: 8,
-                      backgroundColor: filters.powerKW.has(item.power) ? "#ccc" : "#f1f1f1",
-                      paddingVertical: 8,
-                      paddingHorizontal: 10,
-                      borderRadius: 8
-                    }}>
-                      <View style={{ width: 22, height: 20 }}>
-                        <ChargingStationMarker
-                          size={20}
-                          connections={[{ powerKW: item.power, status: 'Available' }]}
-                        />
-                      </View>
-                      <Text style={{ flex: 1 }}>{item.label}</Text>
-                    </View>
-                  </Pressable>
-                ))}
-              </View>
-            </View>
+                         {/* Power presets with color legend */}
+             <View style={{ marginBottom: 12 }}>
+               <Text style={{ fontWeight: "600", marginBottom: 6 }}>Power</Text>
+               <View style={{ gap: 8 }}>
+                 <Pressable onPress={() => filters.selectAllPower()}>
+                   <View style={{
+                     flexDirection: "row",
+                     alignItems: "center",
+                     gap: 8,
+                     backgroundColor: filters.powerKW.size === 4 ? "#2F80ED" : "#f1f1f1",
+                     paddingVertical: 10,
+                     paddingHorizontal: 16,
+                     borderRadius: 8,
+                     minWidth: 100,
+                     justifyContent: "center"
+                   }}>
+                     <MaterialIcons name="check-circle" size={20} color={filters.powerKW.size === 4 ? "#fff" : "#111"} />
+                     <Text style={{ color: filters.powerKW.size === 4 ? "#fff" : "#111", fontSize: 16, fontWeight: "500" }}>All</Text>
+                   </View>
+                 </Pressable>
+                 
+                 {/* Group power options into rows of 2 */}
+                 {(() => {
+                   const powerOptions = [
+                     { power: 7, label: "7kW", color: "#93c5fd" },
+                     { power: 22, label: "22kW", color: "#3b82f6" },
+                     { power: 50, label: "50kW", color: "#8b5cf6" },
+                     { power: 150, label: "150kW", color: "#f97316" }
+                   ];
+                   
+                   const rows = [];
+                   for (let i = 0; i < powerOptions.length; i += 2) {
+                     const row = powerOptions.slice(i, i + 2);
+                     rows.push(row);
+                   }
 
-            {/* Type (connector) multi-select */}
-            <View style={{ marginBottom: 12 }}>
-              <Text style={{ fontWeight: "600", marginBottom: 6 }}>Type</Text>
-              <View style={{ gap: 8 }}>
-                {["CCS (Type 2)", "CHAdeMO", "Type 2 (Socket Only)", "Unknown/Other"].map((t) => (
-                  <Pressable key={t} onPress={() => filters.set((state) => {
-                    const next = new Set(state.connectorTypes);
-                    if (next.has(t)) next.delete(t); else next.add(t);
-                    return { connectorTypes: next };
-                  })}>
-                    <View style={{ flexDirection: "row", alignItems: "center", gap: 8, backgroundColor: filters.connectorTypes.has(t) ? "#ccc" : "#f1f1f1", paddingVertical: 8, paddingHorizontal: 10, borderRadius: 8 }}>
-                      <MaterialCommunityIcons name={(t === "CCS (Type 2)" ? "ev-plug-ccs2" : t === "CHAdeMO" ? "ev-plug-chademo" : t === "Type 2 (Socket Only)" ? "ev-plug-type2" : "power-plug") as any} size={18} color="#111" />
-                      <Text>{t}</Text>
-                    </View>
-                  </Pressable>
-                ))}
-              </View>
-            </View>
+                   return rows.map((row, rowIndex) => (
+                     <View key={rowIndex} style={{ flexDirection: "row", gap: 8, justifyContent: "center" }}>
+                       {row.map((item) => {
+                         const isSelected = filters.powerKW.has(item.power) && filters.powerKW.size === 1;
+                         const backgroundColor = isSelected ? "#2F80ED" : "#f1f1f1";
+                         
+                         return (
+                           <Pressable key={item.power} onPress={() => {
+                             // If this specific power is selected and it's the only one, clear it
+                             // If "All" is selected (size === 4) or this power isn't selected, select just this power
+                             if (filters.powerKW.has(item.power) && filters.powerKW.size === 1) {
+                               filters.clearPower();
+                             } else {
+                               filters.set(s => ({ powerKW: new Set([item.power]) }));
+                             }
+                           }}>
+                             <View style={{
+                               paddingVertical: 12,
+                               paddingHorizontal: 8,
+                               borderRadius: 8,
+                               backgroundColor: backgroundColor,
+                               width: (Dimensions.get('window').width * 0.7 - 32) / 2, // Half of filter window width minus padding and gap
+                               height: 110,
+                               justifyContent: "center",
+                               alignItems: "center"
+                             }}>
+                               <View style={{ width: 50, height: 50, marginBottom: 8 }}>
+                                 <ChargingStationMarker
+                                   size={50}
+                                   connections={[{ powerKW: item.power, status: 'Available' }]}
+                                 />
+                               </View>
+                               <Text style={{
+                                 color: isSelected ? "#fff" : "#111",
+                                 fontSize: 16,
+                                 fontWeight: "500",
+                                 textAlign: "center"
+                               }}>{item.label}</Text>
+                             </View>
+                           </Pressable>
+                         );
+                       })}
+                       
+                       {/* Fill empty slots in the last row if needed */}
+                       {row.length < 2 && Array.from({ length: 2 - row.length }).map((_, index) => (
+                         <View key={`empty-${index}`} style={{ flex: 1 }} />
+                       ))}
+                     </View>
+                   ));
+                 })()}
+               </View>
+             </View>
+
+                         {/* Type (connector) multi-select */}
+             <View style={{ marginBottom: 12 }}>
+               <Text style={{ fontWeight: "600", marginBottom: 6 }}>Type</Text>
+               <View style={{ gap: 8 }}>
+                 <Pressable onPress={() => filters.selectAllConnectorTypes()}>
+                   <View style={{ flexDirection: "row", alignItems: "center", gap: 8, backgroundColor: filters.connectorTypes.size === 4 ? "#2F80ED" : "#f1f1f1", paddingVertical: 10, paddingHorizontal: 16, borderRadius: 8, minWidth: 120, justifyContent: "center" }}>
+                     <MaterialIcons name="check-circle" size={20} color={filters.connectorTypes.size === 4 ? "#fff" : "#111"} />
+                     <Text style={{ color: filters.connectorTypes.size === 4 ? "#fff" : "#111", fontSize: 16, fontWeight: "500" }}>All</Text>
+                   </View>
+                 </Pressable>
+                 
+                 {/* Group connector types into rows of 2 */}
+                 {(() => {
+                   const connectorTypes = [
+                     { type: "CCS (Type 2)", icon: "ev-plug-ccs2" },
+                     { type: "CHAdeMO", icon: "ev-plug-chademo" },
+                     { type: "Type 2 (Socket Only)", icon: "ev-plug-type2" },
+                     { type: "Unknown/Other", icon: "power-plug" }
+                   ];
+                   
+                   const rows = [];
+                   for (let i = 0; i < connectorTypes.length; i += 2) {
+                     const row = connectorTypes.slice(i, i + 2);
+                     rows.push(row);
+                   }
+
+                   return rows.map((row, rowIndex) => (
+                     <View key={rowIndex} style={{ flexDirection: "row", gap: 8, justifyContent: "center" }}>
+                       {row.map((item) => {
+                         const isSelected = filters.connectorTypes.has(item.type) && filters.connectorTypes.size === 1;
+                         const backgroundColor = isSelected ? "#2F80ED" : "#f1f1f1";
+                         
+                         return (
+                           <Pressable key={item.type} onPress={() => {
+                             // If this specific type is selected and it's the only one, clear it
+                             // If "All" is selected (size === 4) or this type isn't selected, select just this type
+                             if (filters.connectorTypes.has(item.type) && filters.connectorTypes.size === 1) {
+                               filters.clearConnectorTypes();
+                             } else {
+                               filters.set(s => ({ connectorTypes: new Set([item.type]) }));
+                             }
+                           }}>
+                             <View style={{
+                               paddingVertical: 12,
+                               paddingHorizontal: 8,
+                               borderRadius: 8,
+                               backgroundColor: backgroundColor,
+                               width: (Dimensions.get('window').width * 0.7 - 32) / 2, // Half of filter window width minus padding and gap
+                               height: 110,
+                               justifyContent: "center",
+                               alignItems: "center"
+                             }}>
+                               <View style={{ width: 50, height: 50, marginBottom: 8 }}>
+                                 <MaterialCommunityIcons 
+                                   name={item.icon as any} 
+                                   size={50} 
+                                   color={isSelected ? "#fff" : "#111"} 
+                                 />
+                               </View>
+                               <Text style={{
+                                 color: isSelected ? "#fff" : "#111",
+                                 fontSize: 16,
+                                 fontWeight: "500",
+                                 textAlign: "center"
+                               }}>{item.type}</Text>
+                             </View>
+                           </Pressable>
+                         );
+                       })}
+                       
+                       {/* Fill empty slots in the last row if needed */}
+                       {row.length < 2 && Array.from({ length: 2 - row.length }).map((_, index) => (
+                         <View key={`empty-${index}`} style={{ flex: 1 }} />
+                       ))}
+                     </View>
+                   ));
+                 })()}
+               </View>
+             </View>
 
             {/* District multi-select */}
             {(() => {
@@ -456,11 +613,51 @@ export default function MapScreen({ navigation }: any) {
                 <View style={{ marginBottom: 12 }}>
                   <Text style={{ fontWeight: "600", marginBottom: 6 }}>Districts</Text>
                   <View style={{ gap: 8 }}>
-                    {allDistricts.map((d) => (
-                      <Pressable key={d} onPress={() => filters.toggleDistrict(d)}>
-                        <Text style={{ paddingVertical: 8, paddingHorizontal: 10, borderRadius: 8, backgroundColor: filters.districts.has(d) ? "#ccc" : "#f1f1f1" }}>{d}</Text>
-                      </Pressable>
-                    ))}
+                    <Pressable onPress={() => filters.selectAllDistricts()}>
+                      <View style={{
+                        paddingVertical: 10,
+                        paddingHorizontal: 16,
+                        borderRadius: 8,
+                        backgroundColor: filters.districts.size === allDistricts.length ? "#2F80ED" : "#f1f1f1",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        gap: 8,
+                        minWidth: 100,
+                        justifyContent: "center"
+                      }}>
+                        <MaterialIcons name="check-circle" size={20} color={filters.districts.size === allDistricts.length ? "#fff" : "#111"} />
+                        <Text style={{ color: filters.districts.size === allDistricts.length ? "#fff" : "#111", fontSize: 16, fontWeight: "500" }}>All</Text>
+                      </View>
+                    </Pressable>
+                    {allDistricts.map((d) => {
+                      const isSelected = filters.districts.has(d);
+                      const backgroundColor = isSelected && filters.districts.size === 1 ? "#2F80ED" : "#f1f1f1";
+                      const textColor = isSelected && filters.districts.size === 1 ? "#fff" : "#111";
+
+                      return (
+                        <Pressable key={d} onPress={() => {
+                          // If this specific district is selected and it's the only one, clear it
+                          // If "All" is selected or this district isn't selected, select just this district
+                          if (filters.districts.has(d) && filters.districts.size === 1) {
+                            filters.clearDistricts();
+                          } else {
+                            filters.set(s => ({ districts: new Set([d]) }));
+                          }
+                        }}>
+                          <Text style={{
+                            paddingVertical: 10,
+                            paddingHorizontal: 16,
+                            borderRadius: 8,
+                            backgroundColor: backgroundColor,
+                            color: textColor,
+                            fontSize: 16,
+                            fontWeight: "500",
+                            minWidth: 100,
+                            textAlign: "center"
+                          }}>{d}</Text>
+                        </Pressable>
+                      );
+                    })}
                   </View>
                 </View>
               );
@@ -473,22 +670,128 @@ export default function MapScreen({ navigation }: any) {
                 <View style={{ marginBottom: 12 }}>
                   <Text style={{ fontWeight: "600", marginBottom: 6 }}>Operators</Text>
                   <View style={{ gap: 8 }}>
-                    {allOps.map((op) => (
-                      <Pressable key={op} onPress={() => filters.toggleOperator(op)}>
-                        <Text style={{ paddingVertical: 8, paddingHorizontal: 10, borderRadius: 8, backgroundColor: filters.operators.has(op) ? "#ccc" : "#f1f1f1" }}>{op}</Text>
-                      </Pressable>
-                    ))}
+                    <Pressable onPress={() => filters.selectAllOperators()}>
+                      <View style={{
+                        paddingVertical: 10,
+                        paddingHorizontal: 16,
+                        borderRadius: 8,
+                        backgroundColor: filters.operators.size === allOps.length ? "#2F80ED" : "#f1f1f1",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        gap: 8,
+                        minWidth: 100,
+                        justifyContent: "center"
+                      }}>
+                        <MaterialIcons name="check-circle" size={20} color={filters.operators.size === allOps.length ? "#fff" : "#111"} />
+                        <Text style={{ color: filters.operators.size === allOps.length ? "#fff" : "#111", fontSize: 16, fontWeight: "500" }}>All</Text>
+                      </View>
+                    </Pressable>
+
+                    {/* Group operators into rows of 2 */}
+                    {(() => {
+                      const rows = [];
+                      for (let i = 0; i < allOps.length; i += 2) {
+                        const row = allOps.slice(i, i + 2);
+                        rows.push(row);
+                      }
+
+                      return rows.map((row, rowIndex) => (
+                        <View key={rowIndex} style={{ flexDirection: "row", gap: 8, justifyContent: "center" }}>
+                          {row.map((op) => {
+                            const isSelected = filters.operators.has(op);
+                            const backgroundColor = isSelected && filters.operators.size === 1 ? "#2F80ED" : "#f1f1f1";
+
+                            return (
+                              <Pressable key={op} onPress={() => {
+                                // If this specific operator is selected and it's the only one, clear it
+                                // If "All" is selected or this operator isn't selected, select just this operator
+                                if (filters.operators.has(op) && filters.operators.size === 1) {
+                                  filters.clearOperators();
+                                } else {
+                                  filters.set(s => ({ operators: new Set([op]) }));
+                                }
+                              }}>
+                                <View style={{
+                                  paddingVertical: 12,
+                                  paddingHorizontal: 8,
+                                  borderRadius: 8,
+                                  backgroundColor: backgroundColor,
+                                  width: (Dimensions.get('window').width * 0.7 - 32) / 2, // Half of filter window width minus padding and gap
+                                  height: 110,
+                                  justifyContent: "center",
+                                  alignItems: "center"
+                                }}>
+                                  {(() => {
+                                    // Don't show logo for 'Mall Operators' or 'Unknown'
+                                    if (op === 'Mall Operators' || op === 'Unknown') {
+                                      return (
+                                        <Text style={{
+                                          color: isSelected && filters.operators.size === 1 ? "#fff" : "#111",
+                                          fontSize: 16,
+                                          fontWeight: "500",
+                                          textAlign: "center"
+                                        }}>{op}</Text>
+                                      );
+                                    }
+
+                                    // Map operator names to logo files
+                                    const logoMap: { [key: string]: any } = {
+                                      'Unicars': require("../../assets/logo_unicars.png"),
+                                      'Porsche Destination': require("../../assets/logo_porsche.jpg"),
+                                      'Petrolina PCharge': require("../../assets/logo_petrolina.png"),
+                                      'Lidl': require("../../assets/logo_lidl.png"),
+                                      'IKEA': require("../../assets/logo_ikea.png"),
+                                      'EvLoader': require("../../assets/logo_evloader.png"),
+                                      'EKO': require("../../assets/logo_eko.png"),
+                                      'EV Power': require("../../assets/logo_evpower.png"),
+                                      'EAC eCharge': require("../../assets/logo_eac.png"),
+                                      'BMW (Pilakoutas Group)': require("../../assets/logo_pilakoutas.webp")
+                                    };
+
+                                    const logoSource = logoMap[op];
+
+                                                                         if (logoSource) {
+                                       return (
+                                         <Image
+                                           source={logoSource}
+                                           style={{
+                                             width: "100%",
+                                             height: "100%",
+                                             opacity: isSelected && filters.operators.size === 1 ? 1 : 0.7
+                                           }}
+                                           resizeMode="contain"
+                                         />
+                                       );
+                                     }
+
+                                    // Fallback to text if no logo found
+                                    return (
+                                      <Text style={{
+                                        color: isSelected && filters.operators.size === 1 ? "#fff" : "#111",
+                                        fontSize: 16,
+                                        fontWeight: "500",
+                                        textAlign: "center"
+                                      }}>{op}</Text>
+                                    );
+                                  })()}
+                                </View>
+                              </Pressable>
+                            );
+                          })}
+
+                          {/* Fill empty slots in the last row if needed */}
+                          {row.length < 2 && Array.from({ length: 2 - row.length }).map((_, index) => (
+                            <View key={`empty-${index}`} style={{ flex: 1 }} />
+                          ))}
+                        </View>
+                      ));
+                    })()}
                   </View>
                 </View>
               );
             })()}
 
-            {/* Reset */}
-            <View style={{ alignItems: "center", marginTop: 4 }}>
-              <Pressable onPress={() => filters.reset()}>
-                <Text style={{ paddingVertical: 6, paddingHorizontal: 10, borderRadius: 8, backgroundColor: "#f1f1f1" }}>Reset</Text>
-              </Pressable>
-            </View>
+
           </ScrollView>
         </View>
       )}
