@@ -74,13 +74,6 @@ export default function MapScreen({ navigation }: any) {
     return feats.filter(f => {
       const s = f.station;
 
-      // Show all stations if both AC and DC are selected, otherwise filter by selected type
-      if (!filters.acOnly && !filters.dcOnly) return false; // No current type selected
-      if (filters.acOnly && filters.dcOnly) {
-        // Both selected - show all stations (no filtering needed)
-      } else if (filters.dcOnly && !s.connections.some(c => c.current.includes("DC"))) return false;
-      else if (filters.acOnly && !s.connections.some(c => c.current.includes("AC"))) return false;
-      if (filters.powerKW.size > 0 && !s.connections.some(c => filters.powerKW.has(c.powerKW!))) return false;
       // District filtering - show all if no specific districts are selected, otherwise filter by selected
       if (filters.districts.size > 0) {
         const districtName = pick(s.district).trim();
@@ -90,27 +83,50 @@ export default function MapScreen({ navigation }: any) {
       if (filters.operators.size > 0) {
         if (!filters.operators.has(s.operator)) return false;
       }
-      // Show all stations if no connector types are selected, otherwise filter by selected types
-      if (filters.connectorTypes.size > 0) {
-        const stationConnectorTypes = new Set(f.station.connections.map(c => c.type).filter(Boolean));
-        const mappedTypes = new Set<string>();
 
-        // Map actual connector types to our predefined categories
-        stationConnectorTypes.forEach(type => {
-          if (type === "CCS (Type 2)" || type.includes("CCS")) {
-            mappedTypes.add("CCS (Type 2)");
-          } else if (type === "CHAdeMO" || type.includes("CHAdeMO")) {
-            mappedTypes.add("CHAdeMO");
-          } else if (type === "Type 2 (Socket Only)" || type.includes("Type 2")) {
-            mappedTypes.add("Type 2 (Socket Only)");
-          } else {
-            mappedTypes.add("Unknown/Other");
+      // Connection-level filtering with AND logic
+      // A station is shown only if it has at least one connection that matches ALL selected criteria
+      const hasMatchingConnection = s.connections.some(connection => {
+        // Current type filtering (AC/DC)
+        if (!filters.acOnly && !filters.dcOnly) return false; // No current type selected
+        if (filters.acOnly && filters.dcOnly) {
+          // Both selected - connection can be either AC or DC
+        } else if (filters.dcOnly && !connection.current.includes("DC")) {
+          return false;
+        } else if (filters.acOnly && !connection.current.includes("AC")) {
+          return false;
+        }
+
+        // Power filtering - connection must match selected power levels
+        if (filters.powerKW.size > 0 && !filters.powerKW.has(connection.powerKW)) {
+          return false;
+        }
+
+        // Connector type filtering - connection must match selected connector types
+        if (filters.connectorTypes.size > 0) {
+          const connectionType = connection.type;
+          let mappedType = "Unknown/Other";
+          
+          if (connectionType === "CCS (Type 2)" || connectionType.includes("CCS")) {
+            mappedType = "CCS (Type 2)";
+          } else if (connectionType === "CHAdeMO" || connectionType.includes("CHAdeMO")) {
+            mappedType = "CHAdeMO";
+          } else if (connectionType === "Type 2 (Socket Only)" || connectionType.includes("Type 2")) {
+            mappedType = "Type 2 (Socket Only)";
           }
-        });
 
-        const has = [...filters.connectorTypes].some(ct => mappedTypes.has(ct));
-        if (!has) return false;
-      }
+          if (!filters.connectorTypes.has(mappedType)) {
+            return false;
+          }
+        }
+
+        // If we reach here, this connection matches all selected criteria
+        return true;
+      });
+
+      if (!hasMatchingConnection) return false;
+
+      // Search query filtering
       const q = filters.query.trim().toLowerCase();
       if (q) {
         const hay = [
