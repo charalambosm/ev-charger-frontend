@@ -1,11 +1,12 @@
 import React, { useMemo, useState, useEffect } from 'react';
-import { FlatList, View, Text, Pressable, SafeAreaView, ActivityIndicator, StyleSheet } from 'react-native';
+import { FlatList, View, Text, Pressable, SafeAreaView, ActivityIndicator, StyleSheet, Image } from 'react-native';
 import { useAuth } from '../contexts';
 import { useFavorites } from '../hooks';
 import { Station } from '../types/ocm';
 import useUserLocation from '../hooks/useUserLocation';
 import { haversineDistanceMeters } from '../utils/geo';
-import { MaterialIcons } from '@expo/vector-icons';
+import { pick } from '../utils/i18n';
+import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 
 const FavoritesScreen: React.FC = ({ navigation }: any) => {
   const { user, isGuest } = useAuth();
@@ -15,13 +16,14 @@ const FavoritesScreen: React.FC = ({ navigation }: any) => {
   const { coords } = useUserLocation();
   const [sortMode, setSortMode] = useState<"nearest" | "az">("az");
   const [showSort, setShowSort] = useState(false);
+  const [userSelectedSort, setUserSelectedSort] = useState(false);
 
-  // Update sort mode to "nearest" when coords become available
+  // Auto-switch to "nearest" when coords become available, but only if user hasn't made an explicit choice
   useEffect(() => {
-    if (coords && sortMode === "az") {
+    if (coords && sortMode === "az" && !userSelectedSort) {
       setSortMode("nearest");
     }
-  }, [coords, sortMode]);
+  }, [coords, sortMode, userSelectedSort]);
 
   // Fetch the actual station data for favorite IDs
   useEffect(() => {
@@ -104,15 +106,128 @@ const FavoritesScreen: React.FC = ({ navigation }: any) => {
 
     return (
       <Pressable onPress={() => navigation.navigate("Details", { id: item.ID })}>
-        <View style={{ padding: 12, borderBottomWidth: 1, borderColor: "#eee" }}>
-          <Text style={{ fontWeight: "700" }}>
-            {item.title.en}
+        <View style={{ paddingHorizontal: 18, paddingVertical: 12, borderBottomWidth: 1, borderColor: "#ddd", backgroundColor: "#fff" }}>
+          {/* Header with title, address, operator, and logo */}
+          <View style={{ flexDirection: "row", marginBottom: 8 }}>
+            <View style={{ flex: 1 }}>
+              <Text style={{ fontWeight: "700", fontSize: 18, marginBottom: 2 }}>
+                {pick(item.title)}
+              </Text>
+              <Text style={{ fontSize: 14, color: "#444", marginBottom: 2 }}>
+                {pick(item.address)}, {pick(item.town)}
+              </Text>
+              <Text style={{ fontSize: 14, color: "#666", marginBottom: 2 }}>
+                {item.operator}
+              </Text>
+              {/* Distance label */}
             {distanceMeters != null && (
-              <Text style={{ color: "#666" }}> · {formatDistance(distanceMeters)}</Text>
-            )}
+                <Text style={{ fontSize: 14, color: "#666", marginBottom: 2 }}>
+                  {formatDistance(distanceMeters)}
+                </Text>
+              )}
+            </View>
+            {/* Logo */}
+            <View style={{
+              width: 80,
+              height: 80,
+              justifyContent: "center",
+              alignItems: "center"
+            }}>
+              {(() => {
+                const operator = item.operator;
+                // Don't show logo for 'Mall Operators' or 'Unknown'
+                if (operator === 'Mall Operators' || operator === 'Unknown') {
+                  return null;
+                }
+
+                // Map operator names to logo files
+                const logoMap: { [key: string]: any } = {
+                  'Unicars': require("../../assets/logo_unicars.png"),
+                  'Porsche Destination': require("../../assets/logo_porsche.jpg"),
+                  'Petrolina PCharge': require("../../assets/logo_petrolina.png"),
+                  'Lidl': require("../../assets/logo_lidl.png"),
+                  'IKEA': require("../../assets/logo_ikea.png"),
+                  'EvLoader': require("../../assets/logo_evloader.png"),
+                  'EKO': require("../../assets/logo_eko.png"),
+                  'EV Power': require("../../assets/logo_evpower.png"),
+                  'EAC eCharge': require("../../assets/logo_eac.png"),
+                  'BMW (Pilakoutas Group)': require("../../assets/logo_pilakoutas.webp")
+                };
+
+                const logoSource = logoMap[operator];
+
+                if (logoSource) {
+                  return (
+                    <Image
+                      source={logoSource}
+                      style={{ width: 80, height: 80 }}
+                      resizeMode="contain"
+                    />
+                  );
+                }
+
+                return null;
+              })()}
+            </View>
+          </View>
+
+          {/* Main content area */}
+          <View style={{
+            borderWidth: 1.2,
+            borderColor: "#000",
+            borderRadius: 8,
+            padding: 8,
+          }}>
+            {(() => {
+              // Display each connection individually
+              const individualConnections = item.connections.slice(0, 3); // Show max 3 connections
+
+              return (
+                <View style={{ alignItems: "center" }}>
+                  {/* Connector types with icons */}
+                  <View style={{ flexDirection: "row", justifyContent: "space-between", marginBottom: 4, width: "100%" }}>
+                    {individualConnections.map((conn: any, index: number) => (
+                      <View key={index} style={{ flexDirection: "row", alignItems: "center", gap: 4, flex: 1, justifyContent: "center" }}>
+                        <Text style={{ fontSize: 10, fontWeight: "600" }}>
+                          {conn.quantity || 1}x
+                        </Text>
+                        <MaterialCommunityIcons
+                          name={(conn.type === "CCS (Type 2)" ? "ev-plug-ccs2" :
+                            conn.type === "CHAdeMO" ? "ev-plug-chademo" :
+                              conn.type === "Type 2 (Socket Only)" ? "ev-plug-type2" :
+                                "power-plug") as any}
+                          size={40}
+                          color="#000"
+                        />
+                      </View>
+                    ))}
+                  </View>
+
+                  {/* Type names */}
+                  <View style={{ flexDirection: "row", justifyContent: "space-between", width: "100%" }}>
+                    {individualConnections.map((conn: any, index: number) => (
+                      <Text key={index} style={{ fontSize: 10, color: "#444", textAlign: "center", flex: 1 }}>
+                        {conn.type}
+                      </Text>
+                    ))}
+                  </View>
+
+                  {/* Power information */}
+                  <View style={{ flexDirection: "row", justifyContent: "space-between", marginBottom: 4, width: "100%" }}>
+                    {individualConnections.map((conn: any, index: number) => {
+                      const power = conn.powerKW || 0;
+                      const currentType = conn.current?.includes("DC") ? "DC" : "AC";
+                      return (
+                        <Text key={index} style={{ fontSize: 10, color: "#444", textAlign: "center", flex: 1 }}>
+                          {power > 0 ? `${Math.round(power)}kW ${currentType}` : `${currentType}`}
           </Text>
-          <Text>{item.address.en}</Text>
-          <Text>{item.operator} · {item.number_of_points} points</Text>
+                      );
+                    })}
+                  </View>
+                </View>
+              );
+            })()}
+          </View>
         </View>
       </Pressable>
     );
@@ -249,6 +364,7 @@ const FavoritesScreen: React.FC = ({ navigation }: any) => {
             <Pressable 
               onPress={() => {
                 setSortMode("nearest");
+                setUserSelectedSort(true);
                 setShowSort(false);
               }}
               style={({ pressed }) => ({
@@ -263,6 +379,7 @@ const FavoritesScreen: React.FC = ({ navigation }: any) => {
             <Pressable 
               onPress={() => {
                 setSortMode("az");
+                setUserSelectedSort(true);
                 setShowSort(false);
               }}
               style={({ pressed }) => ({
