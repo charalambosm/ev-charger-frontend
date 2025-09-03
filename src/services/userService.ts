@@ -8,7 +8,6 @@ export interface UserProfile {
   email: string;
   firstName: string;
   lastName: string;
-  photoURL?: string;
   favorites?: string[]; // Array of station IDs
   preferences?: {
     language?: string;
@@ -23,7 +22,6 @@ export interface CreateUserProfileData {
   email: string;
   firstName: string;
   lastName: string;
-  photoURL?: string;
   favorites?: string[];
   preferences?: {
     language?: string;

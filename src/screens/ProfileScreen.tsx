@@ -6,7 +6,7 @@ import {
   StyleSheet,
   Alert,
   SafeAreaView,
-  Image,
+
   ActivityIndicator,
   ScrollView,
   TextInput,
@@ -149,7 +149,7 @@ const ProfileScreen: React.FC = () => {
 
   const handleLanguageSelect = async (languageCode: string) => {
     if (!userProfile) return;
-    
+
     setSaving(true);
     try {
       const updateData = {
@@ -158,7 +158,7 @@ const ProfileScreen: React.FC = () => {
           language: languageCode
         }
       };
-      
+
       await UserService.updateUserProfile(userProfile.id, updateData);
       setLanguageModalVisible(false);
     } catch (error) {
@@ -171,7 +171,7 @@ const ProfileScreen: React.FC = () => {
 
   const handleUnitsSelect = async (unitsCode: 'metric' | 'imperial') => {
     if (!userProfile) return;
-    
+
     setSaving(true);
     try {
       const updateData = {
@@ -180,7 +180,7 @@ const ProfileScreen: React.FC = () => {
           units: unitsCode
         }
       };
-      
+
       await UserService.updateUserProfile(userProfile.id, updateData);
       setUnitsModalVisible(false);
     } catch (error) {
@@ -281,22 +281,15 @@ const ProfileScreen: React.FC = () => {
             contentContainerStyle={styles.scrollContent}
           >
             <View style={styles.userInfo}>
-              {/* Profile Photo */}
+              {/* Profile Avatar */}
               <View style={styles.avatarContainer}>
-                {userProfile?.photoURL ? (
-                  <Image
-                    source={{ uri: userProfile.photoURL }}
-                    style={styles.profilePhoto}
-                  />
-                ) : (
-                  <View style={[styles.avatar, styles.avatarWithInitials]}>
-                    <Text style={styles.avatarInitials}>
-                      {userProfile?.firstName?.charAt(0).toUpperCase() ||
-                        userProfile?.lastName?.charAt(0).toUpperCase() ||
-                        user?.email?.charAt(0).toUpperCase() || 'U'}
-                    </Text>
-                  </View>
-                )}
+                                 <View style={[styles.avatar, styles.avatarWithInitials]}>
+                   <Text style={styles.avatarInitials}>
+                     {(userProfile?.firstName?.charAt(0).toUpperCase() || '') + 
+                      (userProfile?.lastName?.charAt(0).toUpperCase() || '') || 
+                      user?.email?.charAt(0).toUpperCase() || 'U'}
+                   </Text>
+                 </View>
               </View>
 
               {/* Profile Information */}
@@ -307,13 +300,13 @@ const ProfileScreen: React.FC = () => {
                   <View style={styles.infoRow}>
                     <Text style={styles.infoLabel}>First Name:</Text>
                     <View style={styles.infoValueContainer}>
+                      <TouchableOpacity
+                        style={styles.editButton}
+                        onPress={() => handleEdit('firstName', userProfile.firstName)}
+                      >
+                        <MaterialIcons name="edit" size={20} color="#000000" />
+                      </TouchableOpacity>
                       <Text style={styles.infoValue}>{userProfile.firstName}</Text>
-                                             <TouchableOpacity
-                         style={styles.editButton}
-                         onPress={() => handleEdit('firstName', userProfile.firstName)}
-                       >
-                         <MaterialIcons name="edit" size={20} color="#000000" />
-                       </TouchableOpacity>
                     </View>
                   </View>
                 )}
@@ -322,13 +315,13 @@ const ProfileScreen: React.FC = () => {
                   <View style={styles.infoRow}>
                     <Text style={styles.infoLabel}>Last Name:</Text>
                     <View style={styles.infoValueContainer}>
+                      <TouchableOpacity
+                        style={styles.editButton}
+                        onPress={() => handleEdit('lastName', userProfile.lastName)}
+                      >
+                        <MaterialIcons name="edit" size={20} color="#000000" />
+                      </TouchableOpacity>
                       <Text style={styles.infoValue}>{userProfile.lastName}</Text>
-                                             <TouchableOpacity
-                         style={styles.editButton}
-                         onPress={() => handleEdit('lastName', userProfile.lastName)}
-                       >
-                         <MaterialIcons name="edit" size={20} color="#000000" />
-                       </TouchableOpacity>
                     </View>
                   </View>
                 )}
@@ -371,49 +364,39 @@ const ProfileScreen: React.FC = () => {
                 <View style={styles.infoRow}>
                   <Text style={styles.infoLabel}>Language:</Text>
                   <View style={styles.infoValueContainer}>
-                                         <Text style={styles.infoValue}>
-                       {userProfile?.preferences?.language === 'en' ? 'English' :
-                         userProfile?.preferences?.language === 'gr' ? 'Greek' :
-                           userProfile?.preferences?.language || 'English'}
-                     </Text>
-                                         <TouchableOpacity
-                       style={styles.editButton}
-                       onPress={() => handleEdit('language', userProfile?.preferences?.language || 'en')}
-                     >
-                       <MaterialIcons name="edit" size={20} color="#000000" />
-                     </TouchableOpacity>
+                    <TouchableOpacity
+                      style={styles.editButton}
+                      onPress={() => handleEdit('language', userProfile?.preferences?.language || 'en')}
+                    >
+                      <MaterialIcons name="edit" size={20} color="#000000" />
+                    </TouchableOpacity>
+                    <Text style={styles.infoValue}>
+                      {userProfile?.preferences?.language === 'en' ? 'English' :
+                        userProfile?.preferences?.language === 'gr' ? 'Greek' :
+                          userProfile?.preferences?.language || 'English'}
+                    </Text>
                   </View>
                 </View>
 
                 <View style={styles.infoRow}>
                   <Text style={styles.infoLabel}>Distance units:</Text>
                   <View style={styles.infoValueContainer}>
-                                         <Text style={styles.infoValue}>
-                       {userProfile?.preferences?.units === 'metric' ? 'metres / kilometres' :
-                         userProfile?.preferences?.units === 'imperial' ? 'feet / miles' :
-                           'metres / kilometres'}
-                     </Text>
-                                         <TouchableOpacity
-                       style={styles.editButton}
-                       onPress={() => handleEdit('units', userProfile?.preferences?.units || 'metric')}
-                     >
-                       <MaterialIcons name="edit" size={20} color="#000000" />
-                     </TouchableOpacity>
+                    <TouchableOpacity
+                      style={styles.editButton}
+                      onPress={() => handleEdit('units', userProfile?.preferences?.units || 'metric')}
+                    >
+                      <MaterialIcons name="edit" size={20} color="#000000" />
+                    </TouchableOpacity>
+                    <Text style={styles.infoValue}>
+                      {userProfile?.preferences?.units === 'metric' ? 'metres / kilometres' :
+                        userProfile?.preferences?.units === 'imperial' ? 'feet / miles' :
+                          'metres / kilometres'}
+                    </Text>
                   </View>
                 </View>
               </View>
 
-              {/* Favorites Count */}
-              <View style={styles.section}>
-                <Text style={styles.sectionTitle}>Favorites</Text>
 
-                <View style={styles.infoRow}>
-                  <Text style={styles.infoLabel}>Saved Stations:</Text>
-                  <Text style={styles.infoValue}>
-                    {userProfile?.favorites?.length || 0} stations
-                  </Text>
-                </View>
-              </View>
             </View>
 
             <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
@@ -471,94 +454,94 @@ const ProfileScreen: React.FC = () => {
             </View>
           </View>
         </View>
-               </Modal>
+      </Modal>
 
-         {/* Distance Units Selection Modal */}
-         <Modal
-           visible={unitsModalVisible}
-           transparent={true}
-           animationType="slide"
-           onRequestClose={() => setUnitsModalVisible(false)}
-         >
-           <View style={styles.modalOverlay}>
-             <View style={styles.unitsModalContent}>
-               <Text style={styles.modalTitle}>Select Distance Units</Text>
-               
-               <TouchableOpacity
-                 style={[styles.unitsOption, userProfile?.preferences?.units === 'metric' && styles.unitsOptionSelected]}
-                 onPress={() => handleUnitsSelect('metric')}
-                 disabled={saving}
-               >
-                 <Text style={[styles.unitsOptionText, userProfile?.preferences?.units === 'metric' && styles.unitsOptionTextSelected]}>
-                   metres / kilometres
-                 </Text>
-               </TouchableOpacity>
-               
-               <TouchableOpacity
-                 style={[styles.unitsOption, userProfile?.preferences?.units === 'imperial' && styles.unitsOptionSelected]}
-                 onPress={() => handleUnitsSelect('imperial')}
-                 disabled={saving}
-               >
-                 <Text style={[styles.unitsOptionText, userProfile?.preferences?.units === 'imperial' && styles.unitsOptionTextSelected]}>
-                   feet / miles
-                 </Text>
-               </TouchableOpacity>
-               
-               <TouchableOpacity
-                 style={styles.unitsModalCancelButton}
-                 onPress={() => setUnitsModalVisible(false)}
-                 disabled={saving}
-               >
-                 <Text style={styles.cancelButtonText}>Cancel</Text>
-               </TouchableOpacity>
-             </View>
-           </View>
-         </Modal>
+      {/* Distance Units Selection Modal */}
+      <Modal
+        visible={unitsModalVisible}
+        transparent={true}
+        animationType="slide"
+        onRequestClose={() => setUnitsModalVisible(false)}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.unitsModalContent}>
+            <Text style={styles.modalTitle}>Select Distance Units</Text>
 
-         {/* Language Selection Modal */}
-         <Modal
-           visible={languageModalVisible}
-           transparent={true}
-           animationType="slide"
-           onRequestClose={() => setLanguageModalVisible(false)}
-         >
-           <View style={styles.modalOverlay}>
-             <View style={styles.languageModalContent}>
-               <Text style={styles.modalTitle}>Select Language</Text>
-               
-               <TouchableOpacity
-                 style={[styles.languageOption, userProfile?.preferences?.language === 'en' && styles.languageOptionSelected]}
-                 onPress={() => handleLanguageSelect('en')}
-                 disabled={saving}
-               >
-                 <Text style={[styles.languageOptionText, userProfile?.preferences?.language === 'en' && styles.languageOptionTextSelected]}>
-                   English
-                 </Text>
-               </TouchableOpacity>
-               
-               <TouchableOpacity
-                 style={[styles.languageOption, userProfile?.preferences?.language === 'gr' && styles.languageOptionSelected]}
-                 onPress={() => handleLanguageSelect('gr')}
-                 disabled={saving}
-               >
-                 <Text style={[styles.languageOptionText, userProfile?.preferences?.language === 'gr' && styles.languageOptionTextSelected]}>
-                   Greek
-                 </Text>
-               </TouchableOpacity>
-               
-               <TouchableOpacity
-                 style={styles.languageModalCancelButton}
-                 onPress={() => setLanguageModalVisible(false)}
-                 disabled={saving}
-               >
-                 <Text style={styles.cancelButtonText}>Cancel</Text>
-               </TouchableOpacity>
-             </View>
-           </View>
-         </Modal>
-       </SafeAreaView>
-     );
-   };
+            <TouchableOpacity
+              style={[styles.unitsOption, userProfile?.preferences?.units === 'metric' && styles.unitsOptionSelected]}
+              onPress={() => handleUnitsSelect('metric')}
+              disabled={saving}
+            >
+              <Text style={[styles.unitsOptionText, userProfile?.preferences?.units === 'metric' && styles.unitsOptionTextSelected]}>
+                metres / kilometres
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={[styles.unitsOption, userProfile?.preferences?.units === 'imperial' && styles.unitsOptionSelected]}
+              onPress={() => handleUnitsSelect('imperial')}
+              disabled={saving}
+            >
+              <Text style={[styles.unitsOptionText, userProfile?.preferences?.units === 'imperial' && styles.unitsOptionTextSelected]}>
+                feet / miles
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.unitsModalCancelButton}
+              onPress={() => setUnitsModalVisible(false)}
+              disabled={saving}
+            >
+              <Text style={styles.cancelButtonText}>Cancel</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+
+      {/* Language Selection Modal */}
+      <Modal
+        visible={languageModalVisible}
+        transparent={true}
+        animationType="slide"
+        onRequestClose={() => setLanguageModalVisible(false)}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.languageModalContent}>
+            <Text style={styles.modalTitle}>Select Language</Text>
+
+            <TouchableOpacity
+              style={[styles.languageOption, userProfile?.preferences?.language === 'en' && styles.languageOptionSelected]}
+              onPress={() => handleLanguageSelect('en')}
+              disabled={saving}
+            >
+              <Text style={[styles.languageOptionText, userProfile?.preferences?.language === 'en' && styles.languageOptionTextSelected]}>
+                English
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={[styles.languageOption, userProfile?.preferences?.language === 'gr' && styles.languageOptionSelected]}
+              onPress={() => handleLanguageSelect('gr')}
+              disabled={saving}
+            >
+              <Text style={[styles.languageOptionText, userProfile?.preferences?.language === 'gr' && styles.languageOptionTextSelected]}>
+                Greek
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.languageModalCancelButton}
+              onPress={() => setLanguageModalVisible(false)}
+              disabled={saving}
+            >
+              <Text style={styles.cancelButtonText}>Cancel</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+    </SafeAreaView>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -567,10 +550,10 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    padding: 20,
+    padding: 12,
   },
   header: {
-    marginBottom: 32,
+    // marginBottom: 32,
   },
   guestContainer: {
     backgroundColor: 'white',
@@ -695,7 +678,7 @@ const styles = StyleSheet.create({
     minWidth: 80,
   },
   editButton: {
-    marginLeft: 4,
+    marginRight: 4,
     // padding: 4,
   },
   logoutButton: {
@@ -724,13 +707,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 20,
   },
-  profilePhoto: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    borderWidth: 3,
-    borderColor: '#007AFF',
-  },
+
   nameContainer: {
     alignItems: 'center',
     marginBottom: 24,
@@ -821,110 +798,110 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
   },
-     saveButtonText: {
-     color: 'white',
-     fontSize: 16,
-     fontWeight: '600',
-   },
+  saveButtonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: '600',
+  },
 
-   // Language selection modal styles
-   languageModalContent: {
-     backgroundColor: 'white',
-     borderRadius: 12,
-     padding: 24,
-     width: '80%',
-     maxWidth: 400,
-     shadowColor: '#000',
-     shadowOffset: {
-       width: 0,
-       height: 2,
-     },
-     shadowOpacity: 0.25,
-     shadowRadius: 8,
-     elevation: 5,
-     alignItems: 'center',
-   },
-   languageOption: {
-     padding: 16,
-     borderRadius: 8,
-     borderWidth: 1,
-     borderColor: '#ddd',
-     marginBottom: 12,
-     backgroundColor: '#f9f9f9',
-     width: '100%',
-   },
-   languageOptionSelected: {
-     backgroundColor: '#007AFF',
-     borderColor: '#007AFF',
-   },
-   languageOptionText: {
-     fontSize: 16,
-     color: '#333',
-     textAlign: 'center',
-     fontWeight: '500',
-   },
-   languageOptionTextSelected: {
-     color: 'white',
-     fontWeight: '600',
-   },
-   languageModalCancelButton: {
-     backgroundColor: '#f0f0f0',
-     padding: 12,
-     borderRadius: 8,
-     alignItems: 'center',
-     marginTop: 8,
-     width: '100%',
-   },
+  // Language selection modal styles
+  languageModalContent: {
+    backgroundColor: 'white',
+    borderRadius: 12,
+    padding: 24,
+    width: '80%',
+    maxWidth: 400,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 8,
+    elevation: 5,
+    alignItems: 'center',
+  },
+  languageOption: {
+    padding: 16,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#ddd',
+    marginBottom: 12,
+    backgroundColor: '#f9f9f9',
+    width: '100%',
+  },
+  languageOptionSelected: {
+    backgroundColor: '#007AFF',
+    borderColor: '#007AFF',
+  },
+  languageOptionText: {
+    fontSize: 16,
+    color: '#333',
+    textAlign: 'center',
+    fontWeight: '500',
+  },
+  languageOptionTextSelected: {
+    color: 'white',
+    fontWeight: '600',
+  },
+  languageModalCancelButton: {
+    backgroundColor: '#f0f0f0',
+    padding: 12,
+    borderRadius: 8,
+    alignItems: 'center',
+    marginTop: 8,
+    width: '100%',
+  },
 
-   // Distance units selection modal styles
-   unitsModalContent: {
-     backgroundColor: 'white',
-     borderRadius: 12,
-     padding: 24,
-     width: '80%',
-     maxWidth: 400,
-     shadowColor: '#000',
-     shadowOffset: {
-       width: 0,
-       height: 2,
-     },
-     shadowOpacity: 0.25,
-     shadowRadius: 8,
-     elevation: 5,
-     alignItems: 'center',
-   },
-   unitsOption: {
-     padding: 16,
-     borderRadius: 8,
-     borderWidth: 1,
-     borderColor: '#ddd',
-     marginBottom: 12,
-     backgroundColor: '#f9f9f9',
-     width: '100%',
-   },
-   unitsOptionSelected: {
-     backgroundColor: '#007AFF',
-     borderColor: '#007AFF',
-   },
-   unitsOptionText: {
-     fontSize: 16,
-     color: '#333',
-     textAlign: 'center',
-     fontWeight: '500',
-   },
-   unitsOptionTextSelected: {
-     color: 'white',
-     fontWeight: '600',
-   },
-   unitsModalCancelButton: {
-     backgroundColor: '#f0f0f0',
-     padding: 12,
-     borderRadius: 8,
-     alignItems: 'center',
-     marginTop: 8,
-     width: '100%',
-   },
+  // Distance units selection modal styles
+  unitsModalContent: {
+    backgroundColor: 'white',
+    borderRadius: 12,
+    padding: 24,
+    width: '80%',
+    maxWidth: 400,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 8,
+    elevation: 5,
+    alignItems: 'center',
+  },
+  unitsOption: {
+    padding: 16,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#ddd',
+    marginBottom: 12,
+    backgroundColor: '#f9f9f9',
+    width: '100%',
+  },
+  unitsOptionSelected: {
+    backgroundColor: '#007AFF',
+    borderColor: '#007AFF',
+  },
+  unitsOptionText: {
+    fontSize: 16,
+    color: '#333',
+    textAlign: 'center',
+    fontWeight: '500',
+  },
+  unitsOptionTextSelected: {
+    color: 'white',
+    fontWeight: '600',
+  },
+  unitsModalCancelButton: {
+    backgroundColor: '#f0f0f0',
+    padding: 12,
+    borderRadius: 8,
+    alignItems: 'center',
+    marginTop: 8,
+    width: '100%',
+  },
 
- });
+});
 
 export default ProfileScreen;

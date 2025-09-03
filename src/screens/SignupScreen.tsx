@@ -70,10 +70,7 @@ const SignupScreen: React.FC = () => {
     }
   };
 
-  const handleProfilePicture = () => {
-    // TODO: Implement profile picture selection
-    Alert.alert('Coming Soon', 'Profile picture selection will be available soon!');
-  };
+
 
   const handleNavigateToLogin = () => {
     navigation.navigate('Login' as never);
@@ -135,17 +132,6 @@ const SignupScreen: React.FC = () => {
           </View>
           
           <View style={styles.formContainer}>
-            {/* Profile Picture Section */}
-            <View style={styles.profilePictureSection}>
-              <TouchableOpacity style={styles.profilePictureButton} onPress={handleProfilePicture}>
-                <View style={styles.profilePicturePlaceholder}>
-                  <Text style={styles.profilePictureText}>📷</Text>
-                  <Text style={styles.profilePictureLabel}>Add Photo</Text>
-                </View>
-              </TouchableOpacity>
-              <Text style={styles.optionalText}>Optional</Text>
-            </View>
-
             {/* Name Fields */}
             <View style={styles.nameRow}>
               <View style={[styles.inputContainer, styles.halfWidth]}>
@@ -311,39 +297,7 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
-  profilePictureSection: {
-    alignItems: 'center',
-    marginBottom: 24,
-  },
-  profilePictureButton: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
-    backgroundColor: '#f0f0f0',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 8,
-    borderWidth: 2,
-    borderColor: '#ddd',
-    borderStyle: 'dashed',
-  },
-  profilePicturePlaceholder: {
-    alignItems: 'center',
-  },
-  profilePictureText: {
-    fontSize: 24,
-    marginBottom: 4,
-  },
-  profilePictureLabel: {
-    fontSize: 12,
-    color: '#666',
-    textAlign: 'center',
-  },
-  optionalText: {
-    fontSize: 12,
-    color: '#999',
-    fontStyle: 'italic',
-  },
+
   nameRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
