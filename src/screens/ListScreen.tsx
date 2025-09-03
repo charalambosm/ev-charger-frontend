@@ -15,6 +15,7 @@ export default function ListScreen({ navigation }: any) {
   const [sortMode, setSortMode] = useState<"nearest" | "az">("az");
   const [showFilters, setShowFilters] = useState(false);
   const [showSort, setShowSort] = useState(false);
+  const [userSelectedSort, setUserSelectedSort] = useState(false);
 
   // Initialize all districts and operators when data is loaded
   useEffect(() => {
@@ -32,12 +33,12 @@ export default function ListScreen({ navigation }: any) {
     }
   }, [data, filters]);
 
-  // Update sort mode to "nearest" when coords become available
+  // Auto-switch to "nearest" when coords become available, but only if user hasn't made an explicit choice
   useEffect(() => {
-    if (coords && sortMode === "az") {
+    if (coords && sortMode === "az" && !userSelectedSort) {
       setSortMode("nearest");
     }
-  }, [coords, sortMode]);
+  }, [coords, sortMode, userSelectedSort]);
 
   const filtered = useMemo(() => {
     if (!data) return [];
@@ -163,17 +164,13 @@ export default function ListScreen({ navigation }: any) {
               <Pressable
                 onPress={() => setShowFilters((v) => !v)}
                 style={({ pressed }) => ({
-                  backgroundColor: pressed ? "rgba(255,255,255,0.35)" : "rgba(255,255,255,0.95)",
+                  backgroundColor: pressed ? "rgba(0,0,0,0.1)" : "rgba(0,0,0,0.05)",
                   paddingHorizontal: 12,
                   paddingVertical: 8,
                   borderRadius: 20,
                   flexDirection: "row",
                   alignItems: "center",
-                  gap: 6,
-                  shadowColor: "#000",
-                  shadowOpacity: 0.15,
-                  shadowRadius: 6,
-                  shadowOffset: { width: 0, height: 2 }
+                  gap: 6
                 })}
               >
                 <MaterialIcons name="filter-alt" size={18} color="#111" />
@@ -235,6 +232,7 @@ export default function ListScreen({ navigation }: any) {
           <Pressable 
             onPress={() => {
               setSortMode("nearest");
+              setUserSelectedSort(true);
               setShowSort(false);
             }}
             style={({ pressed }) => ({
@@ -249,6 +247,7 @@ export default function ListScreen({ navigation }: any) {
           <Pressable 
             onPress={() => {
               setSortMode("az");
+              setUserSelectedSort(true);
               setShowSort(false);
             }}
             style={({ pressed }) => ({
