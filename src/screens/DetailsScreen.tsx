@@ -36,8 +36,8 @@ export default function DetailsScreen({ route }: any) {
       'Unicars': require("../../assets/logo_unicars.png"),
       'Porsche Destination': require("../../assets/logo_porsche.jpg"),
       'Petrolina PCharge': require("../../assets/logo_petrolina.png"),
-      'Lidl': require("../../assets/logo_lidl.svg"),
-      'IKEA': require("../../assets/logo_ikea.svg"),
+      'Lidl': require("../../assets/logo_lidl.png"),
+      'IKEA': require("../../assets/logo_ikea.png"),
       'EvLoader': require("../../assets/logo_evloader.png"),
       'EKO': require("../../assets/logo_eko.png"),
       'EV Power': require("../../assets/logo_evpower.png"),
@@ -236,43 +236,26 @@ export default function DetailsScreen({ route }: any) {
         }}>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             {/* Operator Logo */}
-            <View style={{
-              width: 56,
-              height: 56,
-              borderRadius: 12,
-              backgroundColor: "#111827",
-              justifyContent: "center",
-              alignItems: "center",
-              marginRight: 16
-            }}>
-              {operatorLogo ? (
+            {operatorLogo && (
+              <View style={{
+                width: 56,
+                height: 56,
+                borderRadius: 12,
+                justifyContent: "center",
+                alignItems: "center",
+                marginRight: 16
+              }}>
                 <Image
                   source={operatorLogo}
-                  style={{ width: 40, height: 40 }}
+                  style={{ width: 56, height: 56 }}
                   resizeMode="contain"
                 />
-              ) : (
-                <Text style={{ color: "#FFFFFF", fontSize: 12, fontWeight: "700" }}>LOGO</Text>
-              )}
-            </View>
+              </View>
+            )}
 
             <View style={{ flex: 1 }}>
               <Text style={{ fontSize: 11, color: "#6B7280", marginBottom: 4 }}>Operator</Text>
               <Text style={{ fontSize: 16, fontWeight: "700", color: "#111827" }}>{s.operator}</Text>
-            </View>
-
-            {/* Connections Count Badge */}
-            <View style={{
-              backgroundColor: "#2563EB",
-              borderRadius: 12,
-              paddingHorizontal: 16,
-              paddingVertical: 8,
-              minWidth: 56,
-              alignItems: "center"
-            }}>
-              <Text style={{ color: "#FFFFFF", fontSize: 12, fontWeight: "700" }}>
-                {s.connections.length}
-              </Text>
             </View>
           </View>
         </View>

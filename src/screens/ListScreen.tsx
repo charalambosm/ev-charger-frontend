@@ -186,7 +186,7 @@ export default function ListScreen({ navigation }: any) {
               <View style={{ flexDirection: "row", marginBottom: 8 }}>
                 <View style={{ flex: 1 }}>
                   <Text style={{ fontWeight: "700", fontSize: 18, marginBottom: 2 }}>
-                    {pick(item.title)}
+                {pick(item.title)}
                   </Text>
                   <Text style={{ fontSize: 14, color: "#444", marginBottom: 2 }}>
                     {pick(item.address)}, {pick(item.town)}
@@ -195,7 +195,7 @@ export default function ListScreen({ navigation }: any) {
                     {item.operator}
                   </Text>
                   {/* Distance label */}
-                  {item.distanceMeters != null && (
+                {item.distanceMeters != null && (
                     <Text style={{ fontSize: 14, color: "#666", marginBottom: 2 }}>
                       {formatDistance(item.distanceMeters)}
                     </Text>
@@ -295,7 +295,7 @@ export default function ListScreen({ navigation }: any) {
                           return (
                             <Text key={index} style={{ fontSize: 10, color: "#444", textAlign: "center", flex: 1 }}>
                               {power > 0 ? `${Math.round(power)}kW ${currentType}` : `${currentType}`}
-                            </Text>
+              </Text>
                           );
                         })}
                       </View>
@@ -342,7 +342,7 @@ export default function ListScreen({ navigation }: any) {
           shadowOffset: { width: 0, height: 2 },
           zIndex: 1000
         }}>
-          <Pressable
+          <Pressable 
             onPress={() => {
               setSortMode("nearest");
               setUserSelectedSort(true);
@@ -357,7 +357,7 @@ export default function ListScreen({ navigation }: any) {
           >
             <Text style={{ fontWeight: sortMode === "nearest" ? "600" : "400" }}>Distance</Text>
           </Pressable>
-          <Pressable
+          <Pressable 
             onPress={() => {
               setSortMode("az");
               setUserSelectedSort(true);
@@ -454,69 +454,69 @@ export default function ListScreen({ navigation }: any) {
                     <Text style={{ color: filters.powerKW.size === 4 ? "#fff" : "#111", fontSize: 16, fontWeight: "500" }}>All</Text>
                   </View>
                 </Pressable>
+                 
+                 {/* Group power options into rows of 2 */}
+                 {(() => {
+                   const powerOptions = [
+                  { power: 7, label: "7kW", color: "#93c5fd" },
+                  { power: 22, label: "22kW", color: "#3b82f6" },
+                  { power: 50, label: "50kW", color: "#8b5cf6" },
+                  { power: 150, label: "150kW", color: "#f97316" }
+                   ];
+                   
+                   const rows = [];
+                   for (let i = 0; i < powerOptions.length; i += 2) {
+                     const row = powerOptions.slice(i, i + 2);
+                     rows.push(row);
+                   }
 
-                {/* Group power options into rows of 2 */}
-                {(() => {
-                  const powerOptions = [
-                    { power: 7, label: "7kW", color: "#93c5fd" },
-                    { power: 22, label: "22kW", color: "#3b82f6" },
-                    { power: 50, label: "50kW", color: "#8b5cf6" },
-                    { power: 150, label: "150kW", color: "#f97316" }
-                  ];
-
-                  const rows = [];
-                  for (let i = 0; i < powerOptions.length; i += 2) {
-                    const row = powerOptions.slice(i, i + 2);
-                    rows.push(row);
-                  }
-
-                  return rows.map((row, rowIndex) => (
-                    <View key={rowIndex} style={{ flexDirection: "row", gap: 8, justifyContent: "center" }}>
-                      {row.map((item) => {
-                        const isSelected = filters.powerKW.has(item.power) && filters.powerKW.size === 1;
-                        const backgroundColor = isSelected ? "#2F80ED" : "#f1f1f1";
-
-                        return (
-                          <Pressable key={item.power} onPress={() => {
-                            // If this specific power is selected and it's the only one, clear it
-                            // If "All" is selected (size === 4) or this power isn't selected, select just this power
-                            if (filters.powerKW.has(item.power) && filters.powerKW.size === 1) {
-                              filters.clearPower();
-                            } else {
-                              filters.set(s => ({ powerKW: new Set([item.power]) }));
-                            }
-                          }}>
-                            <View style={{
-                              paddingVertical: 12,
-                              paddingHorizontal: 8,
-                              borderRadius: 8,
-                              backgroundColor: backgroundColor,
-                              width: (Dimensions.get('window').width * 0.7 - 32) / 2, // Half of filter window width minus padding and gap
-                              height: 110,
-                              justifyContent: "center",
-                              alignItems: "center"
-                            }}>
-                              <View style={{ width: 50, height: 50, marginBottom: 8 }}>
-                                <ChargingStationMarker size={50} connections={[{ powerKW: item.power, status: 'Available' }]} />
-                              </View>
-                              <Text style={{
-                                color: isSelected ? "#fff" : "#111",
-                                fontSize: 16,
-                                fontWeight: "500",
-                                textAlign: "center"
-                              }}>{item.label}</Text>
-                            </View>
-                          </Pressable>
-                        );
-                      })}
-
-                      {/* Fill empty slots in the last row if needed */}
-                      {row.length < 2 && Array.from({ length: 2 - row.length }).map((_, index) => (
-                        <View key={`empty-${index}`} style={{ flex: 1 }} />
-                      ))}
+                   return rows.map((row, rowIndex) => (
+                     <View key={rowIndex} style={{ flexDirection: "row", gap: 8, justifyContent: "center" }}>
+                       {row.map((item) => {
+                         const isSelected = filters.powerKW.has(item.power) && filters.powerKW.size === 1;
+                         const backgroundColor = isSelected ? "#2F80ED" : "#f1f1f1";
+                         
+                         return (
+                           <Pressable key={item.power} onPress={() => {
+                    // If this specific power is selected and it's the only one, clear it
+                    // If "All" is selected (size === 4) or this power isn't selected, select just this power
+                    if (filters.powerKW.has(item.power) && filters.powerKW.size === 1) {
+                      filters.clearPower();
+                    } else {
+                      filters.set(s => ({ powerKW: new Set([item.power]) }));
+                    }
+                  }}>
+                    <View style={{
+                               paddingVertical: 12,
+                               paddingHorizontal: 8,
+                      borderRadius: 8,
+                               backgroundColor: backgroundColor,
+                               width: (Dimensions.get('window').width * 0.7 - 32) / 2, // Half of filter window width minus padding and gap
+                               height: 110,
+                               justifyContent: "center",
+                               alignItems: "center"
+                             }}>
+                               <View style={{ width: 50, height: 50, marginBottom: 8 }}>
+                                 <ChargingStationMarker size={50} connections={[{ powerKW: item.power, status: 'Available' }]} />
+                               </View>
+                               <Text style={{
+                                 color: isSelected ? "#fff" : "#111",
+                                 fontSize: 16,
+                                 fontWeight: "500",
+                                 textAlign: "center"
+                               }}>{item.label}</Text>
                     </View>
-                  ));
-                })()}
+                  </Pressable>
+                         );
+                       })}
+                       
+                       {/* Fill empty slots in the last row if needed */}
+                       {row.length < 2 && Array.from({ length: 2 - row.length }).map((_, index) => (
+                         <View key={`empty-${index}`} style={{ flex: 1 }} />
+                       ))}
+                     </View>
+                   ));
+                 })()}
               </View>
             </View>
 
@@ -530,187 +530,187 @@ export default function ListScreen({ navigation }: any) {
                     <Text style={{ color: filters.connectorTypes.size === 4 ? "#fff" : "#111", fontSize: 16, fontWeight: "500" }}>All</Text>
                   </View>
                 </Pressable>
+                 
+                 {/* Group connector types into rows of 2 */}
+                 {(() => {
+                   const connectorTypes = [
+                     { type: "CCS (Type 2)", icon: "ev-plug-ccs2" },
+                     { type: "CHAdeMO", icon: "ev-plug-chademo" },
+                     { type: "Type 2 (Socket Only)", icon: "ev-plug-type2" },
+                     { type: "Unknown/Other", icon: "power-plug" }
+                   ];
+                   
+                   const rows = [];
+                   for (let i = 0; i < connectorTypes.length; i += 2) {
+                     const row = connectorTypes.slice(i, i + 2);
+                     rows.push(row);
+                   }
 
-                {/* Group connector types into rows of 2 */}
-                {(() => {
-                  const connectorTypes = [
-                    { type: "CCS (Type 2)", icon: "ev-plug-ccs2" },
-                    { type: "CHAdeMO", icon: "ev-plug-chademo" },
-                    { type: "Type 2 (Socket Only)", icon: "ev-plug-type2" },
-                    { type: "Unknown/Other", icon: "power-plug" }
-                  ];
-
-                  const rows = [];
-                  for (let i = 0; i < connectorTypes.length; i += 2) {
-                    const row = connectorTypes.slice(i, i + 2);
-                    rows.push(row);
-                  }
-
-                  return rows.map((row, rowIndex) => (
-                    <View key={rowIndex} style={{ flexDirection: "row", gap: 8, justifyContent: "center" }}>
-                      {row.map((item) => {
-                        const isSelected = filters.connectorTypes.has(item.type) && filters.connectorTypes.size === 1;
-                        const backgroundColor = isSelected ? "#2F80ED" : "#f1f1f1";
-
-                        return (
-                          <Pressable key={item.type} onPress={() => {
-                            // If this specific type is selected and it's the only one, clear it
-                            // If "All" is selected (size === 4) or this type isn't selected, select just this type
-                            if (filters.connectorTypes.has(item.type) && filters.connectorTypes.size === 1) {
-                              filters.clearConnectorTypes();
-                            } else {
-                              filters.set(s => ({ connectorTypes: new Set([item.type]) }));
-                            }
-                          }}>
-                            <View style={{
-                              paddingVertical: 12,
-                              paddingHorizontal: 8,
-                              borderRadius: 8,
-                              backgroundColor: backgroundColor,
-                              width: (Dimensions.get('window').width * 0.7 - 32) / 2, // Half of filter window width minus padding and gap
-                              height: 110,
-                              justifyContent: "center",
-                              alignItems: "center"
-                            }}>
-                              <View style={{ width: 50, height: 50, marginBottom: 8 }}>
-                                <MaterialCommunityIcons
-                                  name={item.icon as any}
-                                  size={50}
-                                  color={isSelected ? "#fff" : "#111"}
-                                />
-                              </View>
-                              <Text style={{
-                                color: isSelected ? "#fff" : "#111",
-                                fontSize: 16,
-                                fontWeight: "500",
-                                textAlign: "center"
-                              }}>{item.type}</Text>
-                            </View>
-                          </Pressable>
-                        );
-                      })}
-
-                      {/* Fill empty slots in the last row if needed */}
-                      {row.length < 2 && Array.from({ length: 2 - row.length }).map((_, index) => (
-                        <View key={`empty-${index}`} style={{ flex: 1 }} />
-                      ))}
+                   return rows.map((row, rowIndex) => (
+                     <View key={rowIndex} style={{ flexDirection: "row", gap: 8, justifyContent: "center" }}>
+                       {row.map((item) => {
+                         const isSelected = filters.connectorTypes.has(item.type) && filters.connectorTypes.size === 1;
+                         const backgroundColor = isSelected ? "#2F80ED" : "#f1f1f1";
+                         
+                         return (
+                           <Pressable key={item.type} onPress={() => {
+                    // If this specific type is selected and it's the only one, clear it
+                    // If "All" is selected (size === 4) or this type isn't selected, select just this type
+                             if (filters.connectorTypes.has(item.type) && filters.connectorTypes.size === 1) {
+                      filters.clearConnectorTypes();
+                    } else {
+                               filters.set(s => ({ connectorTypes: new Set([item.type]) }));
+                             }
+                           }}>
+                             <View style={{
+                               paddingVertical: 12,
+                               paddingHorizontal: 8,
+                               borderRadius: 8,
+                               backgroundColor: backgroundColor,
+                               width: (Dimensions.get('window').width * 0.7 - 32) / 2, // Half of filter window width minus padding and gap
+                               height: 110,
+                               justifyContent: "center",
+                               alignItems: "center"
+                             }}>
+                               <View style={{ width: 50, height: 50, marginBottom: 8 }}>
+                                 <MaterialCommunityIcons 
+                                   name={item.icon as any} 
+                                   size={50} 
+                                   color={isSelected ? "#fff" : "#111"} 
+                                 />
+                               </View>
+                               <Text style={{
+                                 color: isSelected ? "#fff" : "#111",
+                                 fontSize: 16,
+                                 fontWeight: "500",
+                                 textAlign: "center"
+                               }}>{item.type}</Text>
                     </View>
-                  ));
-                })()}
+                  </Pressable>
+                         );
+                       })}
+                       
+                       {/* Fill empty slots in the last row if needed */}
+                       {row.length < 2 && Array.from({ length: 2 - row.length }).map((_, index) => (
+                         <View key={`empty-${index}`} style={{ flex: 1 }} />
+                       ))}
+                     </View>
+                   ));
+                 })()}
               </View>
             </View>
 
-            {/* District multi-select */}
-            {(() => {
-              const allDistricts = Array.from(new Set((data ?? []).map((s) => pick(s.district)).filter(Boolean))).sort();
-              return (
-                <View style={{ marginBottom: 12 }}>
-                  <Text style={{ fontWeight: "600", marginBottom: 6 }}>Districts</Text>
-                  <View style={{ gap: 8 }}>
-                    <Pressable onPress={() => filters.selectAllDistricts()}>
-                      <View style={{
-                        paddingVertical: 10,
-                        paddingHorizontal: 16,
-                        borderRadius: 8,
-                        backgroundColor: filters.districts.size === allDistricts.length ? "#2F80ED" : "#f1f1f1",
-                        flexDirection: "row",
-                        alignItems: "center",
-                        gap: 8,
-                        minWidth: 100,
-                        justifyContent: "center"
-                      }}>
-                        <MaterialIcons name="check-circle" size={20} color={filters.districts.size === allDistricts.length ? "#fff" : "#111"} />
-                        <Text style={{ color: filters.districts.size === allDistricts.length ? "#fff" : "#111", fontSize: 16, fontWeight: "500" }}>All</Text>
-                      </View>
-                    </Pressable>
+                         {/* District multi-select */}
+             {(() => {
+               const allDistricts = Array.from(new Set((data ?? []).map((s) => pick(s.district)).filter(Boolean))).sort();
+               return (
+                 <View style={{ marginBottom: 12 }}>
+                   <Text style={{ fontWeight: "600", marginBottom: 6 }}>Districts</Text>
+                   <View style={{ gap: 8 }}>
+                     <Pressable onPress={() => filters.selectAllDistricts()}>
+                       <View style={{
+                         paddingVertical: 10,
+                         paddingHorizontal: 16,
+                         borderRadius: 8,
+                         backgroundColor: filters.districts.size === allDistricts.length ? "#2F80ED" : "#f1f1f1",
+                         flexDirection: "row",
+                         alignItems: "center",
+                         gap: 8,
+                         minWidth: 100,
+                         justifyContent: "center"
+                       }}>
+                         <MaterialIcons name="check-circle" size={20} color={filters.districts.size === allDistricts.length ? "#fff" : "#111"} />
+                         <Text style={{ color: filters.districts.size === allDistricts.length ? "#fff" : "#111", fontSize: 16, fontWeight: "500" }}>All</Text>
+                       </View>
+                     </Pressable>
+                     
+                     {/* Group districts into rows of 2 */}
+                     {(() => {
+                       const rows = [];
+                       for (let i = 0; i < allDistricts.length; i += 2) {
+                         const row = allDistricts.slice(i, i + 2);
+                         rows.push(row);
+                       }
 
-                    {/* Group districts into rows of 2 */}
-                    {(() => {
-                      const rows = [];
-                      for (let i = 0; i < allDistricts.length; i += 2) {
-                        const row = allDistricts.slice(i, i + 2);
-                        rows.push(row);
-                      }
+                       return rows.map((row, rowIndex) => (
+                         <View key={rowIndex} style={{ flexDirection: "row", gap: 8, justifyContent: "center" }}>
+                           {row.map((d) => {
+                             const isSelected = filters.districts.has(d) && filters.districts.size === 1;
+                             const backgroundColor = isSelected ? "#2F80ED" : "#f1f1f1";
+                             
+                             // Map district names to image files
+                             const getDistrictImage = (districtName: string) => {
+                               const imageMap: { [key: string]: any } = {
+                                 'Nicosia': require("../../assets/nicosia.png"),
+                                 'Paphos': require("../../assets/paphos.png"),
+                                 'Limassol': require("../../assets/limassol.png"),
+                                 'Famagusta': require("../../assets/famagusta.png"),
+                                 'Larnaca': require("../../assets/larnaca.png")
+                               };
+                               return imageMap[districtName];
+                             };
 
-                      return rows.map((row, rowIndex) => (
-                        <View key={rowIndex} style={{ flexDirection: "row", gap: 8, justifyContent: "center" }}>
-                          {row.map((d) => {
-                            const isSelected = filters.districts.has(d) && filters.districts.size === 1;
-                            const backgroundColor = isSelected ? "#2F80ED" : "#f1f1f1";
+                             const districtImage = getDistrictImage(d);
 
-                            // Map district names to image files
-                            const getDistrictImage = (districtName: string) => {
-                              const imageMap: { [key: string]: any } = {
-                                'Nicosia': require("../../assets/nicosia.png"),
-                                'Paphos': require("../../assets/paphos.png"),
-                                'Limassol': require("../../assets/limassol.png"),
-                                'Famagusta': require("../../assets/famagusta.png"),
-                                'Larnaca': require("../../assets/larnaca.png")
-                              };
-                              return imageMap[districtName];
-                            };
-
-                            const districtImage = getDistrictImage(d);
-
-                            return (
-                              <Pressable key={d} onPress={() => {
-                                // If this specific district is selected and it's the only one, clear it
-                                // If "All" is selected or this district isn't selected, select just this district
-                                if (filters.districts.has(d) && filters.districts.size === 1) {
-                                  filters.clearDistricts();
-                                } else {
-                                  filters.set(s => ({ districts: new Set([d]) }));
-                                }
-                              }}>
-                                <View style={{
-                                  paddingVertical: 12,
-                                  paddingHorizontal: 8,
-                                  borderRadius: 8,
-                                  backgroundColor: backgroundColor,
-                                  width: (Dimensions.get('window').width * 0.7 - 32) / 2, // Half of filter window width minus padding and gap
-                                  height: 110,
-                                  justifyContent: "center",
-                                  alignItems: "center"
-                                }}>
-                                  {districtImage ? (
-                                    <View style={{ width: 50, height: 50, marginBottom: 8 }}>
-                                      <Image
-                                        source={districtImage}
-                                        style={{
-                                          width: "100%",
-                                          height: "100%",
-                                          opacity: isSelected ? 1 : 0.7
-                                        }}
-                                        resizeMode="contain"
-                                      />
-                                    </View>
-                                  ) : (
-                                    <View style={{ width: 50, height: 50, marginBottom: 8 }}>
-                                      <MaterialIcons name="location-city" size={50} color={isSelected ? "#fff" : "#111"} />
-                                    </View>
-                                  )}
-                                  <Text style={{
-                                    color: isSelected ? "#fff" : "#111",
-                                    fontSize: 16,
-                                    fontWeight: "500",
-                                    textAlign: "center"
-                                  }}>{d}</Text>
-                                </View>
-                              </Pressable>
-                            );
-                          })}
-
-                          {/* Fill empty slots in the last row if needed */}
-                          {row.length < 2 && Array.from({ length: 2 - row.length }).map((_, index) => (
-                            <View key={`empty-${index}`} style={{ flex: 1 }} />
-                          ))}
-                        </View>
-                      ));
-                    })()}
-                  </View>
-                </View>
-              );
-            })()}
+                             return (
+                               <Pressable key={d} onPress={() => {
+                                 // If this specific district is selected and it's the only one, clear it
+                                 // If "All" is selected or this district isn't selected, select just this district
+                                 if (filters.districts.has(d) && filters.districts.size === 1) {
+                                   filters.clearDistricts();
+                                 } else {
+                                   filters.set(s => ({ districts: new Set([d]) }));
+                                 }
+                               }}>
+                                 <View style={{
+                                   paddingVertical: 12,
+                                   paddingHorizontal: 8,
+                                   borderRadius: 8,
+                                   backgroundColor: backgroundColor,
+                                   width: (Dimensions.get('window').width * 0.7 - 32) / 2, // Half of filter window width minus padding and gap
+                                   height: 110,
+                                   justifyContent: "center",
+                                   alignItems: "center"
+                                 }}>
+                                   {districtImage ? (
+                                     <View style={{ width: 50, height: 50, marginBottom: 8 }}>
+                                       <Image
+                                         source={districtImage}
+                                         style={{
+                                           width: "100%",
+                                           height: "100%",
+                                           opacity: isSelected ? 1 : 0.7
+                                         }}
+                                         resizeMode="contain"
+                                       />
+                                     </View>
+                                   ) : (
+                                     <View style={{ width: 50, height: 50, marginBottom: 8 }}>
+                                       <MaterialIcons name="location-city" size={50} color={isSelected ? "#fff" : "#111"} />
+                                     </View>
+                                   )}
+                                   <Text style={{
+                                     color: isSelected ? "#fff" : "#111",
+                                     fontSize: 16,
+                                     fontWeight: "500",
+                                     textAlign: "center"
+                                   }}>{d}</Text>
+                                 </View>
+                               </Pressable>
+                             );
+                           })}
+                           
+                           {/* Fill empty slots in the last row if needed */}
+                           {row.length < 2 && Array.from({ length: 2 - row.length }).map((_, index) => (
+                             <View key={`empty-${index}`} style={{ flex: 1 }} />
+                           ))}
+                         </View>
+                       ));
+                     })()}
+                   </View>
+                 </View>
+               );
+             })()}
 
             {/* Operator multi-select */}
             {(() => {
@@ -801,15 +801,15 @@ export default function ListScreen({ navigation }: any) {
 
                                     if (logoSource) {
                                       return (
-                                        <Image
-                                          source={logoSource}
-                                          style={{
-                                            width: "100%",
-                                            height: "100%",
-                                            opacity: isSelected && filters.operators.size === 1 ? 1 : 0.7
-                                          }}
-                                          resizeMode="contain"
-                                        />
+                                          <Image
+                                            source={logoSource}
+                                            style={{
+                                             width: "100%",
+                                             height: "100%",
+                                              opacity: isSelected && filters.operators.size === 1 ? 1 : 0.7
+                                            }}
+                                            resizeMode="contain"
+                                          />
                                       );
                                     }
 
