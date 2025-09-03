@@ -138,8 +138,47 @@ export default function DetailsScreen({ route }: any) {
   };
 
   const reportIssue = () => {
-    // TODO: Implement report issue functionality
-    console.log('Report issue for station:', s.ID);
+    const email = 'evchargermapcyprus@googlegroups.com';
+    const subject = `Report Issue for Station ID ${s.ID}`;
+    const body = `Please describe the issue:\n\n\n\n--- Station Details ---\nStation: ${pick(s.title)}\nAddress: ${pick(s.address)}\nPostcode: ${s.postcode}\nTown: ${s.town?.en}\nDistrict: ${pick(s.district)}\nOperator: ${s.operator}\nConnections: ${s.connections.map(c => c.type).join(', ')}`;
+    
+    // Create mailto URL
+    const mailtoUrl = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    
+    // Try to open the email app
+    Linking.canOpenURL(mailtoUrl)
+      .then((supported) => {
+        if (supported) {
+          return Linking.openURL(mailtoUrl);
+        } else {
+          // Fallback: show alert with email details
+          Alert.alert(
+            'Email App Not Available',
+            `Please send an email manually to:\n\n${email}\n\nSubject: ${subject}`,
+            [
+              {
+                text: 'Copy Email Address',
+                onPress: () => {
+                  // Note: Clipboard API would need to be imported and used here
+                  // For now, just show the email address
+                  Alert.alert('Email Address', email);
+                }
+              },
+              {
+                text: 'OK',
+                style: 'cancel'
+              }
+            ]
+          );
+        }
+      })
+      .catch((error) => {
+        console.error('Error opening email app:', error);
+        Alert.alert(
+          'Error',
+          'Could not open email app. Please send an email manually to evchargermapcyprus@googlegroups.com'
+        );
+      });
   };
 
   return (
