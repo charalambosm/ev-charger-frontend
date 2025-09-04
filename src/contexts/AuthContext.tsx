@@ -10,7 +10,9 @@ import {
   sendPasswordResetEmail,
   sendEmailVerification,
   applyActionCode,
-  ActionCodeInfo
+  ActionCodeInfo,
+  reauthenticateWithCredential,
+  EmailAuthProvider
 } from 'firebase/auth';
 import { auth } from '../config/firebase';
 import { UserService, CreateUserProfileData } from '../services';
@@ -27,6 +29,7 @@ interface AuthContextType {
   sendVerificationEmail: () => Promise<void>;
   verifyEmail: (actionCode: string) => Promise<void>;
   refreshUserVerificationStatus: () => Promise<void>;
+  reauthenticateUser: (password: string) => Promise<void>;
   continueAsGuest: () => void;
   resetGuestState: () => void;
   clearError: () => void;
@@ -217,6 +220,32 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
+  const reauthenticateUser = async (password: string): Promise<void> => {
+    try {
+      setError(null);
+      if (!auth.currentUser) {
+        throw new Error('No user is currently signed in');
+      }
+
+      if (!auth.currentUser.email) {
+        throw new Error('User email is not available');
+      }
+
+      const credential = EmailAuthProvider.credential(auth.currentUser.email, password);
+      await reauthenticateWithCredential(auth.currentUser, credential);
+    } catch (error) {
+      const authError = error as AuthError;
+      if (authError && authError.code) {
+        const errorMessage = getAuthErrorMessage(authError.code);
+        setError(errorMessage);
+      } else {
+        const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred';
+        setError(errorMessage);
+      }
+      throw error;
+    }
+  };
+
   const continueAsGuest = () => {
     setIsGuest(true);
     setError(null);
@@ -243,6 +272,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     sendVerificationEmail,
     verifyEmail,
     refreshUserVerificationStatus,
+    reauthenticateUser,
     continueAsGuest,
     resetGuestState,
     clearError,

@@ -15,9 +15,11 @@ import {
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { useAuth } from '../contexts';
 import { UserService, UserProfile } from '../services';
+import { auth } from '../config/firebase';
+import { deleteUser } from 'firebase/auth';
 
 const ProfileScreen: React.FC = () => {
-  const { user, logout, isGuest, resetGuestState } = useAuth();
+  const { user, logout, isGuest, resetGuestState, reauthenticateUser } = useAuth();
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -27,6 +29,9 @@ const ProfileScreen: React.FC = () => {
   const [saving, setSaving] = useState(false);
   const [languageModalVisible, setLanguageModalVisible] = useState(false);
   const [unitsModalVisible, setUnitsModalVisible] = useState(false);
+  const [reauthModalVisible, setReauthModalVisible] = useState(false);
+  const [reauthPassword, setReauthPassword] = useState('');
+  const [reauthenticating, setReauthenticating] = useState(false);
 
   // Fetch user profile when user changes
   useEffect(() => {
@@ -87,6 +92,127 @@ const ProfileScreen: React.FC = () => {
   const handleSignIn = () => {
     // Reset guest state to show login screen
     resetGuestState();
+  };
+
+  const handleDeleteProfile = () => {
+    Alert.alert(
+      'Delete Profile',
+      'Are you sure you want to delete your profile? This action cannot be undone and will permanently delete your account and all associated data.',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {
+          text: 'Delete',
+          style: 'destructive',
+          onPress: () => {
+            // Second confirmation
+            Alert.alert(
+              'Final Confirmation',
+              'This will permanently delete your account. Are you absolutely sure?',
+              [
+                {
+                  text: 'Cancel',
+                  style: 'cancel',
+                },
+                {
+                  text: 'Delete Forever',
+                  style: 'destructive',
+                  onPress: performDeleteProfile,
+                },
+              ]
+            );
+          },
+        },
+      ]
+    );
+  };
+
+  const performDeleteProfile = async () => {
+    console.log(user);
+    console.log(userProfile);
+    if (!user || !userProfile) return;
+
+    setLoading(true);
+    
+    // Store the UID before any deletion attempts
+    const userUid = user.uid;
+    
+    try {
+      // First delete the user profile from Firestore using the correct UID
+      await UserService.deleteUserProfile(userUid);
+      
+      // Then delete the user from Firebase Auth
+      await deleteUser(user);
+      
+      // Show success message
+      Alert.alert(
+        'Account Deleted',
+        'Your account has been successfully deleted. All your data has been permanently removed.',
+        [{ text: 'OK' }]
+      );
+      
+      // The auth context should handle the logout automatically when the user is deleted
+      // But we can also explicitly trigger logout to ensure clean state
+      try {
+        await logout();
+      } catch (logoutError) {
+        // Ignore logout errors since the user is already deleted
+        console.log('Logout after deletion (expected):', logoutError);
+      }
+      
+    } catch (error: any) {
+      console.error('Error deleting profile:', error);
+      
+      // Handle specific Firebase Auth errors
+      if (error.code === 'auth/requires-recent-login') {
+        Alert.alert(
+          'Authentication Required',
+          'For security reasons, you need to verify your password before deleting your account.',
+          [
+            { text: 'Cancel', style: 'cancel' },
+            { 
+              text: 'Verify Password', 
+              onPress: () => setReauthModalVisible(true)
+            }
+          ]
+        );
+      } else if (error.code === 'auth/network-request-failed') {
+        Alert.alert(
+          'Network Error',
+          'Unable to delete profile due to network issues. Please check your connection and try again.',
+          [{ text: 'OK' }]
+        );
+      } else if (error.code === 'auth/user-not-found') {
+        Alert.alert(
+          'Account Not Found',
+          'Your account may have already been deleted. You will be logged out.',
+          [
+            { 
+              text: 'OK',
+              onPress: async () => {
+                try {
+                  await logout();
+                } catch (logoutError) {
+                  console.error('Logout error:', logoutError);
+                }
+              }
+            }
+          ]
+        );
+      } else {
+        // Generic error with more helpful message
+        const errorMessage = error.message || 'An unexpected error occurred';
+        Alert.alert(
+          'Delete Failed',
+          `Failed to delete profile: ${errorMessage}\n\nPlease try again or contact support if the problem persists.`,
+          [{ text: 'OK' }]
+        );
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleEdit = (field: string, currentValue: string) => {
@@ -189,6 +315,41 @@ const ProfileScreen: React.FC = () => {
     } finally {
       setSaving(false);
     }
+  };
+
+  const handleReauthenticate = async () => {
+    if (!reauthPassword.trim()) {
+      Alert.alert('Error', 'Please enter your password.');
+      return;
+    }
+
+    setReauthenticating(true);
+    try {
+      await reauthenticateUser(reauthPassword);
+      setReauthModalVisible(false);
+      setReauthPassword('');
+      
+      // Show success message and prompt to try deletion again
+      Alert.alert(
+        'Authentication Successful',
+        'You have been re-authenticated. Please try deleting your profile again.',
+        [{ text: 'OK' }]
+      );
+    } catch (error: any) {
+      console.error('Re-authentication error:', error);
+      Alert.alert(
+        'Authentication Failed',
+        error.message || 'Failed to authenticate. Please check your password and try again.',
+        [{ text: 'OK' }]
+      );
+    } finally {
+      setReauthenticating(false);
+    }
+  };
+
+  const handleCancelReauth = () => {
+    setReauthModalVisible(false);
+    setReauthPassword('');
   };
 
   // If user is not authenticated and not a guest, show login prompt
@@ -402,6 +563,10 @@ const ProfileScreen: React.FC = () => {
             <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
               <Text style={styles.logoutButtonText}>Logout</Text>
             </TouchableOpacity>
+
+            <TouchableOpacity style={styles.deleteButton} onPress={handleDeleteProfile}>
+              <Text style={styles.deleteButtonText}>Delete Profile</Text>
+            </TouchableOpacity>
           </ScrollView>
         )}
       </View>
@@ -536,6 +701,54 @@ const ProfileScreen: React.FC = () => {
             >
               <Text style={styles.cancelButtonText}>Cancel</Text>
             </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+
+      {/* Re-authentication Modal */}
+      <Modal
+        visible={reauthModalVisible}
+        transparent={true}
+        animationType="slide"
+        onRequestClose={handleCancelReauth}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>Verify Your Password</Text>
+            <Text style={styles.reauthSubtitle}>
+              Please enter your password to continue with account deletion.
+            </Text>
+
+            <TextInput
+              style={styles.modalInput}
+              value={reauthPassword}
+              onChangeText={setReauthPassword}
+              placeholder="Enter your password"
+              secureTextEntry={true}
+              autoFocus={true}
+              autoCapitalize="none"
+              editable={!reauthenticating}
+            />
+
+            <View style={styles.modalButtons}>
+              <TouchableOpacity
+                style={[styles.modalButton, styles.cancelButton]}
+                onPress={handleCancelReauth}
+                disabled={reauthenticating}
+              >
+                <Text style={styles.cancelButtonText}>Cancel</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={[styles.modalButton, styles.saveButton]}
+                onPress={handleReauthenticate}
+                disabled={reauthenticating || !reauthPassword.trim()}
+              >
+                <Text style={styles.saveButtonText}>
+                  {reauthenticating ? 'Verifying...' : 'Verify'}
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </Modal>
@@ -686,8 +899,20 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 16,
     alignItems: 'center',
+    marginBottom: 12,
   },
   logoutButtonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  deleteButton: {
+    backgroundColor: '#ff3b30',
+    borderRadius: 8,
+    padding: 16,
+    alignItems: 'center',
+  },
+  deleteButtonText: {
     color: 'white',
     fontSize: 16,
     fontWeight: '600',
@@ -766,6 +991,13 @@ const styles = StyleSheet.create({
     color: '#333',
     marginBottom: 20,
     textAlign: 'center',
+  },
+  reauthSubtitle: {
+    fontSize: 16,
+    color: '#666',
+    marginBottom: 20,
+    textAlign: 'center',
+    lineHeight: 22,
   },
   modalInput: {
     borderWidth: 1,
