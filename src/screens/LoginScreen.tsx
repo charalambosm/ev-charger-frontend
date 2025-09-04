@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, KeyboardAvoidingView, Platform, ScrollView, SafeAreaView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '../contexts';
+import { setStoredLanguage } from '../utils/i18n';
 
 const LoginScreen: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -10,10 +12,20 @@ const LoginScreen: React.FC = () => {
 
   const { login, error, clearError, continueAsGuest } = useAuth();
   const navigation = useNavigation();
+  const { t, i18n } = useTranslation();
+
+  // Show error popup when error changes
+  useEffect(() => {
+    if (error) {
+      Alert.alert(t('common.error'), error, [
+        { text: t('common.ok'), onPress: () => clearError() }
+      ]);
+    }
+  }, [error, clearError, t]);
 
   const handleSubmit = async () => {
     if (!email.trim() || !password.trim()) {
-      Alert.alert('Error', 'Please fill in all fields');
+      Alert.alert(t('common.error'), t('auth.fillAllFields'));
       return;
     }
 
@@ -25,10 +37,10 @@ const LoginScreen: React.FC = () => {
       // Check if email is verified
       if (result.user && !result.user.emailVerified) {
         Alert.alert(
-          'Email Not Verified',
-          'Please check your email and click the verification link to complete your registration.',
+          t('auth.emailNotVerified'),
+          t('auth.checkEmailVerification'),
           [
-            { text: 'OK', onPress: () => navigation.navigate('EmailVerification' as never) }
+            { text: t('common.ok'), onPress: () => navigation.navigate('EmailVerification' as never) }
           ]
         );
       }
@@ -47,24 +59,37 @@ const LoginScreen: React.FC = () => {
     navigation.navigate('Signup' as never);
   };
 
+  const handleLanguageSwitch = async () => {
+    const currentLang = i18n.language;
+    const newLang = currentLang === 'en' ? 'el' : 'en';
+    await setStoredLanguage(newLang);
+  };
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
         <ScrollView contentContainerStyle={styles.scrollContainer}>
           <View style={styles.infoBanner}>
             <Text style={styles.infoText}>
-              💡 You can browse charging stations without an account! Sign in for enhanced features.
+              💡 {t('auth.guestBrowseInfo')}
             </Text>
           </View>
           <View style={styles.formContainer}>
-            <Text style={styles.title}>Welcome Back</Text>
-            <Text style={styles.subtitle}>Sign in to your account to access enhanced features</Text>
+            <View style={styles.headerRow}>
+              <Text style={styles.title}>{t('auth.welcomeBack')}</Text>
+              <TouchableOpacity style={styles.languageButton} onPress={handleLanguageSwitch}>
+                <Text style={styles.languageButtonText}>
+                  {i18n.language === 'en' ? 'EL' : 'EN'}
+                </Text>
+              </TouchableOpacity>
+            </View>
+            <Text style={styles.subtitle}>{t('auth.signInSubtitle')}</Text>
             
             <View style={styles.inputContainer}>
-              <Text style={styles.inputLabel}>Email Address</Text>
+              <Text style={styles.inputLabel}>{t('auth.email')}</Text>
               <TextInput
                 style={styles.input}
-                placeholder="Enter your email"
+                placeholder={t('auth.enterEmail')}
                 value={email}
                 onChangeText={setEmail}
                 keyboardType="email-address"
@@ -74,10 +99,10 @@ const LoginScreen: React.FC = () => {
             </View>
             
             <View style={styles.inputContainer}>
-              <Text style={styles.inputLabel}>Password</Text>
+              <Text style={styles.inputLabel}>{t('auth.password')}</Text>
               <TextInput
                 style={styles.input}
-                placeholder="Enter your password"
+                placeholder={t('auth.enterPassword')}
                 value={password}
                 onChangeText={setPassword}
                 secureTextEntry
@@ -85,35 +110,29 @@ const LoginScreen: React.FC = () => {
               />
             </View>
             
-            {error && (
-              <View style={styles.errorContainer}>
-                <Text style={styles.errorText}>{error}</Text>
-              </View>
-            )}
-            
             <TouchableOpacity 
               style={[styles.button, isLoading && styles.buttonDisabled]} 
               onPress={handleSubmit} 
               disabled={isLoading}
             >
               <Text style={styles.buttonText}>
-                {isLoading ? 'Loading...' : 'Sign In'}
+                {isLoading ? t('common.loading') : t('auth.signIn')}
               </Text>
             </TouchableOpacity>
             
             <View style={styles.linksContainer}>
               <TouchableOpacity style={styles.linkButton} onPress={() => navigation.navigate('ForgotPassword' as never)}>
-                <Text style={styles.linkText}>Forgot Password?</Text>
+                <Text style={styles.linkText}>{t('auth.forgotPassword')}</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.linkButton} onPress={handleNavigateToSignup}>
-                <Text style={styles.linkText}>Don't have an account? Sign Up</Text>
+                <Text style={styles.linkText}>{t('auth.dontHaveAccount')}</Text>
               </TouchableOpacity>
             </View>
             
             <View style={styles.skipContainer}>
-              <Text style={styles.skipText}>Or continue browsing as a guest</Text>
+              <Text style={styles.skipText}>{t('auth.orContinueAsGuest')}</Text>
               <TouchableOpacity style={styles.skipButton} onPress={handleContinueAsGuest}>
-                <Text style={styles.skipButtonText}>Browse Stations</Text>
+                <Text style={styles.skipButtonText}>{t('auth.browseStations')}</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -164,12 +183,31 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
+  headerRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 8,
+  },
   title: {
     fontSize: 28,
     fontWeight: 'bold',
     color: '#333',
+    flex: 1,
     textAlign: 'center',
-    marginBottom: 8,
+  },
+  languageButton: {
+    backgroundColor: '#f0f0f0',
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: '#ddd',
+  },
+  languageButtonText: {
+    fontSize: 12,
+    fontWeight: '600',
+    color: '#666',
   },
   subtitle: {
     fontSize: 16,
@@ -208,18 +246,6 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
     fontWeight: '600',
-  },
-  errorContainer: {
-    backgroundColor: '#ffebee',
-    padding: 12,
-    borderRadius: 8,
-    marginBottom: 16,
-    borderLeftWidth: 4,
-    borderLeftColor: '#f44336',
-  },
-  errorText: {
-    color: '#c62828',
-    fontSize: 14,
   },
   linksContainer: {
     alignItems: 'center',

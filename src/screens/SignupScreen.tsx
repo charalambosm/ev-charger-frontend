@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, KeyboardAvoidingView, Platform, ScrollView, SafeAreaView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '../contexts';
 
 const SignupScreen: React.FC = () => {
@@ -18,6 +19,16 @@ const SignupScreen: React.FC = () => {
 
   const { signup, error, clearError } = useAuth();
   const navigation = useNavigation();
+  const { t, i18n } = useTranslation();
+
+  // Show error popup when error changes
+  useEffect(() => {
+    if (error) {
+      Alert.alert(t('common.error'), error, [
+        { text: t('common.ok'), onPress: () => clearError() }
+      ]);
+    }
+  }, [error, clearError, t]);
 
   const updateFormData = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -25,27 +36,27 @@ const SignupScreen: React.FC = () => {
 
   const validateForm = (): boolean => {
     if (!formData.firstName.trim()) {
-      Alert.alert('Error', 'First name is required');
+      Alert.alert(t('common.error'), t('auth.firstNameRequired'));
       return false;
     }
     if (!formData.lastName.trim()) {
-      Alert.alert('Error', 'Last name is required');
+      Alert.alert(t('common.error'), t('auth.lastNameRequired'));
       return false;
     }
     if (!formData.email.trim()) {
-      Alert.alert('Error', 'Email is required');
+      Alert.alert(t('common.error'), t('auth.emailRequired'));
       return false;
     }
     if (!formData.password) {
-      Alert.alert('Error', 'Password is required');
+      Alert.alert(t('common.error'), t('auth.passwordRequired'));
       return false;
     }
     if (formData.password.length < 6) {
-      Alert.alert('Error', 'Password must be at least 6 characters long');
+      Alert.alert(t('common.error'), t('auth.passwordTooShort'));
       return false;
     }
     if (formData.password !== formData.confirmPassword) {
-      Alert.alert('Error', 'Passwords do not match');
+      Alert.alert(t('common.error'), t('auth.passwordsDontMatch'));
       return false;
     }
     return true;
@@ -61,6 +72,10 @@ const SignupScreen: React.FC = () => {
         firstName: formData.firstName.trim(),
         lastName: formData.lastName.trim(),
         email: formData.email.trim(),
+        preferences: {
+          language: i18n.language,
+          units: 'metric'
+        }
       });
       setIsSuccess(true);
     } catch (error) {
@@ -90,29 +105,29 @@ const SignupScreen: React.FC = () => {
                 <Text style={styles.successIconText}>✅</Text>
               </View>
               
-              <Text style={styles.successTitle}>Account Created Successfully!</Text>
+              <Text style={styles.successTitle}>{t('auth.accountCreatedSuccess')}</Text>
               <Text style={styles.successSubtitle}>
-                We've sent a verification email to:
+                {t('auth.verificationEmailSentTo')}
               </Text>
               <Text style={styles.emailText}>{formData.email}</Text>
               
               <Text style={styles.instructionsText}>
-                Please check your email and click the verification link to complete your registration.
+                {t('auth.checkEmailVerification')}
               </Text>
 
               <View style={styles.buttonContainer}>
                 <TouchableOpacity style={styles.primaryButton} onPress={handleContinueToVerification}>
-                  <Text style={styles.primaryButtonText}>Continue to Verification</Text>
+                  <Text style={styles.primaryButtonText}>{t('auth.continueToVerification')}</Text>
                 </TouchableOpacity>
                 
                 <TouchableOpacity style={styles.secondaryButton} onPress={handleNavigateToLogin}>
-                  <Text style={styles.secondaryButtonText}>Back to Login</Text>
+                  <Text style={styles.secondaryButtonText}>{t('auth.backToLogin')}</Text>
                 </TouchableOpacity>
               </View>
 
               <View style={styles.helpContainer}>
                 <Text style={styles.helpText}>
-                  Didn't receive the email? Check your spam folder or try signing in again.
+                  {t('auth.didntReceiveEmail')}
                 </Text>
               </View>
             </View>
@@ -127,18 +142,18 @@ const SignupScreen: React.FC = () => {
       <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
         <ScrollView contentContainerStyle={styles.scrollContainer}>
           <View style={styles.header}>
-            <Text style={styles.title}>Create Account</Text>
-            <Text style={styles.subtitle}>Join us to access enhanced features and personalize your experience</Text>
+            <Text style={styles.title}>{t('auth.createAccount')}</Text>
+            <Text style={styles.subtitle}>{t('auth.signUpSubtitle')}</Text>
           </View>
           
           <View style={styles.formContainer}>
             {/* Name Fields */}
             <View style={styles.nameRow}>
               <View style={[styles.inputContainer, styles.halfWidth]}>
-                <Text style={styles.inputLabel}>First Name *</Text>
+                <Text style={styles.inputLabel}>{t('auth.firstName')} *</Text>
                 <TextInput
                   style={styles.input}
-                  placeholder="Enter first name"
+                  placeholder={t('auth.enterFirstName')}
                   value={formData.firstName}
                   onChangeText={(value) => updateFormData('firstName', value)}
                   autoCapitalize="words"
@@ -146,10 +161,10 @@ const SignupScreen: React.FC = () => {
                 />
               </View>
               <View style={[styles.inputContainer, styles.halfWidth]}>
-                <Text style={styles.inputLabel}>Last Name *</Text>
+                <Text style={styles.inputLabel}>{t('auth.lastName')} *</Text>
                 <TextInput
                   style={styles.input}
-                  placeholder="Enter last name"
+                  placeholder={t('auth.enterLastName')}
                   value={formData.lastName}
                   onChangeText={(value) => updateFormData('lastName', value)}
                   autoCapitalize="words"
@@ -160,10 +175,10 @@ const SignupScreen: React.FC = () => {
 
             {/* Email Field */}
             <View style={styles.inputContainer}>
-              <Text style={styles.inputLabel}>Email Address *</Text>
+              <Text style={styles.inputLabel}>{t('auth.email')} *</Text>
               <TextInput
                 style={styles.input}
-                placeholder="Enter your email"
+                placeholder={t('auth.enterEmail')}
                 value={formData.email}
                 onChangeText={(value) => updateFormData('email', value)}
                 keyboardType="email-address"
@@ -174,11 +189,11 @@ const SignupScreen: React.FC = () => {
 
             {/* Password Fields */}
             <View style={styles.inputContainer}>
-              <Text style={styles.inputLabel}>Password *</Text>
+              <Text style={styles.inputLabel}>{t('auth.password')} *</Text>
               <View style={styles.passwordContainer}>
                 <TextInput
                   style={[styles.input, styles.passwordInput]}
-                  placeholder="Enter your password"
+                  placeholder={t('auth.enterPassword')}
                   value={formData.password}
                   onChangeText={(value) => updateFormData('password', value)}
                   secureTextEntry={!showPassword}
@@ -191,15 +206,15 @@ const SignupScreen: React.FC = () => {
                   <Text style={styles.eyeButtonText}>{showPassword ? '👁️' : '👁️‍🗨️'}</Text>
                 </TouchableOpacity>
               </View>
-              <Text style={styles.passwordHint}>Must be at least 6 characters</Text>
+              <Text style={styles.passwordHint}>{t('auth.passwordHint')}</Text>
             </View>
 
             <View style={styles.inputContainer}>
-              <Text style={styles.inputLabel}>Confirm Password *</Text>
+              <Text style={styles.inputLabel}>{t('auth.confirmPassword')} *</Text>
               <View style={styles.passwordContainer}>
                 <TextInput
                   style={[styles.input, styles.passwordInput]}
-                  placeholder="Confirm your password"
+                  placeholder={t('auth.confirmYourPassword')}
                   value={formData.confirmPassword}
                   onChangeText={(value) => updateFormData('confirmPassword', value)}
                   secureTextEntry={!showConfirmPassword}
@@ -214,25 +229,19 @@ const SignupScreen: React.FC = () => {
               </View>
             </View>
 
-            {error && (
-              <View style={styles.errorContainer}>
-                <Text style={styles.errorText}>{error}</Text>
-              </View>
-            )}
-
             <TouchableOpacity 
               style={[styles.button, isLoading && styles.buttonDisabled]} 
               onPress={handleSubmit} 
               disabled={isLoading}
             >
               <Text style={styles.buttonText}>
-                {isLoading ? 'Creating Account...' : 'Create Account'}
+                {isLoading ? t('auth.creatingAccount') : t('auth.createAccount')}
               </Text>
             </TouchableOpacity>
 
             <View style={styles.linksContainer}>
               <TouchableOpacity style={styles.linkButton} onPress={handleNavigateToLogin}>
-                <Text style={styles.linkText}>Already have an account? Sign In</Text>
+                <Text style={styles.linkText}>{t('auth.alreadyHaveAccount')}</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -366,18 +375,6 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
     fontWeight: '600',
-  },
-  errorContainer: {
-    backgroundColor: '#ffebee',
-    padding: 12,
-    borderRadius: 8,
-    marginBottom: 16,
-    borderLeftWidth: 4,
-    borderLeftColor: '#f44336',
-  },
-  errorText: {
-    color: '#c62828',
-    fontSize: 14,
   },
   linksContainer: {
     alignItems: 'center',

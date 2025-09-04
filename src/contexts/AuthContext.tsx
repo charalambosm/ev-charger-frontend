@@ -16,6 +16,7 @@ import {
 } from 'firebase/auth';
 import { auth } from '../config/firebase';
 import { UserService, CreateUserProfileData } from '../services';
+import { setStoredLanguage } from '../utils/i18n';
 
 interface AuthContextType {
   user: User | null;
@@ -50,11 +51,21 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [isEmailVerified, setIsEmailVerified] = useState(false);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       setUser(user);
       if (user) {
         setIsGuest(false);
         setIsEmailVerified(user.emailVerified);
+        
+        // Sync user's preferred language from their profile
+        try {
+          const userProfile = await UserService.getCurrentUserProfile();
+          if (userProfile?.preferences?.language) {
+            await setStoredLanguage(userProfile.preferences.language);
+          }
+        } catch (error) {
+          console.error('Error syncing user language preference:', error);
+        }
       } else {
         setIsEmailVerified(false);
       }
@@ -69,6 +80,17 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       setIsGuest(false);
       const result = await signInWithEmailAndPassword(auth, email, password);
       setIsEmailVerified(result.user.emailVerified);
+      
+      // Sync user's preferred language from their profile
+      try {
+        const userProfile = await UserService.getCurrentUserProfile();
+        if (userProfile?.preferences?.language) {
+          await setStoredLanguage(userProfile.preferences.language);
+        }
+      } catch (languageError) {
+        console.error('Error syncing user language preference on login:', languageError);
+      }
+      
       return result;
     } catch (error) {
       const authError = error as AuthError;
