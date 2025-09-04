@@ -1,13 +1,15 @@
 // App.tsx
-import React from "react";
+import React, { useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useTranslation } from 'react-i18next';
 import LoadingSpinner from "./src/components/LoadingSpinner";
 
 import { AuthProvider, useAuth } from "./src/contexts";
 import { MapScreen, ListScreen, FavoritesScreen, DetailsScreen, LoginScreen, SignupScreen, ProfileScreen, ForgotPasswordScreen, EmailVerificationScreen } from "./src/screens";
+import { initializeLanguage } from "./src/utils/i18n";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -23,21 +25,24 @@ const queryClient = new QueryClient({
 
 function MainTabs() {
   const { user } = useAuth();
+  const { t } = useTranslation();
+  
   return (
     <Tab.Navigator>
-      <Tab.Screen name="Map" component={MapScreen} options={{ title: "Map" }} />
-      <Tab.Screen name="List" component={ListScreen} options={{ title: "List" }} />
-      <Tab.Screen name="Favorites" component={FavoritesScreen} options={{ title: "Favorites" }} />
-      <Tab.Screen name="Profile" component={ProfileScreen} options={{ title: "Profile" }} />
+      <Tab.Screen name="Map" component={MapScreen} options={{ title: t('navigation.map') }} />
+      <Tab.Screen name="List" component={ListScreen} options={{ title: t('navigation.list') }} />
+      <Tab.Screen name="Favorites" component={FavoritesScreen} options={{ title: t('navigation.favorites') }} />
+      <Tab.Screen name="Profile" component={ProfileScreen} options={{ title: t('navigation.profile') }} />
     </Tab.Navigator>
   );
 }
 
 function AppContent() {
   const { user, loading, isGuest, isEmailVerified } = useAuth();
+  const { t } = useTranslation();
 
   if (loading) {
-    return <LoadingSpinner text="Loading..." />;
+    return <LoadingSpinner text={t('common.loading')} />;
   }
 
   // Check if user should see main app
@@ -62,7 +67,7 @@ function AppContent() {
         ) : (
           <>
             <Stack.Screen name="Main" component={MainTabs} options={{ headerShown: false }} />
-            <Stack.Screen name="Details" component={DetailsScreen} options={{ title: "Station Details" }} />
+            <Stack.Screen name="Details" component={DetailsScreen} options={{ title: t('details.title') }} />
           </>
         )}
       </Stack.Navigator>
@@ -71,6 +76,11 @@ function AppContent() {
 }
 
 export default function App() {
+  useEffect(() => {
+    // Initialize language on app start
+    initializeLanguage();
+  }, []);
+
   return (
     <AuthProvider>
       <QueryClientProvider client={queryClient}>

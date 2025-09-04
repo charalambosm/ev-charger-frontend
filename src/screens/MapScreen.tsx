@@ -5,6 +5,7 @@ import ClusteredMapView from "react-native-map-clustering";
 import { useSortedStations, toFeatures } from "../hooks/useStations";
 import { useFilters } from "../store/filters";
 import { pick } from "../utils/i18n";
+import { useTranslation } from 'react-i18next';
 import type { StationFeature } from "../types/ocm";
 import useUserLocation from "../hooks/useUserLocation";
 import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
@@ -15,6 +16,7 @@ export default function MapScreen({ navigation }: any) {
   const { data, isLoading, error } = useSortedStations();
   const filters = useFilters();
   const { coords, status } = useUserLocation();
+  const { t } = useTranslation();
   const [showFilters, setShowFilters] = useState(false);
   const [region, setRegion] = useState<Region>({
     latitude: 35.1633,
@@ -373,7 +375,7 @@ export default function MapScreen({ navigation }: any) {
         })}
       >
         <MaterialIcons name="filter-alt" size={18} color="#111" />
-        <Text style={{ fontWeight: "700" }}>Filters</Text>
+        <Text style={{ fontWeight: "700" }}>{t('filters.title')}</Text>
       </Pressable>
 
       {/* Overlay to close popups when tapping outside */}

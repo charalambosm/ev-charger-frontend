@@ -3,6 +3,7 @@ import { FlatList, View, Text, Pressable, ScrollView, Dimensions, Image } from "
 import { useStations } from "../hooks/useStations";
 import { useFilters } from "../store/filters";
 import { pick } from "../utils/i18n";
+import { useTranslation } from 'react-i18next';
 import useUserLocation from "../hooks/useUserLocation";
 import { haversineDistanceMeters } from "../utils/geo";
 import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
@@ -12,6 +13,7 @@ export default function ListScreen({ navigation }: any) {
   const { data } = useStations();
   const filters = useFilters();
   const { coords } = useUserLocation();
+  const { t } = useTranslation();
   const [sortMode, setSortMode] = useState<"nearest" | "az">("az");
   const [showFilters, setShowFilters] = useState(false);
   const [showSort, setShowSort] = useState(false);
@@ -159,7 +161,7 @@ export default function ListScreen({ navigation }: any) {
                 })}
               >
                 <MaterialIcons name="sort" size={18} color="#111" />
-                <Text style={{ fontWeight: "700" }}>Sort by</Text>
+                <Text style={{ fontWeight: "700" }}>{t('list.sortBy')}</Text>
               </Pressable>
               <Pressable
                 onPress={() => setShowFilters((v) => !v)}
@@ -174,7 +176,7 @@ export default function ListScreen({ navigation }: any) {
                 })}
               >
                 <MaterialIcons name="filter-alt" size={18} color="#111" />
-                <Text style={{ fontWeight: "700" }}>Filters</Text>
+                <Text style={{ fontWeight: "700" }}>{t('filters.title')}</Text>
               </Pressable>
             </View>
           </View>
@@ -355,7 +357,7 @@ export default function ListScreen({ navigation }: any) {
               backgroundColor: sortMode === "nearest" ? "#ccc" : pressed ? "#f1f1f1" : "transparent"
             })}
           >
-            <Text style={{ fontWeight: sortMode === "nearest" ? "600" : "400" }}>Distance</Text>
+            <Text style={{ fontWeight: sortMode === "nearest" ? "600" : "400" }}>{t('map.nearestFirst')}</Text>
           </Pressable>
           <Pressable 
             onPress={() => {
@@ -370,7 +372,7 @@ export default function ListScreen({ navigation }: any) {
               backgroundColor: sortMode === "az" ? "#ccc" : pressed ? "#f1f1f1" : "transparent"
             })}
           >
-            <Text style={{ fontWeight: sortMode === "az" ? "600" : "400" }}>A-Z</Text>
+            <Text style={{ fontWeight: sortMode === "az" ? "600" : "400" }}>{t('map.alphabetical')}</Text>
           </Pressable>
         </View>
       )}

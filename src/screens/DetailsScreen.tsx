@@ -2,6 +2,7 @@ import React, { useMemo, useState, useEffect } from "react";
 import { View, Text, Linking, ScrollView, Pressable, Image, Dimensions, Alert } from "react-native";
 import { useStations } from "../hooks/useStations";
 import { pick } from "../utils/i18n";
+import { useTranslation } from 'react-i18next';
 import useUserLocation from "../hooks/useUserLocation";
 import { haversineDistanceMeters } from "../utils/geo";
 import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
@@ -13,10 +14,11 @@ export default function DetailsScreen({ route }: any) {
   const { data } = useStations();
   const { coords } = useUserLocation();
   const { user } = useAuth();
+  const { t } = useTranslation();
   const { isStationFavorited, toggleFavorite, loading: favoritesLoading } = useFavorites();
   const s = useMemo(() => data?.find(x => x.ID === id), [data, id]);
 
-  if (!s) return <Text style={{ margin: 16 }}>Station not found.</Text>;
+  if (!s) return <Text style={{ margin: 16 }}>{t('details.stationNotFound')}</Text>;
 
   // Calculate distance if user location is available
   const distance = useMemo(() => {
@@ -234,7 +236,7 @@ export default function DetailsScreen({ route }: any) {
                   fontWeight: '600',
                   color: isStationFavorited(s.ID) ? '#ffffff' : '#6b7280',
                 }}>
-                  {isStationFavorited(s.ID) ? 'Favorited' : 'Add to Favorites'}
+                  {isStationFavorited(s.ID) ? t('details.removeFromFavorites') : t('details.addToFavorites')}
                 </Text>
               </Pressable>
             </View>
@@ -243,15 +245,15 @@ export default function DetailsScreen({ route }: any) {
           {/* Meta Grid */}
           <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
             <View>
-              <Text style={{ fontSize: 11, color: "#6B7280", marginBottom: 4 }}>Postcode</Text>
+              <Text style={{ fontSize: 11, color: "#6B7280", marginBottom: 4 }}>{t('details.postcode')}</Text>
               <Text style={{ fontSize: 14, fontWeight: "700", color: "#111827" }}>{s.postcode}</Text>
             </View>
             <View>
-              <Text style={{ fontSize: 11, color: "#6B7280", marginBottom: 4 }}>Town</Text>
+              <Text style={{ fontSize: 11, color: "#6B7280", marginBottom: 4 }}>{t('details.town')}</Text>
               <Text style={{ fontSize: 14, fontWeight: "700", color: "#111827" }}>{s.town?.en}</Text>
             </View>
             <View>
-              <Text style={{ fontSize: 11, color: "#6B7280", marginBottom: 4 }}>Country</Text>
+              <Text style={{ fontSize: 11, color: "#6B7280", marginBottom: 4 }}>{t('details.country')}</Text>
               <Text style={{ fontSize: 14, fontWeight: "700", color: "#111827" }}>Cyprus</Text>
             </View>
           </View>
@@ -259,7 +261,7 @@ export default function DetailsScreen({ route }: any) {
           {/* Distance */}
           {distance && (
             <View style={{ marginTop: 12 }}>
-              <Text style={{ fontSize: 11, color: "#6B7280", marginBottom: 4 }}>Distance</Text>
+              <Text style={{ fontSize: 11, color: "#6B7280", marginBottom: 4 }}>{t('details.distance')}</Text>
               <Text style={{ fontSize: 14, fontWeight: "700", color: "#111827" }}>{distance}</Text>
             </View>
           )}
@@ -293,7 +295,7 @@ export default function DetailsScreen({ route }: any) {
             )}
 
             <View style={{ flex: 1 }}>
-              <Text style={{ fontSize: 11, color: "#6B7280", marginBottom: 4 }}>Operator</Text>
+              <Text style={{ fontSize: 11, color: "#6B7280", marginBottom: 4 }}>{t('details.operator')}</Text>
               <Text style={{ fontSize: 16, fontWeight: "700", color: "#111827" }}>{s.operator}</Text>
             </View>
           </View>
@@ -308,7 +310,7 @@ export default function DetailsScreen({ route }: any) {
           borderColor: "#E5E7EB"
         }}>
           <Text style={{ fontSize: 16, fontWeight: "700", color: "#111827", marginBottom: 16 }}>
-            Connections
+            {t('details.connections')}
           </Text>
 
           {s.connections.map((connection, index) => (
@@ -367,7 +369,7 @@ export default function DetailsScreen({ route }: any) {
           })}
         >
           <Text style={{ color: "#FFFFFF", fontSize: 16, fontWeight: "700", marginRight: 8 }}>
-            Get Directions
+            {t('details.getDirections')}
           </Text>
           <MaterialIcons name="directions" size={20} color="#FFFFFF" />
         </Pressable>
@@ -386,7 +388,7 @@ export default function DetailsScreen({ route }: any) {
         >
           <MaterialIcons name="report-problem" size={20} color="#FFFFFF" style={{ marginRight: 8 }} />
           <Text style={{ color: "#FFFFFF", fontSize: 16, fontWeight: "700" }}>
-            Report Data Issue
+            {t('details.reportIssue')}
           </Text>
         </Pressable>
       </View>

@@ -6,11 +6,13 @@ import { Station } from '../types/ocm';
 import useUserLocation from '../hooks/useUserLocation';
 import { haversineDistanceMeters } from '../utils/geo';
 import { pick } from '../utils/i18n';
+import { useTranslation } from 'react-i18next';
 import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 
 const FavoritesScreen: React.FC = ({ navigation }: any) => {
   const { user, isGuest } = useAuth();
   const { favoriteStationIds, loading, error } = useFavorites();
+  const { t } = useTranslation();
   const [favoriteStations, setFavoriteStations] = useState<Station[]>([]);
   const [stationsLoading, setStationsLoading] = useState(false);
   const { coords } = useUserLocation();
@@ -236,11 +238,11 @@ const FavoritesScreen: React.FC = ({ navigation }: any) => {
   const renderEmptyState = () => (
     <View style={styles.emptyContainer}>
       <Text style={styles.emptyIcon}>⭐</Text>
-      <Text style={styles.emptyTitle}>No Favorite Stations</Text>
+      <Text style={styles.emptyTitle}>{t('favorites.noFavorites')}</Text>
       <Text style={styles.emptySubtitle}>
         {isGuest 
-          ? 'Sign in to save your favorite charging stations'
-          : 'Start adding charging stations to your favorites to see them here'
+          ? t('favorites.loginToSaveFavorites')
+          : t('favorites.addSomeFavorites')
         }
       </Text>
     </View>
@@ -251,11 +253,11 @@ const FavoritesScreen: React.FC = ({ navigation }: any) => {
       <SafeAreaView style={styles.container}>
         <View style={styles.content}>
           <View style={styles.header}>
-            <Text style={styles.title}>Favorites</Text>
+            <Text style={styles.title}>{t('favorites.title')}</Text>
           </View>
           <View style={styles.signInPrompt}>
             <Text style={styles.signInText}>
-              Sign in to access your favorite charging stations
+              {t('favorites.loginToSaveFavorites')}
             </Text>
           </View>
         </View>
@@ -268,7 +270,7 @@ const FavoritesScreen: React.FC = ({ navigation }: any) => {
       <SafeAreaView style={styles.container}>
         <View style={styles.content}>
           <View style={styles.header}>
-            <Text style={styles.title}>Favorites</Text>
+            <Text style={styles.title}>{t('favorites.title')}</Text>
           </View>
           <View style={styles.loadingContainer}>
             <ActivityIndicator size="large" color="#007AFF" />
@@ -284,7 +286,7 @@ const FavoritesScreen: React.FC = ({ navigation }: any) => {
       <SafeAreaView style={styles.container}>
         <View style={styles.content}>
           <View style={styles.header}>
-            <Text style={styles.title}>Favorites</Text>
+            <Text style={styles.title}>{t('favorites.title')}</Text>
           </View>
           <View style={styles.errorContainer}>
             <Text style={styles.errorText}>
@@ -305,7 +307,7 @@ const FavoritesScreen: React.FC = ({ navigation }: any) => {
           ListHeaderComponent={(
             <View style={{ padding: 12, borderBottomWidth: 1, borderColor: "#eee", backgroundColor: "#fff" }}>
               <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
-                <Text style={styles.title}>Favorites</Text>
+                <Text style={styles.title}>{t('favorites.title')}</Text>
                 <Pressable
                   onPress={() => setShowSort((v) => !v)}
                   style={({ pressed }) => ({
@@ -319,7 +321,7 @@ const FavoritesScreen: React.FC = ({ navigation }: any) => {
                   })}
                 >
                   <MaterialIcons name="sort" size={18} color="#111" />
-                  <Text style={{ fontWeight: "700" }}>Sort by</Text>
+                  <Text style={{ fontWeight: "700" }}>{t('list.sortBy')}</Text>
                 </Pressable>
               </View>
             </View>
@@ -374,7 +376,7 @@ const FavoritesScreen: React.FC = ({ navigation }: any) => {
                 backgroundColor: sortMode === "nearest" ? "#ccc" : pressed ? "#f1f1f1" : "transparent"
               })}
             >
-              <Text style={{ fontWeight: sortMode === "nearest" ? "600" : "400" }}>Distance</Text>
+              <Text style={{ fontWeight: sortMode === "nearest" ? "600" : "400" }}>{t('map.nearestFirst')}</Text>
             </Pressable>
             <Pressable 
               onPress={() => {
@@ -389,7 +391,7 @@ const FavoritesScreen: React.FC = ({ navigation }: any) => {
                 backgroundColor: sortMode === "az" ? "#ccc" : pressed ? "#f1f1f1" : "transparent"
               })}
             >
-              <Text style={{ fontWeight: sortMode === "az" ? "600" : "400" }}>A-Z</Text>
+              <Text style={{ fontWeight: sortMode === "az" ? "600" : "400" }}>{t('map.alphabetical')}</Text>
             </Pressable>
           </View>
         )}

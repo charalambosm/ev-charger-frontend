@@ -13,13 +13,16 @@ import {
   Modal,
 } from 'react-native';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '../contexts';
 import { UserService, UserProfile } from '../services';
 import { auth } from '../config/firebase';
 import { deleteUser } from 'firebase/auth';
+import { setStoredLanguage, getStoredLanguage } from '../utils/i18n';
 
 const ProfileScreen: React.FC = () => {
   const { user, logout, isGuest, resetGuestState, reauthenticateUser } = useAuth();
+  const { t, i18n } = useTranslation();
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -32,6 +35,7 @@ const ProfileScreen: React.FC = () => {
   const [reauthModalVisible, setReauthModalVisible] = useState(false);
   const [reauthPassword, setReauthPassword] = useState('');
   const [reauthenticating, setReauthenticating] = useState(false);
+  const [currentLanguage, setCurrentLanguage] = useState<string>('en');
 
   // Fetch user profile when user changes
   useEffect(() => {
@@ -63,19 +67,40 @@ const ProfileScreen: React.FC = () => {
     }
   }, [user, isGuest]);
 
+  // Load current language
+  useEffect(() => {
+    const loadCurrentLanguage = async () => {
+      const language = await getStoredLanguage();
+      setCurrentLanguage(language);
+    };
+    loadCurrentLanguage();
+  }, []);
+
+  // Handle language change
+  const handleLanguageChange = async (language: string) => {
+    try {
+      await setStoredLanguage(language);
+      setCurrentLanguage(language);
+      setLanguageModalVisible(false);
+    } catch (error) {
+      console.error('Error changing language:', error);
+      Alert.alert(t('common.error'), t('profile.errorUpdatingProfile'));
+    }
+  };
+
 
 
   const handleLogout = () => {
     Alert.alert(
-      'Logout',
-      'Are you sure you want to logout?',
+      t('auth.logout'),
+      t('profile.confirmSignOut'),
       [
         {
-          text: 'Cancel',
+          text: t('common.cancel'),
           style: 'cancel',
         },
         {
-          text: 'Logout',
+          text: t('auth.logout'),
           style: 'destructive',
           onPress: async () => {
             try {
@@ -96,28 +121,28 @@ const ProfileScreen: React.FC = () => {
 
   const handleDeleteProfile = () => {
     Alert.alert(
-      'Delete Profile',
-      'Are you sure you want to delete your profile? This action cannot be undone and will permanently delete your account and all associated data.',
+      t('profile.deleteAccount'),
+      t('profile.confirmDelete'),
       [
         {
-          text: 'Cancel',
+          text: t('common.cancel'),
           style: 'cancel',
         },
         {
-          text: 'Delete',
+          text: t('common.delete'),
           style: 'destructive',
           onPress: () => {
             // Second confirmation
             Alert.alert(
-              'Final Confirmation',
-              'This will permanently delete your account. Are you absolutely sure?',
+              t('common.confirm'),
+              t('profile.confirmDelete'),
               [
                 {
-                  text: 'Cancel',
+                  text: t('common.cancel'),
                   style: 'cancel',
                 },
                 {
-                  text: 'Delete Forever',
+                  text: t('common.delete'),
                   style: 'destructive',
                   onPress: performDeleteProfile,
                 },
@@ -274,22 +299,26 @@ const ProfileScreen: React.FC = () => {
   };
 
   const handleLanguageSelect = async (languageCode: string) => {
-    if (!userProfile) return;
-
     setSaving(true);
     try {
-      const updateData = {
-        preferences: {
-          ...userProfile.preferences,
-          language: languageCode
-        }
-      };
-
-      await UserService.updateUserProfile(userProfile.id, updateData);
+      // Update i18n language
+      await handleLanguageChange(languageCode);
+      
+      // Also update user profile if user is logged in
+      if (userProfile) {
+        const updateData = {
+          preferences: {
+            ...userProfile.preferences,
+            language: languageCode
+          }
+        };
+        await UserService.updateUserProfile(userProfile.id, updateData);
+      }
+      
       setLanguageModalVisible(false);
     } catch (error) {
       console.error('Error updating language:', error);
-      Alert.alert('Error', 'Failed to update language. Please try again.');
+      Alert.alert(t('common.error'), t('profile.errorUpdatingProfile'));
     } finally {
       setSaving(false);
     }
@@ -379,7 +408,7 @@ const ProfileScreen: React.FC = () => {
             </View>
 
             <TouchableOpacity style={styles.signInButton} onPress={handleSignIn}>
-              <Text style={styles.signInButtonText}>Sign In / Sign Up</Text>
+              <Text style={styles.signInButtonText}>{t('profile.signIn')} / {t('profile.signUp')}</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -414,7 +443,7 @@ const ProfileScreen: React.FC = () => {
             </View>
 
             <TouchableOpacity style={styles.signInButton} onPress={handleSignIn}>
-              <Text style={styles.signInButtonText}>Sign In / Sign Up</Text>
+              <Text style={styles.signInButtonText}>{t('profile.signIn')} / {t('profile.signUp')}</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -455,11 +484,11 @@ const ProfileScreen: React.FC = () => {
 
               {/* Profile Information */}
               <View style={styles.section}>
-                <Text style={styles.sectionTitle}>Profile Information</Text>
+                <Text style={styles.sectionTitle}>{t('profile.personalInfo')}</Text>
 
                 {userProfile?.firstName && (
                   <View style={styles.infoRow}>
-                    <Text style={styles.infoLabel}>First Name:</Text>
+                    <Text style={styles.infoLabel}>{t('profile.firstName')}:</Text>
                     <View style={styles.infoValueContainer}>
                       <TouchableOpacity
                         style={styles.editButton}
@@ -474,7 +503,7 @@ const ProfileScreen: React.FC = () => {
 
                 {userProfile?.lastName && (
                   <View style={styles.infoRow}>
-                    <Text style={styles.infoLabel}>Last Name:</Text>
+                    <Text style={styles.infoLabel}>{t('profile.lastName')}:</Text>
                     <View style={styles.infoValueContainer}>
                       <TouchableOpacity
                         style={styles.editButton}
@@ -488,12 +517,12 @@ const ProfileScreen: React.FC = () => {
                 )}
 
                 <View style={styles.infoRow}>
-                  <Text style={styles.infoLabel}>Email:</Text>
+                  <Text style={styles.infoLabel}>{t('profile.email')}:</Text>
                   <Text style={styles.infoValue}>{user?.email}</Text>
                 </View>
 
                 <View style={styles.infoRow}>
-                  <Text style={styles.infoLabel}>Account Created:</Text>
+                  <Text style={styles.infoLabel}>{t('profile.dateJoined')}:</Text>
                   <Text style={styles.infoValue}>
                     {userProfile?.createdAt
                       ? (() => {
@@ -520,27 +549,27 @@ const ProfileScreen: React.FC = () => {
 
               {/* Preferences */}
               <View style={styles.section}>
-                <Text style={styles.sectionTitle}>Preferences</Text>
+                <Text style={styles.sectionTitle}>{t('profile.preferences')}</Text>
 
                 <View style={styles.infoRow}>
-                  <Text style={styles.infoLabel}>Language:</Text>
+                  <Text style={styles.infoLabel}>{t('profile.language')}:</Text>
                   <View style={styles.infoValueContainer}>
                     <TouchableOpacity
                       style={styles.editButton}
-                      onPress={() => handleEdit('language', userProfile?.preferences?.language || 'en')}
+                      onPress={() => setLanguageModalVisible(true)}
                     >
                       <MaterialIcons name="edit" size={20} color="#000000" />
                     </TouchableOpacity>
                     <Text style={styles.infoValue}>
-                      {userProfile?.preferences?.language === 'en' ? 'English' :
-                        userProfile?.preferences?.language === 'gr' ? 'Greek' :
-                          userProfile?.preferences?.language || 'English'}
+                      {currentLanguage === 'en' ? t('profile.english') :
+                        currentLanguage === 'el' ? t('profile.greek') :
+                          t('profile.english')}
                     </Text>
                   </View>
                 </View>
 
                 <View style={styles.infoRow}>
-                  <Text style={styles.infoLabel}>Distance units:</Text>
+                  <Text style={styles.infoLabel}>{t('profile.units')}:</Text>
                   <View style={styles.infoValueContainer}>
                     <TouchableOpacity
                       style={styles.editButton}
@@ -549,9 +578,9 @@ const ProfileScreen: React.FC = () => {
                       <MaterialIcons name="edit" size={20} color="#000000" />
                     </TouchableOpacity>
                     <Text style={styles.infoValue}>
-                      {userProfile?.preferences?.units === 'metric' ? 'metres / kilometres' :
-                        userProfile?.preferences?.units === 'imperial' ? 'feet / miles' :
-                          'metres / kilometres'}
+                      {userProfile?.preferences?.units === 'metric' ? t('profile.kilometers') :
+                        userProfile?.preferences?.units === 'imperial' ? t('profile.miles') :
+                          t('profile.kilometers')}
                     </Text>
                   </View>
                 </View>
@@ -561,11 +590,11 @@ const ProfileScreen: React.FC = () => {
             </View>
 
             <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
-              <Text style={styles.logoutButtonText}>Logout</Text>
+              <Text style={styles.logoutButtonText}>{t('profile.signOut')}</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.deleteButton} onPress={handleDeleteProfile}>
-              <Text style={styles.deleteButtonText}>Delete Profile</Text>
+              <Text style={styles.deleteButtonText}>{t('profile.deleteAccount')}</Text>
             </TouchableOpacity>
           </ScrollView>
         )}
@@ -581,10 +610,10 @@ const ProfileScreen: React.FC = () => {
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
             <Text style={styles.modalTitle}>
-              Edit {editField === 'firstName' ? 'First Name' :
-                editField === 'lastName' ? 'Last Name' :
-                  editField === 'language' ? 'Language' :
-                    editField === 'units' ? 'Distance Units' : 'Field'}
+{t('common.edit')} {editField === 'firstName' ? t('profile.firstName') :
+                editField === 'lastName' ? t('profile.lastName') :
+                  editField === 'language' ? t('profile.language') :
+                    editField === 'units' ? t('profile.units') : 'Field'}
             </Text>
 
             <TextInput
@@ -604,7 +633,7 @@ const ProfileScreen: React.FC = () => {
                 onPress={handleCancelEdit}
                 disabled={saving}
               >
-                <Text style={styles.cancelButtonText}>Cancel</Text>
+                <Text style={styles.cancelButtonText}>{t('common.cancel')}</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
@@ -613,7 +642,7 @@ const ProfileScreen: React.FC = () => {
                 disabled={saving || !editValue.trim()}
               >
                 <Text style={styles.saveButtonText}>
-                  {saving ? 'Saving...' : 'Save'}
+                  {saving ? t('common.loading') : t('common.save')}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -672,25 +701,25 @@ const ProfileScreen: React.FC = () => {
       >
         <View style={styles.modalOverlay}>
           <View style={styles.languageModalContent}>
-            <Text style={styles.modalTitle}>Select Language</Text>
+            <Text style={styles.modalTitle}>{t('profile.selectLanguage')}</Text>
 
             <TouchableOpacity
-              style={[styles.languageOption, userProfile?.preferences?.language === 'en' && styles.languageOptionSelected]}
+              style={[styles.languageOption, currentLanguage === 'en' && styles.languageOptionSelected]}
               onPress={() => handleLanguageSelect('en')}
               disabled={saving}
             >
-              <Text style={[styles.languageOptionText, userProfile?.preferences?.language === 'en' && styles.languageOptionTextSelected]}>
-                English
+              <Text style={[styles.languageOptionText, currentLanguage === 'en' && styles.languageOptionTextSelected]}>
+                {t('profile.english')}
               </Text>
             </TouchableOpacity>
 
             <TouchableOpacity
-              style={[styles.languageOption, userProfile?.preferences?.language === 'gr' && styles.languageOptionSelected]}
-              onPress={() => handleLanguageSelect('gr')}
+              style={[styles.languageOption, currentLanguage === 'el' && styles.languageOptionSelected]}
+              onPress={() => handleLanguageSelect('el')}
               disabled={saving}
             >
-              <Text style={[styles.languageOptionText, userProfile?.preferences?.language === 'gr' && styles.languageOptionTextSelected]}>
-                Greek
+              <Text style={[styles.languageOptionText, currentLanguage === 'el' && styles.languageOptionTextSelected]}>
+                {t('profile.greek')}
               </Text>
             </TouchableOpacity>
 
@@ -736,7 +765,7 @@ const ProfileScreen: React.FC = () => {
                 onPress={handleCancelReauth}
                 disabled={reauthenticating}
               >
-                <Text style={styles.cancelButtonText}>Cancel</Text>
+                <Text style={styles.cancelButtonText}>{t('common.cancel')}</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
