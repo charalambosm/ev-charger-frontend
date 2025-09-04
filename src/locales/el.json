@@ -16,7 +16,8 @@
     "sort": "Ταξινόμηση",
     "back": "Πίσω",
     "next": "Επόμενο",
-    "previous": "Προηγούμενο"
+    "previous": "Προηγούμενο",
+    "all": "Όλα"
   },
   "navigation": {
     "map": "Χάρτης",
@@ -179,6 +180,11 @@
     "powerLevel": "Επίπεδο Ισχύος",
     "connectorType": "Τύπος Συνδετήρα",
     "currentType": "Τύπος Ρεύματος",
+    "current": "Ρεύμα",
+    "power": "Ισχύς",
+    "type": "Τύπος",
+    "districts": "Περιοχές",
+    "operators": "Διαχειριστές",
     "acOnly": "Μόνο AC",
     "dcOnly": "Μόνο DC",
     "both": "AC & DC",

@@ -3,6 +3,8 @@ import { View, Text, Linking, ScrollView, Pressable, Image, Dimensions, Alert } 
 import { useStations } from "../hooks/useStations";
 import { pick } from "../utils/i18n";
 import { useTranslation } from 'react-i18next';
+import { formatDistance } from "../utils/units";
+import { UserService } from "../services";
 import useUserLocation from "../hooks/useUserLocation";
 import { haversineDistanceMeters } from "../utils/geo";
 import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
@@ -13,10 +15,26 @@ export default function DetailsScreen({ route }: any) {
   const { id } = route.params as { id: string };
   const { data } = useStations();
   const { coords } = useUserLocation();
-  const { user } = useAuth();
+  const { user, isGuest } = useAuth();
   const { t } = useTranslation();
   const { isStationFavorited, toggleFavorite, loading: favoritesLoading } = useFavorites();
   const s = useMemo(() => data?.find(x => x.ID === id), [data, id]);
+  const [userPreferences, setUserPreferences] = useState<any>(null);
+
+  // Load user preferences
+  useEffect(() => {
+    if (user && !isGuest) {
+      const loadPreferences = async () => {
+        try {
+          const profile = await UserService.getCurrentUserProfile();
+          setUserPreferences(profile?.preferences);
+        } catch (error) {
+          console.error('Error loading user preferences:', error);
+        }
+      };
+      loadPreferences();
+    }
+  }, [user, isGuest]);
 
   if (!s) return <Text style={{ margin: 16 }}>{t('details.stationNotFound')}</Text>;
 
@@ -29,8 +47,9 @@ export default function DetailsScreen({ route }: any) {
       s.latitude,
       s.longitude
     );
-    return meters < 950 ? `${Math.round(meters)} m` : `${(meters / 1000).toFixed(1)} km`;
-  }, [coords, s.latitude, s.longitude]);
+    const units = userPreferences?.units || 'metric';
+    return formatDistance(meters, units);
+  }, [coords, s.latitude, s.longitude, userPreferences?.units]);
 
   // Map operator names to logo files
   const getOperatorLogo = (operator: string) => {
@@ -217,7 +236,7 @@ export default function DetailsScreen({ route }: any) {
                 style={({ pressed }) => ({
                   flexDirection: 'row',
                   alignItems: 'center',
-                  backgroundColor: isStationFavorited(s.ID) ? '#fbbf24' : '#f3f4f6',
+                  backgroundColor: isStationFavorited(s.ID) ? '#ef4444' : '#f3f4f6',
                   paddingHorizontal: 16,
                   paddingVertical: 8,
                   borderRadius: 20,

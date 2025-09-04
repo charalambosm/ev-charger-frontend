@@ -6,6 +6,9 @@ import { useSortedStations, toFeatures } from "../hooks/useStations";
 import { useFilters } from "../store/filters";
 import { pick } from "../utils/i18n";
 import { useTranslation } from 'react-i18next';
+import { formatDistance } from "../utils/units";
+import { useAuth } from "../contexts";
+import { UserService } from "../services";
 import type { StationFeature } from "../types/ocm";
 import useUserLocation from "../hooks/useUserLocation";
 import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
@@ -16,14 +19,31 @@ export default function MapScreen({ navigation }: any) {
   const { data, isLoading, error } = useSortedStations();
   const filters = useFilters();
   const { coords, status } = useUserLocation();
+  const { user, isGuest } = useAuth();
   const { t } = useTranslation();
   const [showFilters, setShowFilters] = useState(false);
+  const [userPreferences, setUserPreferences] = useState<any>(null);
   const [region, setRegion] = useState<Region>({
     latitude: 35.1633,
     longitude: 33.3642,
     latitudeDelta: 0.6,
     longitudeDelta: 0.6
   });
+
+  // Load user preferences
+  useEffect(() => {
+    if (user && !isGuest) {
+      const loadPreferences = async () => {
+        try {
+          const profile = await UserService.getCurrentUserProfile();
+          setUserPreferences(profile?.preferences);
+        } catch (error) {
+          console.error('Error loading user preferences:', error);
+        }
+      };
+      loadPreferences();
+    }
+  }, [user, isGuest]);
 
   // Initialize all districts and operators when data is loaded
   useEffect(() => {
@@ -197,7 +217,7 @@ export default function MapScreen({ navigation }: any) {
                     {/* Distance label */}
                     {(() => {
                       const distanceLabel = typeof f.station.distanceMeters === 'number'
-                        ? (f.station.distanceMeters < 950 ? `${Math.round(f.station.distanceMeters)} m` : `${(f.station.distanceMeters / 1000).toFixed(1)} km`)
+                        ? formatDistance(f.station.distanceMeters, userPreferences?.units || 'metric')
                         : undefined;
                       return distanceLabel ? (
                         <Text style={{ fontSize: 14, color: "#666", marginBottom: 2 }}>
@@ -416,12 +436,12 @@ export default function MapScreen({ navigation }: any) {
           <ScrollView showsVerticalScrollIndicator={false}>
             {/* AC/DC Segment */}
             <View style={{ marginBottom: 12 }}>
-              <Text style={{ fontWeight: "600", marginBottom: 6 }}>Current</Text>
+              <Text style={{ fontWeight: "600", marginBottom: 6 }}>{t('filters.current')}</Text>
               <View style={{ flexDirection: "row", gap: 8 }}>
                 <Pressable onPress={() => filters.selectAllCurrent()}>
                   <View style={{ flexDirection: "row", alignItems: "center", gap: 8, backgroundColor: filters.acOnly && filters.dcOnly ? "#2F80ED" : "#f1f1f1", paddingVertical: 10, paddingHorizontal: 16, borderRadius: 8, minWidth: 80, justifyContent: "center" }}>
                     <MaterialIcons name="check-circle" size={20} color={filters.acOnly && filters.dcOnly ? "#fff" : "#111"} />
-                    <Text style={{ color: filters.acOnly && filters.dcOnly ? "#fff" : "#111", fontSize: 16, fontWeight: "500" }}>All</Text>
+                    <Text style={{ color: filters.acOnly && filters.dcOnly ? "#fff" : "#111", fontSize: 16, fontWeight: "500" }}>{t('common.all')}</Text>
                   </View>
                 </Pressable>
                 <Pressable onPress={() => {
@@ -457,7 +477,7 @@ export default function MapScreen({ navigation }: any) {
 
             {/* Power presets with color legend */}
             <View style={{ marginBottom: 12 }}>
-              <Text style={{ fontWeight: "600", marginBottom: 6 }}>Power</Text>
+              <Text style={{ fontWeight: "600", marginBottom: 6 }}>{t('filters.power')}</Text>
               <View style={{ gap: 8 }}>
                 <Pressable onPress={() => filters.selectAllPower()}>
                   <View style={{
@@ -472,7 +492,7 @@ export default function MapScreen({ navigation }: any) {
                     justifyContent: "center"
                   }}>
                     <MaterialIcons name="check-circle" size={20} color={filters.powerKW.size === 4 ? "#fff" : "#111"} />
-                    <Text style={{ color: filters.powerKW.size === 4 ? "#fff" : "#111", fontSize: 16, fontWeight: "500" }}>All</Text>
+                    <Text style={{ color: filters.powerKW.size === 4 ? "#fff" : "#111", fontSize: 16, fontWeight: "500" }}>{t('common.all')}</Text>
                   </View>
                 </Pressable>
                  
@@ -546,12 +566,12 @@ export default function MapScreen({ navigation }: any) {
 
             {/* Type (connector) multi-select */}
             <View style={{ marginBottom: 12 }}>
-              <Text style={{ fontWeight: "600", marginBottom: 6 }}>Type</Text>
+              <Text style={{ fontWeight: "600", marginBottom: 6 }}>{t('filters.type')}</Text>
               <View style={{ gap: 8 }}>
                 <Pressable onPress={() => filters.selectAllConnectorTypes()}>
                   <View style={{ flexDirection: "row", alignItems: "center", gap: 8, backgroundColor: filters.connectorTypes.size === 4 ? "#2F80ED" : "#f1f1f1", paddingVertical: 10, paddingHorizontal: 16, borderRadius: 8, minWidth: 120, justifyContent: "center" }}>
                     <MaterialIcons name="check-circle" size={20} color={filters.connectorTypes.size === 4 ? "#fff" : "#111"} />
-                    <Text style={{ color: filters.connectorTypes.size === 4 ? "#fff" : "#111", fontSize: 16, fontWeight: "500" }}>All</Text>
+                    <Text style={{ color: filters.connectorTypes.size === 4 ? "#fff" : "#111", fontSize: 16, fontWeight: "500" }}>{t('common.all')}</Text>
                   </View>
                 </Pressable>
                  
@@ -629,7 +649,7 @@ export default function MapScreen({ navigation }: any) {
                const allDistricts = Array.from(new Set((data ?? []).map((s) => pick(s.district)).filter(Boolean))).sort();
                return (
                  <View style={{ marginBottom: 12 }}>
-                   <Text style={{ fontWeight: "600", marginBottom: 6 }}>Districts</Text>
+                   <Text style={{ fontWeight: "600", marginBottom: 6 }}>{t('filters.districts')}</Text>
                    <View style={{ gap: 8 }}>
                      <Pressable onPress={() => filters.selectAllDistricts()}>
                        <View style={{
@@ -644,7 +664,7 @@ export default function MapScreen({ navigation }: any) {
                          justifyContent: "center"
                        }}>
                          <MaterialIcons name="check-circle" size={20} color={filters.districts.size === allDistricts.length ? "#fff" : "#111"} />
-                         <Text style={{ color: filters.districts.size === allDistricts.length ? "#fff" : "#111", fontSize: 16, fontWeight: "500" }}>All</Text>
+                         <Text style={{ color: filters.districts.size === allDistricts.length ? "#fff" : "#111", fontSize: 16, fontWeight: "500" }}>{t('common.all')}</Text>
                        </View>
                      </Pressable>
                      
@@ -662,14 +682,21 @@ export default function MapScreen({ navigation }: any) {
                              const isSelected = filters.districts.has(d) && filters.districts.size === 1;
                              const backgroundColor = isSelected ? "#2F80ED" : "#f1f1f1";
                              
-                             // Map district names to image files
+                             // Map district names to image files (supports both English and Greek)
                              const getDistrictImage = (districtName: string) => {
                                const imageMap: { [key: string]: any } = {
+                                 // English names
                                  'Nicosia': require("../../assets/nicosia.png"),
                                  'Paphos': require("../../assets/paphos.png"),
                                  'Limassol': require("../../assets/limassol.png"),
                                  'Famagusta': require("../../assets/famagusta.png"),
-                                 'Larnaca': require("../../assets/larnaca.png")
+                                 'Larnaca': require("../../assets/larnaca.png"),
+                                 // Greek names
+                                 'Λευκωσία': require("../../assets/nicosia.png"),
+                                 'Πάφος': require("../../assets/paphos.png"),
+                                 'Λεμεσός': require("../../assets/limassol.png"),
+                                 'Αμμόχωστος': require("../../assets/famagusta.png"),
+                                 'Λάρνακα': require("../../assets/larnaca.png")
                                };
                                return imageMap[districtName];
                              };
@@ -741,7 +768,7 @@ export default function MapScreen({ navigation }: any) {
               const allOps = Array.from(new Set((data ?? []).map((s) => s.operator).filter(Boolean))).sort();
               return (
                 <View style={{ marginBottom: 12 }}>
-                  <Text style={{ fontWeight: "600", marginBottom: 6 }}>Operators</Text>
+                  <Text style={{ fontWeight: "600", marginBottom: 6 }}>{t('filters.operators')}</Text>
                   <View style={{ gap: 8 }}>
                     <Pressable onPress={() => filters.selectAllOperators()}>
                       <View style={{
@@ -756,7 +783,7 @@ export default function MapScreen({ navigation }: any) {
                         justifyContent: "center"
                       }}>
                         <MaterialIcons name="check-circle" size={20} color={filters.operators.size === allOps.length ? "#fff" : "#111"} />
-                        <Text style={{ color: filters.operators.size === allOps.length ? "#fff" : "#111", fontSize: 16, fontWeight: "500" }}>All</Text>
+                        <Text style={{ color: filters.operators.size === allOps.length ? "#fff" : "#111", fontSize: 16, fontWeight: "500" }}>{t('common.all')}</Text>
                       </View>
                     </Pressable>
 

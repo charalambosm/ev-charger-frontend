@@ -7,6 +7,8 @@ import useUserLocation from '../hooks/useUserLocation';
 import { haversineDistanceMeters } from '../utils/geo';
 import { pick } from '../utils/i18n';
 import { useTranslation } from 'react-i18next';
+import { formatDistance } from '../utils/units';
+import { UserService } from '../services';
 import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 
 const FavoritesScreen: React.FC = ({ navigation }: any) => {
@@ -19,6 +21,22 @@ const FavoritesScreen: React.FC = ({ navigation }: any) => {
   const [sortMode, setSortMode] = useState<"nearest" | "az">("az");
   const [showSort, setShowSort] = useState(false);
   const [userSelectedSort, setUserSelectedSort] = useState(false);
+  const [userPreferences, setUserPreferences] = useState<any>(null);
+
+  // Load user preferences
+  useEffect(() => {
+    if (user && !isGuest) {
+      const loadPreferences = async () => {
+        try {
+          const profile = await UserService.getCurrentUserProfile();
+          setUserPreferences(profile?.preferences);
+        } catch (error) {
+          console.error('Error loading user preferences:', error);
+        }
+      };
+      loadPreferences();
+    }
+  }, [user, isGuest]);
 
   // Auto-switch to "nearest" when coords become available, but only if user hasn't made an explicit choice
   useEffect(() => {
@@ -92,10 +110,10 @@ const FavoritesScreen: React.FC = ({ navigation }: any) => {
     return list;
   }, [favoriteStations, sortMode, coords]);
 
-  const formatDistance = (meters?: number) => {
+  const formatDistanceWithUnits = (meters?: number) => {
     if (meters == null) return undefined;
-    if (meters < 950) return `${Math.round(meters)} m`;
-    return `${(meters / 1000).toFixed(1)} km`;
+    const units = userPreferences?.units || 'metric';
+    return formatDistance(meters, units);
   };
 
   const renderStationItem = ({ item }: { item: any }) => {
@@ -124,7 +142,7 @@ const FavoritesScreen: React.FC = ({ navigation }: any) => {
               {/* Distance label */}
             {distanceMeters != null && (
                 <Text style={{ fontSize: 14, color: "#666", marginBottom: 2 }}>
-                  {formatDistance(distanceMeters)}
+                  {formatDistanceWithUnits(distanceMeters)}
                 </Text>
               )}
             </View>
@@ -237,8 +255,6 @@ const FavoritesScreen: React.FC = ({ navigation }: any) => {
 
   const renderEmptyState = () => (
     <View style={styles.emptyContainer}>
-      <Text style={styles.emptyIcon}>⭐</Text>
-      <Text style={styles.emptyTitle}>{t('favorites.noFavorites')}</Text>
       <Text style={styles.emptySubtitle}>
         {isGuest 
           ? t('favorites.loginToSaveFavorites')
@@ -306,8 +322,7 @@ const FavoritesScreen: React.FC = ({ navigation }: any) => {
           keyExtractor={(s) => s.ID}
           ListHeaderComponent={(
             <View style={{ padding: 12, borderBottomWidth: 1, borderColor: "#eee", backgroundColor: "#fff" }}>
-              <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
-                <Text style={styles.title}>{t('favorites.title')}</Text>
+              <View style={{ flexDirection: "row", justifyContent: "flex-start", alignItems: "center" }}>
                 <Pressable
                   onPress={() => setShowSort((v) => !v)}
                   style={({ pressed }) => ({

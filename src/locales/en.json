@@ -16,7 +16,8 @@
     "sort": "Sort",
     "back": "Back",
     "next": "Next",
-    "previous": "Previous"
+    "previous": "Previous",
+    "all": "All"
   },
   "navigation": {
     "map": "Map",
@@ -179,6 +180,11 @@
     "powerLevel": "Power Level",
     "connectorType": "Connector Type",
     "currentType": "Current Type",
+    "current": "Current",
+    "power": "Power",
+    "type": "Type",
+    "districts": "Districts",
+    "operators": "Operators",
     "acOnly": "AC Only",
     "dcOnly": "DC Only",
     "both": "Both AC & DC",
