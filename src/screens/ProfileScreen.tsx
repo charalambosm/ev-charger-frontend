@@ -19,6 +19,7 @@ import { UserService, UserProfile } from '../services';
 import { auth } from '../config/firebase';
 import { deleteUser } from 'firebase/auth';
 import { setStoredLanguage, getStoredLanguage } from '../utils/i18n';
+import { eventEmitter, EVENTS } from '../utils/eventEmitter';
 
 const ProfileScreen: React.FC = () => {
   const { user, logout, isGuest, resetGuestState, reauthenticateUser } = useAuth();
@@ -338,6 +339,9 @@ const ProfileScreen: React.FC = () => {
 
       await UserService.updateUserProfile(userProfile.id, updateData);
       setUnitsModalVisible(false);
+      
+      // Emit event to notify other screens about preference change
+      eventEmitter.emit(EVENTS.USER_PREFERENCES_CHANGED, { units: unitsCode });
     } catch (error) {
       console.error('Error updating units:', error);
       Alert.alert(t('common.error'), t('profile.errorUpdatingProfile'));

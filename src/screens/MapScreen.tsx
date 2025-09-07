@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { formatDistance } from "../utils/units";
 import { useAuth } from "../contexts";
 import { UserService } from "../services";
+import { eventEmitter, EVENTS } from "../utils/eventEmitter";
 import type { StationFeature } from "../types/ocm";
 import useUserLocation from "../hooks/useUserLocation";
 import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
@@ -31,18 +32,32 @@ export default function MapScreen({ navigation }: any) {
   });
 
   // Load user preferences
-  useEffect(() => {
+  const loadPreferences = async () => {
     if (user && !isGuest) {
-      const loadPreferences = async () => {
-        try {
-          const profile = await UserService.getCurrentUserProfile();
-          setUserPreferences(profile?.preferences);
-        } catch (error) {
-          console.error('Error loading user preferences:', error);
-        }
-      };
-      loadPreferences();
+      try {
+        const profile = await UserService.getCurrentUserProfile();
+        setUserPreferences(profile?.preferences);
+      } catch (error) {
+        console.error('Error loading user preferences:', error);
+      }
     }
+  };
+
+  useEffect(() => {
+    loadPreferences();
+  }, [user, isGuest]);
+
+  // Listen for preference changes
+  useEffect(() => {
+    const handlePreferenceChange = () => {
+      loadPreferences();
+    };
+
+    eventEmitter.on(EVENTS.USER_PREFERENCES_CHANGED, handlePreferenceChange);
+
+    return () => {
+      eventEmitter.off(EVENTS.USER_PREFERENCES_CHANGED, handlePreferenceChange);
+    };
   }, [user, isGuest]);
 
   // Initialize all districts and operators when data is loaded

@@ -9,6 +9,7 @@ import { pick } from '../utils/i18n';
 import { useTranslation } from 'react-i18next';
 import { formatDistance } from '../utils/units';
 import { UserService } from '../services';
+import { eventEmitter, EVENTS } from '../utils/eventEmitter';
 import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 
 const FavoritesScreen: React.FC = ({ navigation }: any) => {
@@ -24,18 +25,32 @@ const FavoritesScreen: React.FC = ({ navigation }: any) => {
   const [userPreferences, setUserPreferences] = useState<any>(null);
 
   // Load user preferences
-  useEffect(() => {
+  const loadPreferences = async () => {
     if (user && !isGuest) {
-      const loadPreferences = async () => {
-        try {
-          const profile = await UserService.getCurrentUserProfile();
-          setUserPreferences(profile?.preferences);
-        } catch (error) {
-          console.error('Error loading user preferences:', error);
-        }
-      };
-      loadPreferences();
+      try {
+        const profile = await UserService.getCurrentUserProfile();
+        setUserPreferences(profile?.preferences);
+      } catch (error) {
+        console.error('Error loading user preferences:', error);
+      }
     }
+  };
+
+  useEffect(() => {
+    loadPreferences();
+  }, [user, isGuest]);
+
+  // Listen for preference changes
+  useEffect(() => {
+    const handlePreferenceChange = () => {
+      loadPreferences();
+    };
+
+    eventEmitter.on(EVENTS.USER_PREFERENCES_CHANGED, handlePreferenceChange);
+
+    return () => {
+      eventEmitter.off(EVENTS.USER_PREFERENCES_CHANGED, handlePreferenceChange);
+    };
   }, [user, isGuest]);
 
   // Auto-switch to "nearest" when coords become available, but only if user hasn't made an explicit choice
