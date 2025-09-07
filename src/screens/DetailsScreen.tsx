@@ -162,10 +162,10 @@ export default function DetailsScreen({ route }: any) {
     const email = 'evchargermapcyprus@googlegroups.com';
     const subject = `Report Issue for Station ID ${s.ID}`;
     const body = `Please describe the issue:\n\n\n\n--- Station Details ---\nStation: ${pick(s.title)}\nAddress: ${pick(s.address)}\nPostcode: ${s.postcode}\nTown: ${s.town?.en}\nDistrict: ${pick(s.district)}\nOperator: ${s.operator}\nConnections: ${s.connections.map(c => c.type).join(', ')}`;
-    
+
     // Create mailto URL
     const mailtoUrl = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    
+
     // Try to open the email app
     Linking.canOpenURL(mailtoUrl)
       .then((supported) => {

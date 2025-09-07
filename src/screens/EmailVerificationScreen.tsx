@@ -9,23 +9,46 @@ import {
   RefreshControl,
   SafeAreaView
 } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
 import { useAuth } from '../contexts';
 
 const EmailVerificationScreen: React.FC = () => {
   const [isResending, setIsResending] = useState(false);
-  const [isChecking, setIsChecking] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
+  const [isAutoChecking, setIsAutoChecking] = useState(false);
+  const [lastChecked, setLastChecked] = useState<Date | null>(null);
   
   const { user, isEmailVerified, sendVerificationEmail, refreshUserVerificationStatus, error, clearError, logout } = useAuth();
+  const { t } = useTranslation();
 
-  // Check verification status periodically
+  // Auto-check verification status periodically
   useEffect(() => {
-    if (user && isEmailVerified) {
-      // Email verified - the app will automatically navigate to main app
-      // No manual navigation needed
-    }
-  }, [user, isEmailVerified]);
+    if (!user || isEmailVerified) return;
+
+    const checkVerificationStatus = async () => {
+      try {
+        setIsAutoChecking(true);
+        await refreshUserVerificationStatus();
+        setLastChecked(new Date());
+      } catch (error) {
+        console.log('Auto-check failed:', error);
+      } finally {
+        setIsAutoChecking(false);
+      }
+    };
+
+    // Initial check after 3 seconds
+    const initialTimeout = setTimeout(checkVerificationStatus, 3000);
+
+    // Then check every 10 seconds
+    const interval = setInterval(checkVerificationStatus, 10000);
+
+    return () => {
+      clearTimeout(initialTimeout);
+      clearInterval(interval);
+    };
+  }, [user, isEmailVerified, refreshUserVerificationStatus]);
 
   const handleResendEmail = async () => {
     try {
@@ -44,31 +67,6 @@ const EmailVerificationScreen: React.FC = () => {
     }
   };
 
-  const handleCheckVerification = async () => {
-    try {
-      setIsChecking(true);
-      clearError();
-      await refreshUserVerificationStatus();
-      
-      if (isEmailVerified) {
-        Alert.alert(
-          'Email Verified!',
-          'Your email has been verified successfully. You will be redirected to the main app.',
-          [{ text: 'OK' }]
-        );
-      } else {
-        Alert.alert(
-          'Email Not Yet Verified',
-          'Your email has not been verified yet. Please check your email and click the verification link, then try again.',
-          [{ text: 'OK' }]
-        );
-      }
-    } catch (error) {
-      // Error is handled by AuthContext
-    } finally {
-      setIsChecking(false);
-    }
-  };
 
   const handleRefresh = async () => {
     setRefreshing(true);
@@ -90,9 +88,9 @@ const EmailVerificationScreen: React.FC = () => {
     return (
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.container}>
-          <Text style={styles.errorText}>No user found. Please sign in again.</Text>
+          <Text style={styles.errorText}>{t('emailVerification.noUserFound')}</Text>
           <TouchableOpacity style={styles.button} onPress={handleSignOut}>
-            <Text style={styles.buttonText}>Back to Login</Text>
+            <Text style={styles.buttonText}>{t('emailVerification.backToLogin')}</Text>
           </TouchableOpacity>
         </View>
       </SafeAreaView>
@@ -118,18 +116,30 @@ const EmailVerificationScreen: React.FC = () => {
             <Text style={styles.iconText}>📧</Text>
           </View>
           
-          <Text style={styles.title}>Verify Your Email</Text>
+          <Text style={styles.title}>{t('emailVerification.title')}</Text>
           <Text style={styles.subtitle}>
-            We've sent a verification email to:
+            {t('emailVerification.subtitle')}
           </Text>
           <Text style={styles.emailText}>{user.email}</Text>
           
           <View style={styles.instructionsContainer}>
-            <Text style={styles.instructionsTitle}>To complete your registration:</Text>
-            <Text style={styles.instruction}>1. Check your email inbox</Text>
-            <Text style={styles.instruction}>2. Click the verification link</Text>
-            <Text style={styles.instruction}>3. Return to this app and click "Check Verification"</Text>
+            <Text style={styles.instructionsTitle}>{t('emailVerification.instructionsTitle')}</Text>
+            <Text style={styles.instruction}>{t('emailVerification.instruction1')}</Text>
+            <Text style={styles.instruction}>{t('emailVerification.instruction2')}</Text>
+            <Text style={styles.instruction}>{t('emailVerification.instruction3')}</Text>
           </View>
+
+          {isAutoChecking && (
+            <View style={styles.statusContainer}>
+              <Text style={styles.statusText}>{t('emailVerification.checkingStatus')}</Text>
+            </View>
+          )}
+
+          {lastChecked && !isAutoChecking && (
+            <View style={styles.statusContainer}>
+              <Text style={styles.statusText}>{t('emailVerification.lastChecked')} {lastChecked.toLocaleTimeString()}</Text>
+            </View>
+          )}
 
           {error && (
             <View style={styles.errorContainer}>
@@ -139,39 +149,25 @@ const EmailVerificationScreen: React.FC = () => {
 
           <View style={styles.buttonContainer}>
             <TouchableOpacity 
-              style={[styles.primaryButton, isChecking && styles.buttonDisabled]} 
-              onPress={handleCheckVerification}
-              disabled={isChecking}
-            >
-              <Text style={styles.primaryButtonText}>
-                {isChecking ? 'Checking...' : 'Check Verification Status'}
-              </Text>
-            </TouchableOpacity>
-            
-            <TouchableOpacity 
-              style={[styles.secondaryButton, isResending && styles.buttonDisabled]} 
+              style={[styles.primaryButton, isResending && styles.buttonDisabled]} 
               onPress={handleResendEmail}
               disabled={isResending}
             >
-              <Text style={styles.secondaryButtonText}>
-                {isResending ? 'Sending...' : 'Resend Verification Email'}
+              <Text style={styles.primaryButtonText}>
+                {isResending ? t('emailVerification.sending') : t('emailVerification.resendEmail')}
               </Text>
             </TouchableOpacity>
           </View>
 
           <View style={styles.helpContainer}>
-            <Text style={styles.helpTitle}>Need Help?</Text>
+            <Text style={styles.helpTitle}>{t('emailVerification.needHelp')}</Text>
             <Text style={styles.helpText}>
-              • Check your spam/junk folder{'\n'}
-              • Make sure you entered the correct email{'\n'}
-              • Wait a few minutes for the email to arrive{'\n'}
-              • Click "Check Verification Status" after verifying{'\n'}
-              • Pull down to refresh this screen
+              {t('emailVerification.helpText')}
             </Text>
           </View>
 
           <TouchableOpacity style={styles.signOutButton} onPress={handleSignOut}>
-            <Text style={styles.signOutButtonText}>Back to Login</Text>
+            <Text style={styles.signOutButtonText}>{t('emailVerification.backToLogin')}</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -342,6 +338,19 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
     fontWeight: '600',
+  },
+  statusContainer: {
+    backgroundColor: '#e8f5e8',
+    padding: 12,
+    borderRadius: 8,
+    marginBottom: 16,
+    width: '100%',
+    alignItems: 'center',
+  },
+  statusText: {
+    color: '#2e7d32',
+    fontSize: 14,
+    fontWeight: '500',
   },
 });
 

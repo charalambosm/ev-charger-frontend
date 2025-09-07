@@ -1,31 +1,42 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, KeyboardAvoidingView, Platform, ScrollView, SafeAreaView } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, KeyboardAvoidingView, Platform, ScrollView, SafeAreaView, Modal, Pressable } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../contexts';
 import { setStoredLanguage } from '../utils/i18n';
+import { MaterialIcons } from '@expo/vector-icons';
 
 const LoginScreen: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [showLanguageModal, setShowLanguageModal] = useState(false);
 
-  const { login, error, clearError, continueAsGuest } = useAuth();
+  const { login, error, errorTranslationKey, clearError, continueAsGuest } = useAuth();
   const navigation = useNavigation();
   const { t, i18n } = useTranslation();
 
-  // Show error popup when error changes
+  // Show error popup when error changes (only for Firebase errors)
   useEffect(() => {
-    if (error) {
-      Alert.alert(t('common.error'), error, [
+    if (error && errorTranslationKey) {
+      // Only show Firebase errors that have translation keys
+      const errorMessage = t(`errors.${errorTranslationKey}`);
+      Alert.alert(t('common.error'), errorMessage, [
         { text: t('common.ok'), onPress: () => clearError() }
       ]);
     }
-  }, [error, clearError, t]);
+  }, [error, errorTranslationKey, clearError, t]);
 
   const handleSubmit = async () => {
     if (!email.trim() || !password.trim()) {
       Alert.alert(t('common.error'), t('auth.fillAllFields'));
+      return;
+    }
+    
+    // Basic email format validation to prevent Firebase errors
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email.trim())) {
+      Alert.alert(t('common.error'), t('auth.invalidEmail'));
       return;
     }
 
@@ -59,30 +70,26 @@ const LoginScreen: React.FC = () => {
     navigation.navigate('Signup' as never);
   };
 
-  const handleLanguageSwitch = async () => {
-    const currentLang = i18n.language;
-    const newLang = currentLang === 'en' ? 'el' : 'en';
-    await setStoredLanguage(newLang);
+  const handleLanguageSelect = async (languageCode: string) => {
+    await setStoredLanguage(languageCode);
+    setShowLanguageModal(false);
+  };
+
+  const openLanguageModal = () => {
+    setShowLanguageModal(true);
   };
 
   return (
     <SafeAreaView style={styles.safeArea}>
       <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
         <ScrollView contentContainerStyle={styles.scrollContainer}>
-          <View style={styles.infoBanner}>
+          {/* <View style={styles.infoBanner}>
             <Text style={styles.infoText}>
               💡 {t('auth.guestBrowseInfo')}
             </Text>
-          </View>
+          </View> */}
           <View style={styles.formContainer}>
-            <View style={styles.headerRow}>
-              <Text style={styles.title}>{t('auth.welcomeBack')}</Text>
-              <TouchableOpacity style={styles.languageButton} onPress={handleLanguageSwitch}>
-                <Text style={styles.languageButtonText}>
-                  {i18n.language === 'en' ? 'EL' : 'EN'}
-                </Text>
-              </TouchableOpacity>
-            </View>
+            <Text style={styles.title}>{t('auth.welcomeBack')}</Text>
             <Text style={styles.subtitle}>{t('auth.signInSubtitle')}</Text>
             
             <View style={styles.inputContainer}>
@@ -135,8 +142,76 @@ const LoginScreen: React.FC = () => {
                 <Text style={styles.skipButtonText}>{t('auth.browseStations')}</Text>
               </TouchableOpacity>
             </View>
+            
+            <View style={styles.languageSection}>
+              <Text style={styles.languageText}>{t('profile.changeLanguage')}</Text>
+              <TouchableOpacity style={styles.languageSelector} onPress={openLanguageModal}>
+                <Text style={styles.languageFlag}>
+                  {i18n.language === 'en' ? '🇬🇧' : '🇬🇷'}
+                </Text>
+                <Text style={styles.languageSelectorText}>
+                  {i18n.language === 'en' ? 'English' : 'Ελληνικά'}
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </ScrollView>
+        
+        {/* Language Selection Modal */}
+        <Modal
+          animationType="fade"
+          transparent={true}
+          visible={showLanguageModal}
+          onRequestClose={() => setShowLanguageModal(false)}
+        >
+          <Pressable 
+            style={styles.modalOverlay} 
+            onPress={() => setShowLanguageModal(false)}
+          >
+            <View style={styles.modalContent}>
+              <Text style={styles.modalTitle}>{t('profile.selectLanguage')}</Text>
+              
+              <TouchableOpacity 
+                style={[
+                  styles.languageOption,
+                  i18n.language === 'en' && styles.languageOptionSelected
+                ]}
+                onPress={() => handleLanguageSelect('en')}
+              >
+                <Text style={[
+                  styles.languageOptionText,
+                  i18n.language === 'en' && styles.languageOptionTextSelected
+                ]}>
+                  🇬🇧 English
+                </Text>
+                {i18n.language === 'en' && <Text style={styles.checkmark}>✓</Text>}
+              </TouchableOpacity>
+              
+              <TouchableOpacity 
+                style={[
+                  styles.languageOption,
+                  i18n.language === 'el' && styles.languageOptionSelected
+                ]}
+                onPress={() => handleLanguageSelect('el')}
+              >
+                <Text style={[
+                  styles.languageOptionText,
+                  i18n.language === 'el' && styles.languageOptionTextSelected
+                ]}>
+                  🇬🇷 Ελληνικά
+                </Text>
+                {i18n.language === 'el' && <Text style={styles.checkmark}>✓</Text>}
+              </TouchableOpacity>
+              
+              <TouchableOpacity 
+                style={styles.modalCancelButton}
+                onPress={() => setShowLanguageModal(false)}
+              >
+                <Text style={styles.modalCancelText}>{t('common.cancel')}</Text>
+              </TouchableOpacity>
+            </View>
+          </Pressable>
+        </Modal>
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
@@ -183,31 +258,12 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
-  headerRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 8,
-  },
   title: {
     fontSize: 28,
     fontWeight: 'bold',
     color: '#333',
-    flex: 1,
     textAlign: 'center',
-  },
-  languageButton: {
-    backgroundColor: '#f0f0f0',
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 16,
-    borderWidth: 1,
-    borderColor: '#ddd',
-  },
-  languageButtonText: {
-    fontSize: 12,
-    fontWeight: '600',
-    color: '#666',
+    marginBottom: 8,
   },
   subtitle: {
     fontSize: 16,
@@ -281,6 +337,105 @@ const styles = StyleSheet.create({
   skipButtonText: {
     color: '#666',
     fontSize: 14,
+    fontWeight: '500',
+  },
+  languageSection: {
+    alignItems: 'center',
+    paddingTop: 20,
+    marginTop: 16,
+    borderTopWidth: 1,
+    borderTopColor: '#eee',
+  },
+  languageText: {
+    color: '#666',
+    fontSize: 14,
+    marginBottom: 12,
+  },
+  languageSelector: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#f8f9fa',
+    paddingHorizontal: 20,
+    paddingVertical: 12,
+    borderRadius: 25,
+    borderWidth: 1,
+    borderColor: '#e9ecef',
+  },
+  languageFlag: {
+    fontSize: 18,
+    marginRight: 8,
+  },
+  languageSelectorText: {
+    color: '#495057',
+    fontSize: 14,
+    fontWeight: '500',
+  },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalContent: {
+    backgroundColor: 'white',
+    borderRadius: 16,
+    padding: 24,
+    margin: 20,
+    minWidth: 280,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 8,
+  },
+  modalTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#333',
+    textAlign: 'center',
+    marginBottom: 24,
+  },
+  languageOption: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingVertical: 16,
+    paddingHorizontal: 16,
+    borderRadius: 8,
+    marginBottom: 8,
+    backgroundColor: '#f8f9fa',
+    borderWidth: 1,
+    borderColor: '#e9ecef',
+  },
+  languageOptionSelected: {
+    backgroundColor: '#e3f2fd',
+    borderColor: '#2196f3',
+  },
+  languageOptionText: {
+    fontSize: 16,
+    color: '#495057',
+    fontWeight: '500',
+  },
+  languageOptionTextSelected: {
+    color: '#2196f3',
+    fontWeight: '600',
+  },
+  checkmark: {
+    fontSize: 18,
+    color: '#2196f3',
+    fontWeight: 'bold',
+  },
+  modalCancelButton: {
+    marginTop: 16,
+    paddingVertical: 12,
+    alignItems: 'center',
+  },
+  modalCancelText: {
+    color: '#666',
+    fontSize: 16,
     fontWeight: '500',
   },
 });

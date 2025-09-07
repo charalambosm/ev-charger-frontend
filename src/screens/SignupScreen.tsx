@@ -3,6 +3,9 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, KeyboardAvo
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../contexts';
+import { MaterialIcons } from '@expo/vector-icons';
+import { validatePassword } from '../utils/passwordValidation';
+import PasswordStrengthIndicator from '../components/PasswordStrengthIndicator';
 
 const SignupScreen: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -17,24 +20,28 @@ const SignupScreen: React.FC = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
-  const { signup, error, clearError } = useAuth();
+  const { signup, error, errorTranslationKey, clearError } = useAuth();
   const navigation = useNavigation();
   const { t, i18n } = useTranslation();
 
-  // Show error popup when error changes
+  // Show error popup when error changes (only for Firebase errors that bypass client validation)
   useEffect(() => {
-    if (error) {
-      Alert.alert(t('common.error'), error, [
+    if (error && errorTranslationKey) {
+      // Only show Firebase errors that have translation keys
+      // Client-side validation errors are handled in validateForm()
+      const errorMessage = t(`errors.${errorTranslationKey}`);
+      Alert.alert(t('common.error'), errorMessage, [
         { text: t('common.ok'), onPress: () => clearError() }
       ]);
     }
-  }, [error, clearError, t]);
+  }, [errorTranslationKey, clearError, t]); // Removed 'error' from dependencies to prevent double alerts
 
   const updateFormData = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
   const validateForm = (): boolean => {
+    // Client-side validation for fields that Firebase won't validate
     if (!formData.firstName.trim()) {
       Alert.alert(t('common.error'), t('auth.firstNameRequired'));
       return false;
@@ -47,12 +54,20 @@ const SignupScreen: React.FC = () => {
       Alert.alert(t('common.error'), t('auth.emailRequired'));
       return false;
     }
+    // Basic email format validation to prevent Firebase errors
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email.trim())) {
+      Alert.alert(t('common.error'), t('auth.invalidEmail'));
+      return false;
+    }
     if (!formData.password) {
       Alert.alert(t('common.error'), t('auth.passwordRequired'));
       return false;
     }
-    if (formData.password.length < 6) {
-      Alert.alert(t('common.error'), t('auth.passwordTooShort'));
+    const passwordValidation = validatePassword(formData.password);
+    if (!passwordValidation.isValid) {
+      const failedRule = passwordValidation.failedRules[0];
+      Alert.alert(t('common.error'), t(failedRule.messageKey));
       return false;
     }
     if (formData.password !== formData.confirmPassword) {
@@ -143,7 +158,7 @@ const SignupScreen: React.FC = () => {
         <ScrollView contentContainerStyle={styles.scrollContainer}>
           <View style={styles.header}>
             <Text style={styles.title}>{t('auth.createAccount')}</Text>
-            <Text style={styles.subtitle}>{t('auth.signUpSubtitle')}</Text>
+            {/* <Text style={styles.subtitle}>{t('auth.signUpSubtitle')}</Text> */}
           </View>
           
           <View style={styles.formContainer}>
@@ -203,10 +218,17 @@ const SignupScreen: React.FC = () => {
                   style={styles.eyeButton} 
                   onPress={() => setShowPassword(!showPassword)}
                 >
-                  <Text style={styles.eyeButtonText}>{showPassword ? '👁️' : '👁️‍🗨️'}</Text>
+                  <MaterialIcons 
+                    name={showPassword ? 'visibility' : 'visibility-off'} 
+                    size={20} 
+                    color="#666" 
+                  />
                 </TouchableOpacity>
               </View>
-              <Text style={styles.passwordHint}>{t('auth.passwordHint')}</Text>
+              <PasswordStrengthIndicator 
+                password={formData.password} 
+                showRules={true}
+              />
             </View>
 
             <View style={styles.inputContainer}>
@@ -224,7 +246,11 @@ const SignupScreen: React.FC = () => {
                   style={styles.eyeButton} 
                   onPress={() => setShowConfirmPassword(!showConfirmPassword)}
                 >
-                  <Text style={styles.eyeButtonText}>{showConfirmPassword ? '👁️' : '👁️‍🗨️'}</Text>
+                  <MaterialIcons 
+                    name={showConfirmPassword ? 'visibility' : 'visibility-off'} 
+                    size={20} 
+                    color="#666" 
+                  />
                 </TouchableOpacity>
               </View>
             </View>
@@ -351,9 +377,6 @@ const styles = StyleSheet.create({
     padding: 16,
     borderLeftWidth: 1,
     borderLeftColor: '#ddd',
-  },
-  eyeButtonText: {
-    fontSize: 16,
   },
   passwordHint: {
     fontSize: 12,

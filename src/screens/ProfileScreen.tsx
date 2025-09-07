@@ -173,9 +173,9 @@ const ProfileScreen: React.FC = () => {
       
       // Show success message
       Alert.alert(
-        'Account Deleted',
-        'Your account has been successfully deleted. All your data has been permanently removed.',
-        [{ text: 'OK' }]
+        t('profile.accountDeleted'),
+        t('profile.accountDeletedMessage'),
+        [{ text: t('common.ok') }]
       );
       
       // The auth context should handle the logout automatically when the user is deleted
@@ -193,29 +193,29 @@ const ProfileScreen: React.FC = () => {
       // Handle specific Firebase Auth errors
       if (error.code === 'auth/requires-recent-login') {
         Alert.alert(
-          'Authentication Required',
-          'For security reasons, you need to verify your password before deleting your account.',
+          t('profile.authRequired'),
+          t('profile.authRequiredMessage'),
           [
-            { text: 'Cancel', style: 'cancel' },
+            { text: t('common.cancel'), style: 'cancel' },
             { 
-              text: 'Verify Password', 
+              text: t('profile.verifyPasswordButton'), 
               onPress: () => setReauthModalVisible(true)
             }
           ]
         );
       } else if (error.code === 'auth/network-request-failed') {
         Alert.alert(
-          'Network Error',
-          'Unable to delete profile due to network issues. Please check your connection and try again.',
-          [{ text: 'OK' }]
+          t('profile.networkError'),
+          t('profile.networkErrorMessage'),
+          [{ text: t('common.ok') }]
         );
       } else if (error.code === 'auth/user-not-found') {
         Alert.alert(
-          'Account Not Found',
-          'Your account may have already been deleted. You will be logged out.',
+          t('profile.accountNotFound'),
+          t('profile.accountNotFoundMessage'),
           [
             { 
-              text: 'OK',
+              text: t('common.ok'),
               onPress: async () => {
                 try {
                   await logout();
@@ -230,9 +230,9 @@ const ProfileScreen: React.FC = () => {
         // Generic error with more helpful message
         const errorMessage = error.message || 'An unexpected error occurred';
         Alert.alert(
-          'Delete Failed',
-          `Failed to delete profile: ${errorMessage}\n\nPlease try again or contact support if the problem persists.`,
-          [{ text: 'OK' }]
+          t('profile.deleteFailed'),
+          t('profile.deleteFailedMessage', { error: errorMessage }),
+          [{ text: t('common.ok') }]
         );
       }
     } finally {
@@ -286,7 +286,7 @@ const ProfileScreen: React.FC = () => {
       setEditField('');
     } catch (error) {
       console.error('Error updating profile:', error);
-      Alert.alert('Error', 'Failed to update profile. Please try again.');
+      Alert.alert(t('common.error'), t('profile.errorUpdatingProfile'));
     } finally {
       setSaving(false);
     }
@@ -340,7 +340,7 @@ const ProfileScreen: React.FC = () => {
       setUnitsModalVisible(false);
     } catch (error) {
       console.error('Error updating units:', error);
-      Alert.alert('Error', 'Failed to update distance units. Please try again.');
+      Alert.alert(t('common.error'), t('profile.errorUpdatingProfile'));
     } finally {
       setSaving(false);
     }
@@ -348,7 +348,7 @@ const ProfileScreen: React.FC = () => {
 
   const handleReauthenticate = async () => {
     if (!reauthPassword.trim()) {
-      Alert.alert('Error', 'Please enter your password.');
+      Alert.alert(t('common.error'), t('profile.enterPasswordError'));
       return;
     }
 
@@ -360,16 +360,16 @@ const ProfileScreen: React.FC = () => {
       
       // Show success message and prompt to try deletion again
       Alert.alert(
-        'Authentication Successful',
-        'You have been re-authenticated. Please try deleting your profile again.',
-        [{ text: 'OK' }]
+        t('profile.authSuccessful'),
+        t('profile.authSuccessfulMessage'),
+        [{ text: t('common.ok') }]
       );
     } catch (error: any) {
       console.error('Re-authentication error:', error);
       Alert.alert(
-        'Authentication Failed',
-        error.message || 'Failed to authenticate. Please check your password and try again.',
-        [{ text: 'OK' }]
+        t('profile.authFailed'),
+        error.message || t('profile.authFailedMessage'),
+        [{ text: t('common.ok') }]
       );
     } finally {
       setReauthenticating(false);
@@ -392,19 +392,19 @@ const ProfileScreen: React.FC = () => {
 
           <View style={styles.guestContainer}>
             <View style={styles.avatar}>
-              <Text style={styles.avatarText}>👤</Text>
+              <MaterialIcons name="person" size={48} color="#666" />
             </View>
 
-            <Text style={styles.guestTitle}>Guest User</Text>
+            <Text style={styles.guestTitle}>{t('profile.guestUser')}</Text>
             <Text style={styles.guestSubtitle}>
-              Sign in to access your profile and enhanced features
+              {t('profile.guestWelcome')}
             </Text>
 
             <View style={styles.featuresList}>
-              <Text style={styles.featureItem}>✓ Save favorite stations</Text>
-              <Text style={styles.featureItem}>✓ View charging history</Text>
-              <Text style={styles.featureItem}>✓ Get personalized recommendations</Text>
-              <Text style={styles.featureItem}>✓ Sync across devices</Text>
+              <Text style={styles.featureItem}>{t('profile.guestFeature1')}</Text>
+              <Text style={styles.featureItem}>{t('profile.guestFeature2')}</Text>
+              <Text style={styles.featureItem}>{t('profile.guestFeature3')}</Text>
+              <Text style={styles.featureItem}>{t('profile.guestFeature4')}</Text>
             </View>
 
             <TouchableOpacity style={styles.signInButton} onPress={handleSignIn}>
@@ -427,19 +427,19 @@ const ProfileScreen: React.FC = () => {
 
           <View style={styles.guestContainer}>
             <View style={styles.avatar}>
-              <Text style={styles.avatarText}>👤</Text>
+              <MaterialIcons name="person" size={48} color="#666" />
             </View>
 
-            <Text style={styles.guestTitle}>Guest User</Text>
+            <Text style={styles.guestTitle}>{t('profile.guestUser')}</Text>
             <Text style={styles.guestSubtitle}>
-              You're currently browsing as a guest. Sign in for enhanced features.
+              {t('profile.guestBrowsing')}
             </Text>
 
             <View style={styles.featuresList}>
-              <Text style={styles.featureItem}>✓ Save favorite stations</Text>
-              <Text style={styles.featureItem}>✓ View charging history</Text>
-              <Text style={styles.featureItem}>✓ Get personalized recommendations</Text>
-              <Text style={styles.featureItem}>✓ Sync across devices</Text>
+              <Text style={styles.featureItem}>{t('profile.guestFeature1')}</Text>
+              <Text style={styles.featureItem}>{t('profile.guestFeature2')}</Text>
+              <Text style={styles.featureItem}>{t('profile.guestFeature3')}</Text>
+              <Text style={styles.featureItem}>{t('profile.guestFeature4')}</Text>
             </View>
 
             <TouchableOpacity style={styles.signInButton} onPress={handleSignIn}>
@@ -462,7 +462,7 @@ const ProfileScreen: React.FC = () => {
         {loading ? (
           <View style={styles.loadingContainer}>
             <ActivityIndicator size="large" color="#007AFF" />
-            <Text style={styles.loadingText}>Loading profile...</Text>
+            <Text style={styles.loadingText}>{t('profile.loadingProfile')}</Text>
           </View>
         ) : (
           <ScrollView
@@ -659,7 +659,7 @@ const ProfileScreen: React.FC = () => {
       >
         <View style={styles.modalOverlay}>
           <View style={styles.unitsModalContent}>
-            <Text style={styles.modalTitle}>Select Distance Units</Text>
+            <Text style={styles.modalTitle}>{t('profile.selectUnitsTitle')}</Text>
 
             <TouchableOpacity
               style={[styles.unitsOption, userProfile?.preferences?.units === 'metric' && styles.unitsOptionSelected]}
@@ -667,7 +667,7 @@ const ProfileScreen: React.FC = () => {
               disabled={saving}
             >
               <Text style={[styles.unitsOptionText, userProfile?.preferences?.units === 'metric' && styles.unitsOptionTextSelected]}>
-                metres / kilometres
+                {t('profile.metricUnits')}
               </Text>
             </TouchableOpacity>
 
@@ -677,7 +677,7 @@ const ProfileScreen: React.FC = () => {
               disabled={saving}
             >
               <Text style={[styles.unitsOptionText, userProfile?.preferences?.units === 'imperial' && styles.unitsOptionTextSelected]}>
-                feet / miles
+                {t('profile.imperialUnits')}
               </Text>
             </TouchableOpacity>
 
@@ -686,7 +686,7 @@ const ProfileScreen: React.FC = () => {
               onPress={() => setUnitsModalVisible(false)}
               disabled={saving}
             >
-              <Text style={styles.cancelButtonText}>Cancel</Text>
+              <Text style={styles.cancelButtonText}>{t('common.cancel')}</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -728,7 +728,7 @@ const ProfileScreen: React.FC = () => {
               onPress={() => setLanguageModalVisible(false)}
               disabled={saving}
             >
-              <Text style={styles.cancelButtonText}>Cancel</Text>
+              <Text style={styles.cancelButtonText}>{t('common.cancel')}</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -743,16 +743,16 @@ const ProfileScreen: React.FC = () => {
       >
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>Verify Your Password</Text>
+            <Text style={styles.modalTitle}>{t('profile.verifyPassword')}</Text>
             <Text style={styles.reauthSubtitle}>
-              Please enter your password to continue with account deletion.
+              {t('profile.verifyPasswordSubtitle')}
             </Text>
 
             <TextInput
               style={styles.modalInput}
               value={reauthPassword}
               onChangeText={setReauthPassword}
-              placeholder="Enter your password"
+              placeholder={t('profile.enterPassword')}
               secureTextEntry={true}
               autoFocus={true}
               autoCapitalize="none"
@@ -774,7 +774,7 @@ const ProfileScreen: React.FC = () => {
                 disabled={reauthenticating || !reauthPassword.trim()}
               >
                 <Text style={styles.saveButtonText}>
-                  {reauthenticating ? 'Verifying...' : 'Verify'}
+                  {reauthenticating ? t('profile.verifying') : t('profile.verify')}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -829,9 +829,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#007AFF',
     borderWidth: 3,
     borderColor: '#007AFF',
-  },
-  avatarText: {
-    fontSize: 32,
   },
   avatarInitials: {
     fontSize: 36,

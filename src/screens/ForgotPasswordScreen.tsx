@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   View, 
   Text, 
@@ -12,6 +12,8 @@ import {
   SafeAreaView
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
+import { MaterialIcons } from '@expo/vector-icons';
 import { useAuth } from '../contexts';
 
 const ForgotPasswordScreen: React.FC = () => {
@@ -19,12 +21,31 @@ const ForgotPasswordScreen: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
-  const { forgotPassword, error, clearError } = useAuth();
+  const { forgotPassword, error, errorTranslationKey, clearError } = useAuth();
   const navigation = useNavigation();
+  const { t } = useTranslation();
+
+  // Show error popup when error changes (only for Firebase errors)
+  useEffect(() => {
+    if (error && errorTranslationKey) {
+      // Only show Firebase errors that have translation keys
+      const errorMessage = t(`errors.${errorTranslationKey}`);
+      Alert.alert(t('common.error'), errorMessage, [
+        { text: t('common.ok'), onPress: () => clearError() }
+      ]);
+    }
+  }, [error, errorTranslationKey, clearError, t]);
 
   const handleSubmit = async () => {
     if (!email.trim()) {
-      Alert.alert('Error', 'Please enter your email address');
+      Alert.alert(t('common.error'), t('auth.pleaseEnterEmail'));
+      return;
+    }
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email.trim())) {
+      Alert.alert(t('common.error'), t('auth.invalidEmail'));
       return;
     }
 
@@ -60,29 +81,29 @@ const ForgotPasswordScreen: React.FC = () => {
                 <Text style={styles.successIconText}>✅</Text>
               </View>
               
-              <Text style={styles.successTitle}>Check Your Email</Text>
+              <Text style={styles.successTitle}>{t('auth.checkYourEmail')}</Text>
               <Text style={styles.successSubtitle}>
-                We've sent a password reset link to:
+                {t('auth.resetEmailSent')}
               </Text>
               <Text style={styles.emailText}>{email}</Text>
               
               <Text style={styles.instructionsText}>
-                Click the link in the email to reset your password. The link will expire in 1 hour.
+                {t('auth.resetEmailInstructions')}
               </Text>
 
               <View style={styles.buttonContainer}>
                 <TouchableOpacity style={styles.primaryButton} onPress={handleBackToLogin}>
-                  <Text style={styles.primaryButtonText}>Back to Login</Text>
+                  <Text style={styles.primaryButtonText}>{t('auth.backToLogin')}</Text>
                 </TouchableOpacity>
                 
                 <TouchableOpacity style={styles.secondaryButton} onPress={handleTryAgain}>
-                  <Text style={styles.secondaryButtonText}>Try Different Email</Text>
+                  <Text style={styles.secondaryButtonText}>{t('auth.tryDifferentEmail')}</Text>
                 </TouchableOpacity>
               </View>
 
               <View style={styles.helpContainer}>
                 <Text style={styles.helpText}>
-                  Didn't receive the email? Check your spam folder or try again.
+                  {t('auth.didntReceiveResetEmail')}
                 </Text>
               </View>
             </View>
@@ -98,25 +119,25 @@ const ForgotPasswordScreen: React.FC = () => {
         <ScrollView contentContainerStyle={styles.scrollContainer}>
           <View style={styles.header}>
             <TouchableOpacity style={styles.backButton} onPress={handleBackToLogin}>
-              <Text style={styles.backButtonText}>← Back</Text>
+              <Text style={styles.backButtonText}>{t('auth.back')}</Text>
             </TouchableOpacity>
           </View>
 
           <View style={styles.formContainer}>
             <View style={styles.iconContainer}>
-              <Text style={styles.iconText}>🔐</Text>
+              <MaterialIcons name="lock-reset" size={48} color="#333" />
             </View>
             
-            <Text style={styles.title}>Forgot Password?</Text>
+            <Text style={styles.title}>{t('auth.forgotPasswordTitle')}</Text>
             <Text style={styles.subtitle}>
-              Enter your email address and we'll send you a link to reset your password.
+              {t('auth.forgotPasswordSubtitle')}
             </Text>
             
             <View style={styles.inputContainer}>
-              <Text style={styles.inputLabel}>Email Address</Text>
+              <Text style={styles.inputLabel}>{t('auth.email')}</Text>
               <TextInput
                 style={styles.input}
-                placeholder="Enter your email address"
+                placeholder={t('auth.enterEmailAddress')}
                 value={email}
                 onChangeText={setEmail}
                 keyboardType="email-address"
@@ -126,11 +147,6 @@ const ForgotPasswordScreen: React.FC = () => {
               />
             </View>
             
-            {error && (
-              <View style={styles.errorContainer}>
-                <Text style={styles.errorText}>{error}</Text>
-              </View>
-            )}
             
             <TouchableOpacity 
               style={[styles.button, isLoading && styles.buttonDisabled]} 
@@ -138,13 +154,13 @@ const ForgotPasswordScreen: React.FC = () => {
               disabled={isLoading}
             >
               <Text style={styles.buttonText}>
-                {isLoading ? 'Sending...' : 'Send Reset Link'}
+                {isLoading ? t('auth.sending') : t('auth.sendResetLink')}
               </Text>
             </TouchableOpacity>
 
             <View style={styles.linksContainer}>
               <TouchableOpacity style={styles.linkButton} onPress={handleBackToLogin}>
-                <Text style={styles.linkText}>Remember your password? Sign In</Text>
+                <Text style={styles.linkText}>{t('auth.rememberPassword')}</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -199,9 +215,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 20,
   },
-  iconText: {
-    fontSize: 48,
-  },
   title: {
     fontSize: 28,
     fontWeight: 'bold',
@@ -247,18 +260,6 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
     fontWeight: '600',
-  },
-  errorContainer: {
-    backgroundColor: '#ffebee',
-    padding: 12,
-    borderRadius: 8,
-    marginBottom: 16,
-    borderLeftWidth: 4,
-    borderLeftColor: '#f44336',
-  },
-  errorText: {
-    color: '#c62828',
-    fontSize: 14,
   },
   linksContainer: {
     alignItems: 'center',

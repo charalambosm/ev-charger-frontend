@@ -350,8 +350,8 @@ export default function MapScreen({ navigation }: any) {
             setRegion(prev => ({
               latitude: coords.latitude,
               longitude: coords.longitude,
-              latitudeDelta: prev.latitudeDelta ?? 0.05,
-              longitudeDelta: prev.longitudeDelta ?? 0.05
+              latitudeDelta: Math.min(prev.latitudeDelta ?? 0.05, 0.05), // Use current zoom or 0.05, whichever is more zoomed in
+              longitudeDelta: Math.min(prev.longitudeDelta ?? 0.05, 0.05)  // Use current zoom or 0.05, whichever is more zoomed in
             }));
           }}
           disabled={!coords}

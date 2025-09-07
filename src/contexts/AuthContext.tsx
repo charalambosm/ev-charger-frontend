@@ -17,6 +17,7 @@ import {
 import { auth } from '../config/firebase';
 import { UserService, CreateUserProfileData } from '../services';
 import { setStoredLanguage } from '../utils/i18n';
+import { getAuthErrorTranslationKey } from '../utils/authErrors';
 
 interface AuthContextType {
   user: User | null;
@@ -35,6 +36,7 @@ interface AuthContextType {
   resetGuestState: () => void;
   clearError: () => void;
   error: string | null;
+  errorTranslationKey: string | null;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -48,6 +50,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [isGuest, setIsGuest] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [errorTranslationKey, setErrorTranslationKey] = useState<string | null>(null);
   const [isEmailVerified, setIsEmailVerified] = useState(false);
 
   useEffect(() => {
@@ -77,6 +80,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const login = async (email: string, password: string): Promise<UserCredential> => {
     try {
       setError(null);
+      setErrorTranslationKey(null);
       setIsGuest(false);
       const result = await signInWithEmailAndPassword(auth, email, password);
       setIsEmailVerified(result.user.emailVerified);
@@ -95,10 +99,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     } catch (error) {
       const authError = error as AuthError;
       if (authError && authError.code) {
+        const translationKey = getAuthErrorTranslationKey(authError.code);
         const errorMessage = getAuthErrorMessage(authError.code);
+        setErrorTranslationKey(translationKey);
         setError(errorMessage);
       } else {
         const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred';
+        setErrorTranslationKey('unexpectedError');
         setError(errorMessage);
       }
       throw error;
@@ -108,6 +115,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const signup = async (email: string, password: string, profileData?: CreateUserProfileData): Promise<UserCredential> => {
     try {
       setError(null);
+      setErrorTranslationKey(null);
       setIsGuest(false);
       const result = await createUserWithEmailAndPassword(auth, email, password);
       
@@ -135,10 +143,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     } catch (error) {
       const authError = error as AuthError;
       if (authError && authError.code) {
+        const translationKey = getAuthErrorTranslationKey(authError.code);
         const errorMessage = getAuthErrorMessage(authError.code);
+        setErrorTranslationKey(translationKey);
         setError(errorMessage);
       } else {
         const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred';
+        setErrorTranslationKey('unexpectedError');
         setError(errorMessage);
       }
       throw error;
@@ -167,14 +178,18 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const forgotPassword = async (email: string): Promise<void> => {
     try {
       setError(null);
+      setErrorTranslationKey(null);
       await sendPasswordResetEmail(auth, email);
     } catch (error) {
       const authError = error as AuthError;
       if (authError && authError.code) {
+        const translationKey = getAuthErrorTranslationKey(authError.code);
         const errorMessage = getAuthErrorMessage(authError.code);
+        setErrorTranslationKey(translationKey);
         setError(errorMessage);
       } else {
         const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred';
+        setErrorTranslationKey('unexpectedError');
         setError(errorMessage);
       }
       throw error;
@@ -280,6 +295,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const clearError = () => {
     setError(null);
+    setErrorTranslationKey(null);
   };
 
   const value: AuthContextType = {
@@ -299,6 +315,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     resetGuestState,
     clearError,
     error,
+    errorTranslationKey,
   };
 
   return (
