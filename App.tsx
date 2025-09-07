@@ -62,7 +62,7 @@ function MainTabs() {
         width: size,
         height: size,
         borderRadius: size / 2,
-        backgroundColor: color === '#007AFF' ? '#007AFF' : '#ccc',
+        backgroundColor: color,
         justifyContent: 'center',
         alignItems: 'center',
       }}>
