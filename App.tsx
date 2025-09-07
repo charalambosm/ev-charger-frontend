@@ -12,6 +12,7 @@ import LoadingSpinner from "./src/components/LoadingSpinner";
 import { AuthProvider, useAuth } from "./src/contexts";
 import { MapScreen, ListScreen, FavoritesScreen, DetailsScreen, LoginScreen, SignupScreen, ProfileScreen, ForgotPasswordScreen, EmailVerificationScreen } from "./src/screens";
 import { UserService } from "./src/services";
+import { eventEmitter, EVENTS } from "./src/utils/eventEmitter";
 import { initializeLanguage } from "./src/utils/i18n";
 
 const Stack = createNativeStackNavigator();
@@ -32,18 +33,34 @@ function MainTabs() {
   const [userProfile, setUserProfile] = useState<any>(null);
 
   // Load user profile for initials
-  useEffect(() => {
+  const loadProfile = async () => {
     if (user && !isGuest) {
-      const loadProfile = async () => {
-        try {
-          const profile = await UserService.getCurrentUserProfile();
-          setUserProfile(profile);
-        } catch (error) {
-          console.error('Error loading user profile for tab bar:', error);
-        }
-      };
-      loadProfile();
+      try {
+        const profile = await UserService.getCurrentUserProfile();
+        setUserProfile(profile);
+      } catch (error) {
+        console.error('Error loading user profile for tab bar:', error);
+      }
+    } else {
+      setUserProfile(null);
     }
+  };
+
+  useEffect(() => {
+    loadProfile();
+  }, [user, isGuest]);
+
+  // Listen for user profile changes (name, preferences, etc.)
+  useEffect(() => {
+    const handleProfileChange = () => {
+      loadProfile();
+    };
+
+    eventEmitter.on(EVENTS.USER_PREFERENCES_CHANGED, handleProfileChange);
+
+    return () => {
+      eventEmitter.off(EVENTS.USER_PREFERENCES_CHANGED, handleProfileChange);
+    };
   }, [user, isGuest]);
   
   // Create profile icon component

@@ -284,6 +284,12 @@ const ProfileScreen: React.FC = () => {
       await UserService.updateUserProfile(userProfile.id, updateData);
       setEditModalVisible(false);
       setEditValue('');
+      
+      // Emit event to notify other components about profile changes (for tab bar icon update)
+      if (editField === 'firstName' || editField === 'lastName') {
+        eventEmitter.emit(EVENTS.USER_PREFERENCES_CHANGED, { profileUpdated: true });
+      }
+      
       setEditField('');
     } catch (error) {
       console.error('Error updating profile:', error);
